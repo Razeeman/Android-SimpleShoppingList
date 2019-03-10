@@ -14,7 +14,7 @@ interface ListItemDao {
      *
      * @return list of all items.
      */
-    @Query("SELECT *")
+    @Query("SELECT * FROM list_items")
     fun getAll(): List<ListItem>
 
     /**
