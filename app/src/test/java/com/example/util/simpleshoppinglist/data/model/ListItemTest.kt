@@ -11,12 +11,20 @@ import java.util.*
  */
 class ListItemTest {
 
+    companion object {
+
+        private const val NEW_ID = "new_id"
+        private const val NEW_NAME = "new name"
+        private const val NEW_COLOR = 0x123456
+
+    }
+
     @Test
     fun emptyListItem() {
         val listItem = ListItem()
 
-        assertThat("Empty list item created", listItem.name, `is`(""))
-        assertThat("Empty list item created", listItem.color, `is`(0))
+        assertThat("List item created with empty name", listItem.name, `is`(""))
+        assertThat("List item created with empty color", listItem.color, `is`(0))
     }
 
     @Test
@@ -38,43 +46,32 @@ class ListItemTest {
     @Test
     fun setId() {
         val listItem = ListItem()
-        val newId = UUID.randomUUID().toString()
-        listItem.id = newId
+        listItem.id = NEW_ID
 
-        assertThat("New id is set", listItem.id, `is`(newId))
+        assertThat("New id is set", listItem.id, `is`(NEW_ID))
     }
 
     @Test
-    fun getName() {
+    fun setAndGetName() {
         val listItem = ListItem()
+        listItem.name = NEW_NAME
 
-        assertThat(listItem.name, `is`(""))
+        assertThat("New name is set", listItem.name, `is`(NEW_NAME))
     }
 
     @Test
-    fun setName() {
+    fun setAndGetColor() {
         val listItem = ListItem()
-        val newName = "new test name"
-        listItem.name = newName
+        listItem.color = NEW_COLOR
 
-        assertThat("New name is set", listItem.name, `is`(newName))
+        assertThat("New color is set", listItem.color, `is`(NEW_COLOR))
     }
 
     @Test
-    fun getColor() {
-        val listItem = ListItem()
+    fun equals() {
+        val listItem = ListItem(NEW_ID, NEW_NAME, NEW_COLOR)
+        val otherItem = ListItem(NEW_ID, NEW_NAME, NEW_COLOR)
 
-        assertThat(listItem.color, `is`(0))
+        assertThat("Items are the same", listItem, `is`(otherItem))
     }
-
-    @Test
-    fun setColor() {
-        val listItem = ListItem()
-        val newColor = 0x123456
-        listItem.color = newColor
-
-        assertThat("New color is set", listItem.color, `is`(newColor))
-    }
-
-    // TODO test equals()
 }

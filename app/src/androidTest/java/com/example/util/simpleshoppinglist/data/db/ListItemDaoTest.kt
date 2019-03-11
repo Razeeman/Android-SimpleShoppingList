@@ -18,11 +18,11 @@ class ListItemDaoTest {
 
         private const val DEFAULT_NAME = "item name"
         private const val DEFAULT_COLOR = 0xFFFFFF
-        val DEFAULT_ITEM = ListItem(name = DEFAULT_NAME, color = DEFAULT_COLOR)
+        private val DEFAULT_ITEM = ListItem(name = DEFAULT_NAME, color = DEFAULT_COLOR)
 
         private const val OTHER_NAME = "other name"
         private const val OTHER_COLOR = 0xABCDEF
-        val OTHER_ITEM = ListItem(name = OTHER_NAME, color = OTHER_COLOR)
+        private val OTHER_ITEM = ListItem(name = OTHER_NAME, color = OTHER_COLOR)
 
     }
 
