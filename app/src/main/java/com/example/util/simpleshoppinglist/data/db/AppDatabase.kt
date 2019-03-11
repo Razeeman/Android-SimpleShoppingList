@@ -20,16 +20,17 @@ abstract class AppDatabase: RoomDatabase() {
         const val DATABASE_VERSION = 1
         const val DATABASE_NAME = "appDatabase"
 
+        // Database instance.
         private var INSTANCE: AppDatabase? = null
 
         private val lock = Any()
 
+        // Singleton instantiation.
         fun getInstance(context: Context): AppDatabase {
             synchronized(lock) {
                 if (INSTANCE == null) {
                     INSTANCE = Room
                         .databaseBuilder(context.applicationContext, AppDatabase::class.java, DATABASE_NAME)
-                        .allowMainThreadQueries() // TODO only for testing.
                         .build()
                 }
                 return INSTANCE!!
