@@ -75,4 +75,6 @@ class ListItemTest {
 
         assertThat("New color is set", listItem.color, `is`(newColor))
     }
+
+    // TODO test equals()
 }

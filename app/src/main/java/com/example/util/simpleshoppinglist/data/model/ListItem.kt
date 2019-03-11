@@ -7,9 +7,10 @@ import java.util.*
 
 /**
  * Model class for shopping list item.
+ * Kotlin data class provides equals/hashCode, toString and copy methods.
  */
 @Entity(tableName = "list_items")
-class ListItem (@PrimaryKey @ColumnInfo(name = "id")
+data class ListItem (@PrimaryKey @ColumnInfo(name = "id")
                 var id: String = UUID.randomUUID().toString(),
 
                 @ColumnInfo(name = "name")
