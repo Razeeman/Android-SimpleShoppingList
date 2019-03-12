@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.main_fragment.view.*
 
 class MainFragment : Fragment(), MainContract.View {
 
-    private lateinit var presenter: MainContract.Presenter
+    lateinit var presenter: MainContract.Presenter // TODO should be private?
 
     private lateinit var textView: TextView
 
@@ -20,8 +20,8 @@ class MainFragment : Fragment(), MainContract.View {
      * Fragment instantiation.
      */
     companion object {
-        fun newInstance(presenter: MainContract.Presenter): MainFragment {
-            return MainFragment().apply { this.presenter = presenter }
+        fun newInstance(): MainFragment {
+            return MainFragment()
         }
     }
 

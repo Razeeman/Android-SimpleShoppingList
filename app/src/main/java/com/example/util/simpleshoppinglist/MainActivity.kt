@@ -14,13 +14,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val mainFragment = supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?
+            ?: MainFragment.newInstance().also {
+                supportFragmentManager.beginTransaction().add(R.id.content_frame, it).commit()
+            }
+
         val database = AppDatabase.getInstance(this)
         val itemsRepository = ItemsRepository.getInstance(AppExecutors(), database.listItemDao())
         val mainPresenter = MainPresenter(itemsRepository)
-
-        supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?
-            ?: MainFragment.newInstance(mainPresenter).also {
-            supportFragmentManager.beginTransaction().add(R.id.content_frame, it).commit()
-        }
+        mainFragment.presenter = mainPresenter
     }
 }

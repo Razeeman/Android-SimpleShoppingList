@@ -44,7 +44,11 @@ private constructor(private val executors: AppExecutors, private val listItemDao
         executors.diskIO.execute {
             val items = listItemDao.getAll()
             executors.mainThreadIO.execute {
-                callback.onItemsLoaded(items)
+                if (items.isEmpty()) {
+                    callback.onDataNotAvailable()
+                } else {
+                    callback.onItemsLoaded(items)
+                }
             }
         }
     }
