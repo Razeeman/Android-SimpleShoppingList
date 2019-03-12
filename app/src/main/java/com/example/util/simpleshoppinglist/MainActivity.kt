@@ -1,13 +1,12 @@
 package com.example.util.simpleshoppinglist
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.util.simpleshoppinglist.data.db.AppDatabase
-import com.example.util.simpleshoppinglist.data.model.ListItem
-import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.data.repo.ItemsRepository
+import com.example.util.simpleshoppinglist.ui.main.MainFragment
+import com.example.util.simpleshoppinglist.ui.main.MainPresenter
 import com.example.util.simpleshoppinglist.util.AppExecutors
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,19 +14,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val listItem = ListItem(name = "new item")
-        val repository = ItemsRepository
-            .getInstance(AppExecutors(), AppDatabase.getInstance(this).listItemDao())
+        val database = AppDatabase.getInstance(this)
+        val itemsRepository = ItemsRepository.getInstance(AppExecutors(), database.listItemDao())
+        val mainPresenter = MainPresenter(itemsRepository)
 
-        repository.saveItem(listItem)
-        repository.loadItem(listItem.id, object: BaseItemsRepository.LoadItemCallback {
-            override fun onItemLoaded(item: ListItem) {
-                tv_hello.text = item.name
-            }
-
-            override fun onDataNotAvailable() {
-                tv_hello.text = "error"
-            }
-        })
+        supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?
+            ?: MainFragment.newInstance(mainPresenter).also {
+            supportFragmentManager.beginTransaction().add(R.id.content_frame, it).commit()
+        }
     }
 }

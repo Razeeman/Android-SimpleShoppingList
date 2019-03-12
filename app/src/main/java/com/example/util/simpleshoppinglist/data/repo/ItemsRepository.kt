@@ -41,7 +41,12 @@ private constructor(private val executors: AppExecutors, private val listItemDao
      * @param callback A callback to return items on the main thread.
      */
     override fun loadItems(callback: BaseItemsRepository.LoadItemsCallback) {
-
+        executors.diskIO.execute {
+            val items = listItemDao.getAll()
+            executors.mainThreadIO.execute {
+                callback.onItemsLoaded(items)
+            }
+        }
     }
 
     /**
