@@ -40,7 +40,7 @@ private constructor(private val executors: AppExecutors, private val listItemDao
      *
      * @param callback A callback to return items on the main thread.
      */
-    override fun loadListItems(callback: BaseItemsRepository.LoadItemsCallback) {
+    override fun loadItems(callback: BaseItemsRepository.LoadItemsCallback) {
 
     }
 
@@ -50,7 +50,7 @@ private constructor(private val executors: AppExecutors, private val listItemDao
      * @param id       Id of the item to load from database.
      * @param callback A callback to return item on the main thread.
      */
-    override fun loadListItem(id: String, callback: BaseItemsRepository.LoadItemCallback) {
+    override fun loadItem(id: String, callback: BaseItemsRepository.LoadItemCallback) {
         executors.diskIO.execute {
             val item = listItemDao.getById(id)
             executors.mainThreadIO.execute {
@@ -68,7 +68,7 @@ private constructor(private val executors: AppExecutors, private val listItemDao
      *
      * @param listItem An item to save.
      */
-    override fun saveListItem(listItem: ListItem) {
+    override fun saveItem(listItem: ListItem) {
         executors.diskIO.execute { listItemDao.insert(listItem) }
     }
 
@@ -77,14 +77,14 @@ private constructor(private val executors: AppExecutors, private val listItemDao
      *
      * @param listItem An item to delete.
      */
-    override fun deleteListItem(listItem: ListItem) {
+    override fun deleteItem(listItem: ListItem) {
 
     }
 
     /**
      * Asynchronously delete all item from the database.
      */
-    override fun deleteAllListItems() {
+    override fun deleteAllItems() {
 
     }
 }

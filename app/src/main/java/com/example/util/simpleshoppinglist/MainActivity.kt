@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity() {
         val repository = ItemsRepository
             .getInstance(AppExecutors(), AppDatabase.getInstance(this).listItemDao())
 
-        repository.saveListItem(listItem)
-        repository.loadListItem(listItem.id, object: BaseItemsRepository.LoadItemCallback {
+        repository.saveItem(listItem)
+        repository.loadItem(listItem.id, object: BaseItemsRepository.LoadItemCallback {
             override fun onItemLoaded(item: ListItem) {
                 tv_hello.text = item.name
             }

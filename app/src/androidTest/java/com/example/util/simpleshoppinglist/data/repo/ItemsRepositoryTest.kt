@@ -56,9 +56,9 @@ class ItemsRepositoryTest {
     @Test
     fun loadListItems() {
         itemsRepository.apply {
-            saveListItem(DEFAULT_ITEM)
-            saveListItem(OTHER_ITEM)
-            loadListItems(object: BaseItemsRepository.LoadItemsCallback {
+            saveItem(DEFAULT_ITEM)
+            saveItem(OTHER_ITEM)
+            loadItems(object: BaseItemsRepository.LoadItemsCallback {
                 override fun onItemsLoaded(items: List<ListItem>) {
                     assertThat(items.size, `is`(2))
                 }
@@ -72,8 +72,8 @@ class ItemsRepositoryTest {
     @Test
     fun saveAndLoadListItem() {
         itemsRepository.apply {
-            saveListItem(DEFAULT_ITEM)
-            loadListItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
+            saveItem(DEFAULT_ITEM)
+            loadItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
                 override fun onItemLoaded(item: ListItem) {
                     assertThat(item, `is`(DEFAULT_ITEM))
                 }
@@ -88,9 +88,9 @@ class ItemsRepositoryTest {
     fun saveAndReplaceOnConflict() {
         val newListItem = ListItem(DEFAULT_ITEM.id, OTHER_NAME, OTHER_COLOR)
         itemsRepository.apply {
-            saveListItem(DEFAULT_ITEM)
-            saveListItem(newListItem)
-            loadListItems(object : BaseItemsRepository.LoadItemsCallback {
+            saveItem(DEFAULT_ITEM)
+            saveItem(newListItem)
+            loadItems(object : BaseItemsRepository.LoadItemsCallback {
                 override fun onItemsLoaded(items: List<ListItem>) {
                     assertThat(items.size, `is`(1))
                     assertThat(items[0], `is`(DEFAULT_ITEM))
@@ -106,10 +106,10 @@ class ItemsRepositoryTest {
     @Test
     fun deleteListItem() {
         itemsRepository.apply {
-            saveListItem(DEFAULT_ITEM)
-            saveListItem(OTHER_ITEM)
-            deleteListItem(DEFAULT_ITEM)
-            loadListItems(object: BaseItemsRepository.LoadItemsCallback {
+            saveItem(DEFAULT_ITEM)
+            saveItem(OTHER_ITEM)
+            deleteItem(DEFAULT_ITEM)
+            loadItems(object: BaseItemsRepository.LoadItemsCallback {
                 override fun onItemsLoaded(items: List<ListItem>) {
                     assertThat(items.size, `is`(1))
                     assertThat(items[0], `is`(OTHER_ITEM))
@@ -124,10 +124,10 @@ class ItemsRepositoryTest {
     @Test
     fun deleteAllListItems() {
         itemsRepository.apply {
-            saveListItem(DEFAULT_ITEM)
-            saveListItem(OTHER_ITEM)
-            deleteAllListItems()
-            loadListItems(object: BaseItemsRepository.LoadItemsCallback {
+            saveItem(DEFAULT_ITEM)
+            saveItem(OTHER_ITEM)
+            deleteAllItems()
+            loadItems(object: BaseItemsRepository.LoadItemsCallback {
                 override fun onItemsLoaded(items: List<ListItem>) {
                     assertThat(items.size, `is`(0))
                 }

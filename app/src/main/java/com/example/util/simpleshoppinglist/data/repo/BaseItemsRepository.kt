@@ -21,14 +21,14 @@ interface BaseItemsRepository {
 
     }
 
-    fun loadListItems(callback: LoadItemsCallback)
+    fun loadItems(callback: LoadItemsCallback)
 
-    fun loadListItem(id: String, callback: LoadItemCallback)
+    fun loadItem(id: String, callback: LoadItemCallback)
 
-    fun saveListItem(listItem: ListItem)
+    fun saveItem(listItem: ListItem)
 
-    fun deleteListItem(listItem: ListItem)
+    fun deleteItem(listItem: ListItem)
 
-    fun deleteAllListItems()
+    fun deleteAllItems()
 
 }
