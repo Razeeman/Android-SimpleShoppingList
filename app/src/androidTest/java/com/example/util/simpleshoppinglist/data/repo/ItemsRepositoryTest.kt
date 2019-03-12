@@ -6,7 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.util.simpleshoppinglist.data.db.AppDatabase
 import com.example.util.simpleshoppinglist.data.model.ListItem
-import com.example.util.simpleshoppinglist.util.AppExecutors
+import com.example.util.simpleshoppinglist.data.util.InstantExecutors
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
 import org.junit.Assert
@@ -38,7 +38,7 @@ class ItemsRepositoryTest {
         database = Room.inMemoryDatabaseBuilder(
             InstrumentationRegistry.getInstrumentation().context,
             AppDatabase::class.java).build()
-        val executors = AppExecutors()
+        val executors = InstantExecutors()
         itemsRepository = ItemsRepository.getInstance(executors, database.listItemDao())
     }
 
@@ -93,7 +93,7 @@ class ItemsRepositoryTest {
             loadItems(object : BaseItemsRepository.LoadItemsCallback {
                 override fun onItemsLoaded(items: List<ListItem>) {
                     assertThat(items.size, `is`(1))
-                    assertThat(items[0], `is`(DEFAULT_ITEM))
+                    assertThat(items[0], `is`(newListItem))
                     assertThat(items[0].name, `is`(OTHER_NAME))
                 }
                 override fun onDataNotAvailable() {
@@ -129,10 +129,10 @@ class ItemsRepositoryTest {
             deleteAllItems()
             loadItems(object: BaseItemsRepository.LoadItemsCallback {
                 override fun onItemsLoaded(items: List<ListItem>) {
-                    assertThat(items.size, `is`(0))
+                    fail("Data not available")
                 }
                 override fun onDataNotAvailable() {
-                    fail("Data not available")
+                    // Test passes.
                 }
             })
         }

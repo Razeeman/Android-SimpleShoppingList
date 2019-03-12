@@ -8,10 +8,8 @@ import java.util.concurrent.Executors
 /**
  * Executors pool to run all disk IO tasks on the same thread.
  */
-class AppExecutors {
-
-    val diskIO: Executor = DiskIOThreadExecutor()
-    val mainThreadIO: Executor = MainThreadExecutor()
+open class AppExecutors(val diskIO: Executor = DiskIOThreadExecutor(),
+                        val mainThreadIO: Executor = MainThreadExecutor()) {
 
     /**
      * Executor that runs a task on a new background thread.
