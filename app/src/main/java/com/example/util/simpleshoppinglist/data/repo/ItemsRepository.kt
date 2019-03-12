@@ -29,6 +29,10 @@ private constructor(private val executors: AppExecutors, private val listItemDao
                 }
             return INSTANCE!!
         }
+
+        fun clearInstance() {
+            INSTANCE = null
+        }
     }
 
     /**
