@@ -2,7 +2,7 @@ package com.example.util.simpleshoppinglist.data.repo
 
 import com.example.util.simpleshoppinglist.data.db.ListItemDao
 import com.example.util.simpleshoppinglist.data.model.ListItem
-import com.example.util.simpleshoppinglist.data.util.AppExecutors
+import com.example.util.simpleshoppinglist.util.AppExecutors
 
 /**
  * Implementation of the list items repository.

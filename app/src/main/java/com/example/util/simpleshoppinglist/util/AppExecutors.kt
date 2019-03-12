@@ -1,4 +1,4 @@
-package com.example.util.simpleshoppinglist.data.util
+package com.example.util.simpleshoppinglist.util
 
 import android.os.Handler
 import android.os.Looper

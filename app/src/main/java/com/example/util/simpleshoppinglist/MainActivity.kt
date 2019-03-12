@@ -6,7 +6,7 @@ import com.example.util.simpleshoppinglist.data.db.AppDatabase
 import com.example.util.simpleshoppinglist.data.model.ListItem
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.data.repo.ItemsRepository
-import com.example.util.simpleshoppinglist.data.util.AppExecutors
+import com.example.util.simpleshoppinglist.util.AppExecutors
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
