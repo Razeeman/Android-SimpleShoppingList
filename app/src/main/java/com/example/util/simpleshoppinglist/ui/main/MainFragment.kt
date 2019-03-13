@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
+import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
 
 class MainFragment : Fragment(), MainContract.View {
 
     lateinit var presenter: MainContract.Presenter // TODO should be private?
 
-    private lateinit var textView: TextView
+    private var adapter = ItemAdapter(ArrayList())
 
     /**
      * Fragment instantiation.
@@ -28,7 +30,10 @@ class MainFragment : Fragment(), MainContract.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.main_fragment, container, false)
 
-        textView = root.tv_test
+        root.rv_items.also {
+            it.layoutManager = LinearLayoutManager(activity)
+            it.adapter = this.adapter
+        }
 
         return root
     }
@@ -44,10 +49,13 @@ class MainFragment : Fragment(), MainContract.View {
     }
 
     override fun showItems(items: List<ListItem>) {
-        textView.text = items[0].name
+        rv_items.visibility = View.VISIBLE
+        tv_no_items.visibility = View.INVISIBLE
+        adapter.items = items
     }
 
     override fun showNoItems() {
-        textView.text = "No items"
+        rv_items.visibility = View.INVISIBLE
+        tv_no_items.visibility = View.VISIBLE
     }
 }
