@@ -15,6 +15,7 @@ class ItemHolder(inflater: LayoutInflater, parent: ViewGroup)
 
     fun bind(listItem: ListItem) {
         itemView.tv_item.text = listItem.name
+        itemView.tv_item.setBackgroundColor(listItem.color)
     }
 
 }

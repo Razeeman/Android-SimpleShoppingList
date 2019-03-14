@@ -25,11 +25,11 @@ class MainActivity : AppCompatActivity() {
         itemsRepository.deleteAllItems()
         itemsRepository.apply {
             deleteAllItems()
-            saveItem(ListItem(name = "item 1", color = 0x2196f3))
-            saveItem(ListItem(name = "item 2", color = 0x8e24aa))
-            saveItem(ListItem(name = "item 3", color = 0xf50057))
-            saveItem(ListItem(name = "item 4", color = 0x00c853))
-            saveItem(ListItem(name = "item 5", color = 0xffb300))
+            saveItem(ListItem(name = "item 1", color = 0xFF2196f3.toInt()))
+            saveItem(ListItem(name = "item 2", color = 0xFF8e24aa.toInt()))
+            saveItem(ListItem(name = "item 3", color = 0xFFf50057.toInt()))
+            saveItem(ListItem(name = "item 4", color = 0xFF00c853.toInt()))
+            saveItem(ListItem(name = "item 5", color = 0xFFffb300.toInt()))
         }
     }
 }
