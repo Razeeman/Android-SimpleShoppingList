@@ -7,12 +7,20 @@ import com.example.util.simpleshoppinglist.data.db.AppDatabase
 import com.example.util.simpleshoppinglist.data.model.ListItem
 import com.example.util.simpleshoppinglist.data.repo.ItemsRepository
 import com.example.util.simpleshoppinglist.util.AppExecutors
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
+        fab_add.setOnClickListener { view ->
+            Snackbar.make(view, "Adding some items!", Snackbar.LENGTH_LONG)
+                .setAction("Action", null)
+                .show()
+        }
 
         supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?
             ?: MainFragment.newInstance().also {
