@@ -14,15 +14,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        val mainFragment = supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?
+        supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?
             ?: MainFragment.newInstance().also {
                 supportFragmentManager.beginTransaction().add(R.id.content_frame, it).commit()
             }
 
+        // TODO test data
         val database = AppDatabase.getInstance(this)
         val itemsRepository = ItemsRepository.getInstance(AppExecutors(), database.listItemDao())
-
-        // TODO test data
         itemsRepository.deleteAllItems()
         itemsRepository.apply {
             deleteAllItems()
@@ -32,8 +31,5 @@ class MainActivity : AppCompatActivity() {
             saveItem(ListItem(name = "item 4", color = 0x00c853))
             saveItem(ListItem(name = "item 5", color = 0xffb300))
         }
-
-        val mainPresenter = MainPresenter(itemsRepository)
-        mainFragment.presenter = mainPresenter
     }
 }

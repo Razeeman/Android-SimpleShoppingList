@@ -6,15 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.model.ListItem
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
+import javax.inject.Inject
 
 class MainFragment : Fragment(), MainContract.View {
 
-    lateinit var presenter: MainContract.Presenter // TODO should be private?
+    @Inject
+    lateinit var presenter: MainContract.Presenter
 
     private var adapter = ItemAdapter(ArrayList())
 
@@ -36,6 +39,11 @@ class MainFragment : Fragment(), MainContract.View {
         }
 
         return root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        App.getAppComponent().inject(this)
     }
 
     override fun onResume() {

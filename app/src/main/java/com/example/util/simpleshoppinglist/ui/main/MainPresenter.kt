@@ -2,11 +2,13 @@ package com.example.util.simpleshoppinglist.ui.main
 
 import com.example.util.simpleshoppinglist.data.model.ListItem
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
+import javax.inject.Inject
 
 /**
  * Receives events from UI, loads and saves data in repository and updates UI.
  */
-class MainPresenter(private val itemsRepository: BaseItemsRepository): MainContract.Presenter {
+class MainPresenter @Inject constructor(private val itemsRepository: BaseItemsRepository)
+    : MainContract.Presenter {
 
     private var view: MainContract.View? = null
 
