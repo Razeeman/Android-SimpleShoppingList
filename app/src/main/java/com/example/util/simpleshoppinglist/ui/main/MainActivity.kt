@@ -23,10 +23,14 @@ class MainActivity : AppCompatActivity() {
         val itemsRepository = ItemsRepository.getInstance(AppExecutors(), database.listItemDao())
 
         // TODO test data
+        itemsRepository.deleteAllItems()
         itemsRepository.apply {
             deleteAllItems()
-            saveItem(ListItem(name = "some one item"))
-            saveItem(ListItem(name = "some other item"))
+            saveItem(ListItem(name = "item 1", color = 0x2196f3))
+            saveItem(ListItem(name = "item 2", color = 0x8e24aa))
+            saveItem(ListItem(name = "item 3", color = 0xf50057))
+            saveItem(ListItem(name = "item 4", color = 0x00c853))
+            saveItem(ListItem(name = "item 5", color = 0xffb300))
         }
 
         val mainPresenter = MainPresenter(itemsRepository)
