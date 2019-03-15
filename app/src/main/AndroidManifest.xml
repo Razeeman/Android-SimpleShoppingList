@@ -12,12 +12,20 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:name=".App">
-        <activity android:name=".ui.main.MainActivity">
+        <activity
+                android:name=".ui.main.MainActivity"
+                android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.additem.AddItemActivity"
+                android:parentActivityName=".ui.main.MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.main.MainActivity"/>
         </activity>
     </application>
 

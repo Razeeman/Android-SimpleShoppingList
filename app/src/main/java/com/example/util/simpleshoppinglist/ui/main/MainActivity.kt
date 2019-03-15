@@ -1,5 +1,6 @@
 package com.example.util.simpleshoppinglist.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -7,6 +8,7 @@ import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.db.AppDatabase
 import com.example.util.simpleshoppinglist.data.model.ListItem
 import com.example.util.simpleshoppinglist.data.repo.ItemsRepository
+import com.example.util.simpleshoppinglist.ui.additem.AddItemActivity
 import com.example.util.simpleshoppinglist.util.AppExecutors
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.main_activity.*
@@ -21,10 +23,9 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        fab_add.setOnClickListener { view ->
-            Snackbar.make(view, "Adding some items!", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
+        // Setting up fab.
+        fab_add.setOnClickListener {
+            startActivity(Intent(this, AddItemActivity::class.java))
         }
 
         supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?

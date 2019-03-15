@@ -6,6 +6,8 @@ import com.example.util.simpleshoppinglist.data.db.AppDatabase
 import com.example.util.simpleshoppinglist.data.db.ListItemDao
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.data.repo.ItemsRepository
+import com.example.util.simpleshoppinglist.ui.additem.AddItemContract
+import com.example.util.simpleshoppinglist.ui.additem.AddItemPresenter
 import com.example.util.simpleshoppinglist.ui.main.MainContract
 import com.example.util.simpleshoppinglist.ui.main.MainPresenter
 import com.example.util.simpleshoppinglist.util.AppExecutors
@@ -54,6 +56,12 @@ class AppModule(application: App) {
     @Provides
     fun getBaseMainPresenter(mainPresenter: MainPresenter): MainContract.Presenter {
         return mainPresenter
+    }
+
+    // TODO should be @ActivityScope component.
+    @Provides
+    fun getBaseAddItemPresenter(addItemPresenter: AddItemPresenter): AddItemContract.Presenter {
+        return addItemPresenter
     }
 
 }
