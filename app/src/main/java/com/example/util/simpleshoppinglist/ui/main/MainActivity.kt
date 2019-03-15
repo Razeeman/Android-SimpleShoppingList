@@ -2,6 +2,7 @@ package com.example.util.simpleshoppinglist.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.db.AppDatabase
 import com.example.util.simpleshoppinglist.data.model.ListItem
@@ -14,7 +15,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        setContentView(com.example.util.simpleshoppinglist.R.layout.main_activity)
+
+        // Setting up the toolbar.
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         fab_add.setOnClickListener { view ->
             Snackbar.make(view, "Adding some items!", Snackbar.LENGTH_LONG)
