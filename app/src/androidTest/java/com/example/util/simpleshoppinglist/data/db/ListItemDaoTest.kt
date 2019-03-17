@@ -47,6 +47,18 @@ class ListItemDaoTest {
             .getById(DEFAULT_ITEM.id)
 
         assertThat(fromDatabase, `is`(DEFAULT_ITEM))
+        assertThat(fromDatabase!!.isActive, `is`(false))
+    }
+
+    @Test
+    fun insertAndGetById2() {
+        OTHER_ITEM.isActive = true
+        val fromDatabase = database.listItemDao().apply {
+            insert(OTHER_ITEM) }
+            .getById(OTHER_ITEM.id)
+
+        assertThat(fromDatabase, `is`(OTHER_ITEM))
+        assertThat(fromDatabase!!.isActive, `is`(true))
     }
 
     @Test
@@ -87,8 +99,18 @@ class ListItemDaoTest {
         database.listItemDao().update(DEFAULT_ITEM)
         val fromDatabase = database.listItemDao().getById(DEFAULT_ITEM.id)
 
-        assertThat(fromDatabase?.name, `is`(OTHER_NAME))
-        assertThat(fromDatabase?.color, `is`(DEFAULT_COLOR))
+        assertThat(fromDatabase!!.name, `is`(OTHER_NAME))
+        assertThat(fromDatabase.color, `is`(DEFAULT_COLOR))
+    }
+
+    @Test
+    fun updateActive() {
+        val fromDatabase = database.listItemDao().apply {
+            insert(DEFAULT_ITEM)
+            updateActive(DEFAULT_ITEM.id, true) }
+            .getById(DEFAULT_ITEM.id)
+
+        assertThat(fromDatabase!!.isActive, `is`(true))
     }
 
     @Test

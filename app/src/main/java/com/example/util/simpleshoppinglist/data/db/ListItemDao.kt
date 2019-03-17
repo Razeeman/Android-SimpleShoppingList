@@ -43,6 +43,15 @@ interface ListItemDao {
     fun update(listItem: ListItem)
 
     /**
+     * Update the active status of an item.
+     *
+     * @param id     id of the item to update.
+     * @param active status to be set.
+     */
+    @Query("UPDATE list_items SET active = :active WHERE id = :id")
+    fun updateActive(id: String, active: Boolean)
+
+    /**
      * Delete list item from the database.
      *
      * @param listItem item to delete.
