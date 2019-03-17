@@ -76,6 +76,7 @@ class ItemsRepositoryTest {
             loadItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
                 override fun onItemLoaded(item: ListItem) {
                     assertThat(item, `is`(DEFAULT_ITEM))
+                    assertThat(item.isActive, `is`(false))
                 }
                 override fun onDataNotAvailable() {
                     fail("Data not available")
@@ -95,6 +96,40 @@ class ItemsRepositoryTest {
                     assertThat(items.size, `is`(1))
                     assertThat(items[0], `is`(newListItem))
                     assertThat(items[0].name, `is`(OTHER_NAME))
+                }
+                override fun onDataNotAvailable() {
+                    fail("Data not available")
+                }
+            })
+        }
+    }
+
+    @Test
+    fun updateItem() {
+        itemsRepository.apply {
+            saveItem(DEFAULT_ITEM)
+            DEFAULT_ITEM.name = OTHER_NAME
+            updateItem(DEFAULT_ITEM)
+            loadItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
+                override fun onItemLoaded(item: ListItem) {
+                    assertThat(item.name, `is`(OTHER_NAME))
+                }
+                override fun onDataNotAvailable() {
+                    fail("Data not available")
+                }
+            })
+        }
+    }
+
+    @Test
+    fun updateItemActive() {
+        itemsRepository.apply {
+            saveItem(DEFAULT_ITEM)
+            updateItemActive(DEFAULT_ITEM, true)
+            loadItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
+                override fun onItemLoaded(item: ListItem) {
+                    assertThat(item, `is`(DEFAULT_ITEM))
+                    assertThat(item.isActive, `is`(true))
                 }
                 override fun onDataNotAvailable() {
                     fail("Data not available")

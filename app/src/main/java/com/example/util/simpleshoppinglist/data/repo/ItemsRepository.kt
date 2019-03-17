@@ -82,6 +82,25 @@ private constructor(private val executors: AppExecutors, private val listItemDao
     }
 
     /**
+     * Asynchronously updates an item in the database.
+     *
+     * @param listItem An item to update.
+     */
+    override fun updateItem(listItem: ListItem) {
+        executors.diskIO.execute { listItemDao.update(listItem) }
+    }
+
+    /**
+     * Asynchronously updates an active status of an item in the database.
+     *
+     * @param listItem An item to update.
+     * @param isActive New status to set.
+     */
+    override fun updateItemActive(listItem: ListItem, isActive: Boolean) {
+        executors.diskIO.execute { listItemDao.updateActive(listItem.id, isActive)}
+    }
+
+    /**
      * Asynchronously delete an item from the database.
      *
      * @param listItem An item to delete.

@@ -27,6 +27,10 @@ interface BaseItemsRepository {
 
     fun saveItem(listItem: ListItem)
 
+    fun updateItem(listItem: ListItem)
+
+    fun updateItemActive(listItem: ListItem, isActive: Boolean)
+
     fun deleteItem(listItem: ListItem)
 
     fun deleteAllItems()
