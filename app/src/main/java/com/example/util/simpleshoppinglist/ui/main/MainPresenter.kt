@@ -14,12 +14,18 @@ class MainPresenter
     private var view: MainContract.View? = null
 
     /**
-     * Loads items from repository and forwards it to view.
+     * Loads items from repository and forwards them to view.
      */
     override fun loadData() {
         itemsRepository.loadItems(object : BaseItemsRepository.LoadItemsCallback {
             override fun onItemsLoaded(items: List<ListItem>) {
-                view!!.showItems(items)
+                val itemsToShow = ArrayList<ListItem>()
+                for (item in items) {
+                    if (item.isActive) {
+                        itemsToShow.add(item)
+                    }
+                }
+                view!!.showItems(itemsToShow)
             }
             override fun onDataNotAvailable() {
                 view!!.showNoItems()

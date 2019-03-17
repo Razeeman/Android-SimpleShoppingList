@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.util.simpleshoppinglist.R
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.additem_activity.*
 
 class AddItemActivity : AppCompatActivity() {
@@ -22,10 +21,8 @@ class AddItemActivity : AppCompatActivity() {
         }
 
         // Setting up fab.
-        fab_done.setOnClickListener { view ->
-            Snackbar.make(view, "Adding some items!", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
+        fab_done.setOnClickListener {
+            finish()
         }
 
         supportFragmentManager.findFragmentById(R.id.content_frame) as AddItemFragment?

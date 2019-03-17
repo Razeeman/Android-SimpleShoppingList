@@ -6,7 +6,7 @@
         android:layout_height="match_parent">
 
     <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_add_new_item"
             style="@style/Item"
             android:text="@string/add_new_item"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_add_new_item"/>
 
     <TextView
             android:id="@+id/tv_no_items"
