@@ -54,12 +54,14 @@ class AppModule(application: App) {
 
     // TODO should be @ActivityScope component.
     @Provides
+    @Singleton
     fun getBaseMainPresenter(mainPresenter: MainPresenter): MainContract.Presenter {
         return mainPresenter
     }
 
     // TODO should be @ActivityScope component.
     @Provides
+    @Singleton
     fun getBaseAddItemPresenter(addItemPresenter: AddItemPresenter): AddItemContract.Presenter {
         return addItemPresenter
     }

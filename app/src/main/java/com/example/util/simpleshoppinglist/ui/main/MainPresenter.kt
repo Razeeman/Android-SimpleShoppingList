@@ -7,7 +7,8 @@ import javax.inject.Inject
 /**
  * Receives events from UI, loads and saves data in repository and updates UI.
  */
-class MainPresenter @Inject constructor(private val itemsRepository: BaseItemsRepository)
+class MainPresenter
+@Inject constructor(private val itemsRepository: BaseItemsRepository)
     : MainContract.Presenter {
 
     private var view: MainContract.View? = null

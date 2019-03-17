@@ -1,6 +1,7 @@
 package com.example.util.simpleshoppinglist.di
 
 import com.example.util.simpleshoppinglist.ui.additem.AddItemFragment
+import com.example.util.simpleshoppinglist.ui.main.MainActivity
 import com.example.util.simpleshoppinglist.ui.main.MainFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -10,6 +11,8 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(fragment: MainFragment)
+    fun inject(activity: MainActivity)
+
     fun inject(fragment: AddItemFragment)
 
 }

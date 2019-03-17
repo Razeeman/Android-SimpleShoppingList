@@ -4,28 +4,36 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.db.AppDatabase
 import com.example.util.simpleshoppinglist.data.model.ListItem
 import com.example.util.simpleshoppinglist.data.repo.ItemsRepository
 import com.example.util.simpleshoppinglist.ui.additem.AddItemActivity
 import com.example.util.simpleshoppinglist.util.AppExecutors
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.main_activity.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var presenter: MainContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.util.simpleshoppinglist.R.layout.main_activity)
+        App.getAppComponent().inject(this)
 
         // Setting up the toolbar.
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        // Setting up fab.
+        // Setting up fabs.
         fab_add.setOnClickListener {
             startActivity(Intent(this, AddItemActivity::class.java))
+        }
+        fab_clear.setOnClickListener {
+
         }
 
         supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?
