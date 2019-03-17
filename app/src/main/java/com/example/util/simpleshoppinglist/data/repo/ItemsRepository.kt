@@ -101,6 +101,15 @@ private constructor(private val executors: AppExecutors, private val listItemDao
     }
 
     /**
+     * Asynchronously set active status to false on all active items.
+     */
+    override fun clearAllActive() {
+        executors.diskIO.execute {
+            listItemDao.clearAllActive()
+        }
+    }
+
+    /**
      * Asynchronously delete an item from the database.
      *
      * @param listItem An item to delete.

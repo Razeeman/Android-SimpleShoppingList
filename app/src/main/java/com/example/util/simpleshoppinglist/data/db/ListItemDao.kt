@@ -52,6 +52,12 @@ interface ListItemDao {
     fun updateActive(id: String, active: Boolean)
 
     /**
+     * Set the active status to false on all active items.
+     */
+    @Query("UPDATE list_items SET active = 0 WHERE active = 1")
+    fun clearAllActive()
+
+    /**
      * Delete list item from the database.
      *
      * @param listItem item to delete.
