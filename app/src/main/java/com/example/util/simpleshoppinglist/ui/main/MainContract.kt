@@ -21,6 +21,8 @@ interface MainContract {
 
         fun loadData()
 
+        fun clearList()
+
     }
 
 }

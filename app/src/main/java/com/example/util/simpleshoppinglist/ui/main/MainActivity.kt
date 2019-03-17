@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, AddItemActivity::class.java))
         }
         fab_clear.setOnClickListener {
-
+            presenter.clearList()
         }
 
         supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?

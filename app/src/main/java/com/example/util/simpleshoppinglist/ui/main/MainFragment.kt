@@ -60,6 +60,7 @@ class MainFragment : Fragment(), MainContract.View {
         rv_items.visibility = View.VISIBLE
         tv_no_items.visibility = View.INVISIBLE
         adapter.items = items
+        adapter.notifyDataSetChanged()
     }
 
     override fun showNoItems() {

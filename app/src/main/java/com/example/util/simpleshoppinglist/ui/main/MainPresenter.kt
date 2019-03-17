@@ -33,6 +33,11 @@ class MainPresenter
         })
     }
 
+    override fun clearList() {
+        itemsRepository.clearAllActive()
+        loadData()
+    }
+
     override fun attachView(view: MainContract.View) {
         this.view = view
         loadData()
