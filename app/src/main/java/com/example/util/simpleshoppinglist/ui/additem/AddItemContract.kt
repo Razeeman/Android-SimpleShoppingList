@@ -21,6 +21,8 @@ interface AddItemContract {
 
         fun loadData()
 
+        fun addItem(item: ListItem)
+
     }
 
 }

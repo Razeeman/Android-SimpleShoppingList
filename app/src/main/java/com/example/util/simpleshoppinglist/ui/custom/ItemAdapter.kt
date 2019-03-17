@@ -8,8 +8,15 @@ import com.example.util.simpleshoppinglist.data.model.ListItem
 /**
  * Adapter for RecyclerView of ListItems.
  */
-class ItemAdapter(var items: List<ListItem>)
+class ItemAdapter(var items: List<ListItem>, private val listener: ItemClickListener)
     : RecyclerView.Adapter<ItemHolder>() {
+
+    interface ItemClickListener {
+
+        fun onActiveItemClick(activeItem: ListItem)
+        fun onNonActiveItemClick(nonActiveItem: ListItem)
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -21,7 +28,7 @@ class ItemAdapter(var items: List<ListItem>)
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], listener)
     }
 
 }

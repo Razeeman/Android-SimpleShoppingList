@@ -33,6 +33,11 @@ class MainPresenter
         })
     }
 
+    override fun removeItem(item: ListItem) {
+        itemsRepository.updateItemActive(item, false)
+        loadData()
+    }
+
     override fun clearList() {
         itemsRepository.clearAllActive()
         loadData()

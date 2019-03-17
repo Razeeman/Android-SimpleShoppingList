@@ -17,12 +17,21 @@ import kotlinx.android.synthetic.main.item_layout.view.*
 class ItemHolder(inflater: LayoutInflater, private val parent: ViewGroup)
     : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_layout, parent, false)) {
 
-    fun bind(listItem: ListItem) {
+    fun bind(listItem: ListItem, listener: ItemAdapter.ItemClickListener) {
         val drawable = ContextCompat.getDrawable(parent.context.applicationContext, R.drawable.item_drawable)
         drawable?.colorFilter = PorterDuffColorFilter(listItem.color, PorterDuff.Mode.SRC_IN)
 
-        itemView.tv_item.text = listItem.name
-        itemView.tv_item.background = drawable
+        itemView.tv_item.apply {
+            text = listItem.name
+            background = drawable
+            setOnClickListener {
+                if (listItem.isActive) {
+                    listener.onActiveItemClick(listItem)
+                } else {
+                    listener.onNonActiveItemClick(listItem)
+                }
+            }
+        }
     }
 
 }

@@ -20,7 +20,16 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     @Inject
     lateinit var presenter: AddItemContract.Presenter
 
-    private var adapter = ItemAdapter(ArrayList())
+    private val itemListener = object : ItemAdapter.ItemClickListener {
+        override fun onActiveItemClick(activeItem: ListItem) {
+            // Do nothing.
+        }
+        override fun onNonActiveItemClick(nonActiveItem: ListItem) {
+            presenter.addItem(nonActiveItem)
+        }
+    }
+
+    private var itemAdapter = ItemAdapter(ArrayList(), itemListener)
 
     /**
      * Fragment instantiation.
@@ -34,9 +43,9 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.additem_fragment, container, false)
 
-        root.rv_items.also {
-            it.layoutManager = LinearLayoutManager(activity)
-            it.adapter = this.adapter
+        root.rv_items.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = itemAdapter
         }
 
         root.tv_add_new_item.setOnClickListener { view ->
@@ -66,7 +75,8 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     override fun showItems(items: List<ListItem>) {
         rv_items.visibility = View.VISIBLE
         tv_no_items.visibility = View.INVISIBLE
-        adapter.items = items
+        itemAdapter.items = items
+        itemAdapter.notifyDataSetChanged()
     }
 
     override fun showNoItems() {

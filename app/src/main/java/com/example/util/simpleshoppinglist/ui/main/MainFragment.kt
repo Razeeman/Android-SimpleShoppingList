@@ -19,7 +19,16 @@ class MainFragment : Fragment(), MainContract.View {
     @Inject
     lateinit var presenter: MainContract.Presenter
 
-    private var adapter = ItemAdapter(ArrayList())
+    private val itemListener = object : ItemAdapter.ItemClickListener {
+        override fun onActiveItemClick(activeItem: ListItem) {
+            presenter.removeItem(activeItem)
+        }
+        override fun onNonActiveItemClick(nonActiveItem: ListItem) {
+            // Do nothing.
+        }
+    }
+
+    private var itemAdapter = ItemAdapter(ArrayList(), itemListener)
 
     /**
      * Fragment instantiation.
@@ -33,9 +42,9 @@ class MainFragment : Fragment(), MainContract.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.main_fragment, container, false)
 
-        root.rv_items.also {
-            it.layoutManager = LinearLayoutManager(activity)
-            it.adapter = this.adapter
+        root.rv_items.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = itemAdapter
         }
 
         return root
@@ -59,8 +68,8 @@ class MainFragment : Fragment(), MainContract.View {
     override fun showItems(items: List<ListItem>) {
         rv_items.visibility = View.VISIBLE
         tv_no_items.visibility = View.INVISIBLE
-        adapter.items = items
-        adapter.notifyDataSetChanged()
+        itemAdapter.items = items
+        itemAdapter.notifyDataSetChanged()
     }
 
     override fun showNoItems() {

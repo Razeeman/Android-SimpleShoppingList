@@ -33,6 +33,11 @@ class AddItemPresenter
         })
     }
 
+    override fun addItem(item: ListItem) {
+        itemsRepository.updateItemActive(item, true)
+        loadData()
+    }
+
     override fun attachView(view: AddItemContract.View) {
         this.view = view
         loadData()
