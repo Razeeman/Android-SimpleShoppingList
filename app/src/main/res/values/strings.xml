@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">SimpleShoppingList</string>
+
+    <!-- - - - - - - - - - - -->
+    <!-- Used in UI          -->
+    <!-- - - - - - - - - - - -->
+
+    <!-- Message to show then no items added to the main list -->
+    <string name="no_items_in_the_list">No items found</string>
+
+    <string name="add_new_item">Add new item</string>
+
+    <!-- Message to show then no items added the app -->
+    <string name="no_items_added">No items found</string>
+
 </resources>
