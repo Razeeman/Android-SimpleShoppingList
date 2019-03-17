@@ -25,6 +25,7 @@ class ListItemTest {
 
         assertThat("List item created with empty name", listItem.name, `is`(""))
         assertThat("List item created with empty color", listItem.color, `is`(0))
+        assertThat("List item created with empty color", listItem.isActive, `is`(false))
     }
 
     @Test
@@ -68,9 +69,18 @@ class ListItemTest {
     }
 
     @Test
+    fun setAndGetActive() {
+        val listItem = ListItem()
+        listItem.isActive = true
+
+        assertThat("Active status is set", listItem.isActive, `is`(true))
+    }
+
+    @Test
     fun equals() {
         val listItem = ListItem(NEW_ID, NEW_NAME, NEW_COLOR)
         val otherItem = ListItem(NEW_ID, NEW_NAME, NEW_COLOR)
+        otherItem.isActive = true
 
         assertThat("Items are the same", listItem, `is`(otherItem))
     }

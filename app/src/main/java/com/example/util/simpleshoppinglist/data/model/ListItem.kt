@@ -10,11 +10,20 @@ import java.util.*
  * Kotlin data class provides equals/hashCode, toString and copy methods.
  */
 @Entity(tableName = "list_items")
-data class ListItem (@PrimaryKey @ColumnInfo(name = "id")
-                var id: String = UUID.randomUUID().toString(),
+data class ListItem (
+    @PrimaryKey @ColumnInfo(name = "id")
+    var id: String = UUID.randomUUID().toString(),
 
-                @ColumnInfo(name = "name")
-                var name: String = "",
+    @ColumnInfo(name = "name")
+    var name: String = "",
 
-                @ColumnInfo(name = "color")
-                var color: Int = 0)
+    @ColumnInfo(name = "color")
+    var color: Int = 0) {
+
+    /**
+     * True if the task is active (in the main list), false otherwise.
+     */
+    @ColumnInfo(name = "active")
+    var isActive = false
+
+}
