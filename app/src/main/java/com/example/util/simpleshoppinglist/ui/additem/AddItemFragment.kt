@@ -13,6 +13,7 @@ import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.additem_fragment.*
 import kotlinx.android.synthetic.main.additem_fragment.view.*
+import java.util.*
 import javax.inject.Inject
 
 class AddItemFragment : Fragment(), AddItemContract.View {
@@ -25,7 +26,7 @@ class AddItemFragment : Fragment(), AddItemContract.View {
             // Do nothing.
         }
         override fun onNonActiveItemClick(nonActiveItem: ListItem) {
-            presenter.addItem(nonActiveItem)
+            presenter.addItemToList(nonActiveItem)
         }
     }
 
@@ -49,9 +50,10 @@ class AddItemFragment : Fragment(), AddItemContract.View {
         }
 
         root.tv_add_new_item.setOnClickListener { view ->
-            Snackbar.make(view, "Adding some items!", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
+            // TODO
+            presenter.saveItem("New item ${Random().nextInt(999)}",
+                resources.getColor(R.color.colorPrimary))
+            Snackbar.make(view, "Adding some items!", Snackbar.LENGTH_LONG).show()
         }
 
         return root

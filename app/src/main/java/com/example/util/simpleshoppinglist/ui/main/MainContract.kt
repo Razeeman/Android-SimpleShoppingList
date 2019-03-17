@@ -21,7 +21,7 @@ interface MainContract {
 
         fun loadData()
 
-        fun removeItem(item: ListItem)
+        fun removeItemFromList(item: ListItem)
 
         fun clearList()
 

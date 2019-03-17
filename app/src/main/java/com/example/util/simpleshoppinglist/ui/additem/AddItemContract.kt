@@ -21,7 +21,9 @@ interface AddItemContract {
 
         fun loadData()
 
-        fun addItem(item: ListItem)
+        fun addItemToList(item: ListItem)
+
+        fun saveItem(name: String, color: Int)
 
     }
 

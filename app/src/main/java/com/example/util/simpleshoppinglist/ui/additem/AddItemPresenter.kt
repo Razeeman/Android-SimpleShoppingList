@@ -33,8 +33,15 @@ class AddItemPresenter
         })
     }
 
-    override fun addItem(item: ListItem) {
+    override fun addItemToList(item: ListItem) {
         itemsRepository.updateItemActive(item, true)
+        loadData()
+    }
+
+    override fun saveItem(name: String, color: Int) {
+        // TODO check empty name and show message
+        // TODO check if already exist and show message
+        itemsRepository.saveItem(ListItem(name = name, color = color))
         loadData()
     }
 
