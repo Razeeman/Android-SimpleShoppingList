@@ -1,7 +1,6 @@
 package com.example.util.simpleshoppinglist.ui.custom
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
@@ -27,14 +26,11 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
             setNegativeButton("Cancel") { _, _ ->
                 listener?.onNegativeButton()
             }
-            //setView()
+            // TODO setView()
         }.create()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (parentFragment is AddItemDialogFragment.ButtonClickListener) {
-            listener = parentFragment as ButtonClickListener
-        }
+    fun setListener(listener: ButtonClickListener) {
+        this.listener = listener
     }
 }

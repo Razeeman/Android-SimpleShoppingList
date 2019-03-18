@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.additem_fragment.view.*
 import java.util.*
 import javax.inject.Inject
 
-class AddItemFragment : Fragment(), AddItemContract.View, AddItemDialogFragment.ButtonClickListener {
+class AddItemFragment : Fragment(), AddItemContract.View {
 
     @Inject
     lateinit var presenter: AddItemContract.Presenter
@@ -28,6 +28,18 @@ class AddItemFragment : Fragment(), AddItemContract.View, AddItemDialogFragment.
         }
         override fun onNonActiveItemClick(nonActiveItem: ListItem) {
             presenter.addItemToList(nonActiveItem)
+        }
+    }
+
+    private val addItemDialogListener = object : AddItemDialogFragment.ButtonClickListener {
+        override fun onPositiveButton() {
+            // TODO
+            presenter.saveItem("New item ${Random().nextInt(999)}",
+                resources.getColor(R.color.colorPrimary))
+            Snackbar.make(activity!!.rv_items, "Adding some items!", Snackbar.LENGTH_LONG).show()
+        }
+        override fun onNegativeButton() {
+            // Do nothing.
         }
     }
 
@@ -73,15 +85,10 @@ class AddItemFragment : Fragment(), AddItemContract.View, AddItemDialogFragment.
         presenter.detachView()
     }
 
-    override fun onPositiveButton() {
-        // TODO
-        presenter.saveItem("New item ${Random().nextInt(999)}",
-            resources.getColor(R.color.colorPrimary))
-        Snackbar.make(activity!!.rv_items, "Adding some items!", Snackbar.LENGTH_LONG).show()
-    }
-
-    override fun onNegativeButton() {
-        // Do nothing.
+    override fun onAttachFragment(childFragment: Fragment) {
+        if (childFragment is AddItemDialogFragment) {
+            childFragment.setListener(addItemDialogListener)
+        }
     }
 
     override fun showItems(items: List<ListItem>) {
