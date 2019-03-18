@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.ui.custom.AddItemDialogFragment
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.additem_fragment.*
@@ -50,9 +51,8 @@ class AddItemFragment : Fragment(), AddItemContract.View {
         }
 
         root.tv_add_new_item.setOnClickListener { view ->
-            // TODO
-            presenter.saveItem("New item ${Random().nextInt(999)}",
-                resources.getColor(R.color.colorPrimary))
+            val fragment = AddItemDialogFragment()
+            fragment.show(fragmentManager!!, null)
             Snackbar.make(view, "Adding some items!", Snackbar.LENGTH_LONG).show()
         }
 
