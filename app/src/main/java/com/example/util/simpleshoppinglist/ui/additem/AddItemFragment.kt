@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.additem_fragment.view.*
 import java.util.*
 import javax.inject.Inject
 
-class AddItemFragment : Fragment(), AddItemContract.View {
+class AddItemFragment : Fragment(), AddItemContract.View, AddItemDialogFragment.ButtonClickListener {
 
     @Inject
     lateinit var presenter: AddItemContract.Presenter
@@ -50,10 +50,9 @@ class AddItemFragment : Fragment(), AddItemContract.View {
             adapter = itemAdapter
         }
 
-        root.tv_add_new_item.setOnClickListener { view ->
+        root.tv_add_new_item.setOnClickListener {
             val fragment = AddItemDialogFragment()
-            fragment.show(fragmentManager!!, null)
-            Snackbar.make(view, "Adding some items!", Snackbar.LENGTH_LONG).show()
+            fragment.show(childFragmentManager, null)
         }
 
         return root
@@ -72,6 +71,17 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     override fun onDestroy() {
         super.onDestroy()
         presenter.detachView()
+    }
+
+    override fun onPositiveButton() {
+        // TODO
+        presenter.saveItem("New item ${Random().nextInt(999)}",
+            resources.getColor(R.color.colorPrimary))
+        Snackbar.make(activity!!.rv_items, "Adding some items!", Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun onNegativeButton() {
+        // Do nothing.
     }
 
     override fun showItems(items: List<ListItem>) {
