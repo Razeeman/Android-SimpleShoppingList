@@ -13,4 +13,16 @@
     <!-- Message to show then no items added the app -->
     <string name="no_items_added">No items found</string>
 
+    <!-- Clear list alert dialog -->
+    <string name="clear_list_dialog_title">Warning</string>
+    <string name="clear_list_dialog_message">Do you want to clear the list?</string>
+    <string name="clear_list_dialog_negative">Cancel</string>
+    <string name="clear_list_dialog_positive">Clear</string>
+
+    <!-- Delete all alert dialog -->
+    <string name="delete_all_dialog_title">Warning</string>
+    <string name="delete_all_dialog_message">Do you want to delete all items?</string>
+    <string name="delete_all_dialog_negative">Cancel</string>
+    <string name="delete_all_dialog_positive">Delete</string>
+
 </resources>

@@ -140,11 +140,11 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     }
 
     private fun showDeleteAllDialog() {
-        AlertDialog.Builder(context!!)
-            .setTitle("Warning")
-            .setMessage("Do you want to clear the list?")
-            .setNegativeButton("Cancel", null)
-            .setPositiveButton("Clear") { _, _ ->
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.delete_all_dialog_title))
+            .setMessage(getString(R.string.delete_all_dialog_message))
+            .setNegativeButton(getString(R.string.delete_all_dialog_negative), null)
+            .setPositiveButton(getString(R.string.delete_all_dialog_positive)) { _, _ ->
                 presenter.apply {
                     deleteAllItems()
                     loadData()

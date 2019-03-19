@@ -1,6 +1,5 @@
 package com.example.util.simpleshoppinglist.ui.main
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -32,17 +31,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         fab_clear.setOnClickListener {
-           AlertDialog.Builder(this)
-               .setTitle("Warning")
-               .setMessage("Do you want to clear the list?")
-               .setNegativeButton("Cancel") { _, _ -> }
-               .setPositiveButton("Clear") { _, _ ->
-                   presenter.apply {
-                       clearList()
-                       loadData()
-                   }
-               }
-               .create().show()
+            showClearListDialog()
         }
 
         supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?
@@ -54,5 +43,19 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         App.releaseMainComponent()
+    }
+
+    private fun showClearListDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.clear_list_dialog_title))
+            .setMessage(getString(R.string.clear_list_dialog_message))
+            .setNegativeButton(getString(R.string.clear_list_dialog_negative), null)
+            .setPositiveButton(getString(R.string.clear_list_dialog_positive)) { _, _ ->
+                presenter.apply {
+                    clearList()
+                    loadData()
+                }
+            }
+            .create().show()
     }
 }
