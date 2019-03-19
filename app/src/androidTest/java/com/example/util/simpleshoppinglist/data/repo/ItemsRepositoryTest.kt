@@ -165,7 +165,7 @@ class ItemsRepositoryTest {
         itemsRepository.apply {
             saveItem(DEFAULT_ITEM)
             saveItem(OTHER_ITEM)
-            deleteItem(DEFAULT_ITEM)
+            deleteItem(DEFAULT_ITEM.id)
             loadItems(object: BaseItemsRepository.LoadItemsCallback {
                 override fun onItemsLoaded(items: List<ListItem>) {
                     assertThat(items.size, `is`(1))

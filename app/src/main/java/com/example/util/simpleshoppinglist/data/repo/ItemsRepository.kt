@@ -112,10 +112,10 @@ private constructor(private val executors: AppExecutors, private val listItemDao
     /**
      * Asynchronously delete an item from the database.
      *
-     * @param listItem An item to delete.
+     * @param id Id of an item to delete.
      */
-    override fun deleteItem(listItem: ListItem) {
-        executors.diskIO.execute { listItemDao.delete(listItem)}
+    override fun deleteItem(id: String) {
+        executors.diskIO.execute { listItemDao.deleteById(id) }
     }
 
     /**

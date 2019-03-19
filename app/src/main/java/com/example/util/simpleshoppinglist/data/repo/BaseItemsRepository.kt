@@ -33,7 +33,7 @@ interface BaseItemsRepository {
 
     fun clearAllActive()
 
-    fun deleteItem(listItem: ListItem)
+    fun deleteItem(id: String)
 
     fun deleteAllItems()
 
