@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.util.simpleshoppinglist.R.layout.main_activity)
-        App.getAppComponent().inject(this)
+        App.getMainComponent().inject(this)
 
         // Setting up the toolbar.
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -36,5 +36,10 @@ class MainActivity : AppCompatActivity() {
             ?: MainFragment.newInstance().also {
                 supportFragmentManager.beginTransaction().add(R.id.content_frame, it).commit()
             }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        App.releaseMainComponent()
     }
 }

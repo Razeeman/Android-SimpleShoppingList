@@ -52,7 +52,7 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        App.getAppComponent().inject(this)
+        App.getMainComponent().inject(this)
     }
 
     override fun onResume() {
