@@ -66,6 +66,14 @@ interface ListItemDao {
     fun delete(listItem: ListItem)
 
     /**
+     * Delete list item from the database by id.
+     *
+     * @param id Id of the item to delete.
+     */
+    @Query("DELETE FROM list_items WHERE id = :id")
+    fun deleteById(id: String)
+
+    /**
      * Delete all list items from the database.
      */
     @Query("DELETE FROM list_items")

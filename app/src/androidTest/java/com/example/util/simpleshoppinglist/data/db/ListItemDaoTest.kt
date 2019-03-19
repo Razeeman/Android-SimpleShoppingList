@@ -156,6 +156,18 @@ class ListItemDaoTest {
     }
 
     @Test
+    fun deleteById() {
+        val fromDatabase = database.listItemDao().apply {
+            insert(DEFAULT_ITEM)
+            insert(OTHER_ITEM)
+            deleteById(DEFAULT_ITEM.id)
+        }.getAll()
+
+        assertThat(fromDatabase.size, `is`(1))
+        assertThat(fromDatabase[0], `is`(OTHER_ITEM))
+    }
+
+    @Test
     fun deleteAll() {
         val fromDatabase = database.listItemDao().apply {
             insert(DEFAULT_ITEM)
