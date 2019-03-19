@@ -27,6 +27,8 @@ interface AddItemContract {
 
         fun deleteItem(id: String)
 
+        fun deleteAllItems()
+
     }
 
 }

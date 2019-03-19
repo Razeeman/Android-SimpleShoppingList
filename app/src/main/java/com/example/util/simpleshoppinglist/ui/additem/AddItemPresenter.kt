@@ -49,6 +49,10 @@ class AddItemPresenter
         itemsRepository.deleteItem(id)
     }
 
+    override fun deleteAllItems() {
+        itemsRepository.deleteAllItems()
+    }
+
     override fun attachView(view: AddItemContract.View) {
         this.view = view
         loadData()

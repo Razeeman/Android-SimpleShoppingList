@@ -12,7 +12,7 @@ class AddItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.additem_activity)
-        App.getMainComponent()
+        App.getAddItemComponent()
 
         // Setting up the toolbar.
         val toolbar = findViewById<Toolbar>(R.id.toolbar)

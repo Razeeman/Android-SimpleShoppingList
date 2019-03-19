@@ -1,9 +1,8 @@
 package com.example.util.simpleshoppinglist.ui.additem
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -91,6 +90,8 @@ class AddItemFragment : Fragment(), AddItemContract.View {
             }
         }).attachToRecyclerView(root.rv_items)
 
+        setHasOptionsMenu(true)
+
         return root
     }
 
@@ -115,6 +116,17 @@ class AddItemFragment : Fragment(), AddItemContract.View {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.additem_fragment_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_delete_all -> showDeleteAllDialog()
+        }
+        return true
+    }
+
     override fun showItems(items: List<ListItem>) {
         rv_items.visibility = View.VISIBLE
         tv_no_items.visibility = View.INVISIBLE
@@ -125,5 +137,19 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     override fun showNoItems() {
         rv_items.visibility = View.INVISIBLE
         tv_no_items.visibility = View.VISIBLE
+    }
+
+    private fun showDeleteAllDialog() {
+        AlertDialog.Builder(context!!)
+            .setTitle("Warning")
+            .setMessage("Do you want to clear the list?")
+            .setNegativeButton("Cancel", null)
+            .setPositiveButton("Clear") { _, _ ->
+                presenter.apply {
+                    deleteAllItems()
+                    loadData()
+                }
+            }
+            .create().show()
     }
 }
