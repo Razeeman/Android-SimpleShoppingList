@@ -29,17 +29,20 @@ class AddItemFragment : Fragment(), AddItemContract.View {
             // Do nothing.
         }
         override fun onNonActiveItemClick(nonActiveItem: ListItem) {
-            presenter.addItemToList(nonActiveItem)
-            presenter.loadData()
+            presenter.apply {
+                addItemToList(nonActiveItem)
+                loadData()
+            }
         }
     }
 
     private val addItemDialogListener = object : AddItemDialogFragment.ButtonClickListener {
         override fun onPositiveButton() {
             // TODO
-            presenter.saveItem("New item ${Random().nextInt(999)}",
-                resources.getColor(R.color.colorPrimary))
-            presenter.loadData()
+            presenter.apply {
+                saveItem("New item ${Random().nextInt(999)}", resources.getColor(R.color.colorPrimary))
+                loadData()
+            }
             Snackbar.make(activity!!.rv_items, "Adding some items!", Snackbar.LENGTH_LONG).show()
         }
         override fun onNegativeButton() {
@@ -81,8 +84,10 @@ class AddItemFragment : Fragment(), AddItemContract.View {
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                presenter.deleteItem(viewHolder.itemView.tag as String)
-                presenter.loadData()
+                presenter.apply {
+                    deleteItem(viewHolder.itemView.tag as String)
+                    loadData()
+                }
             }
         }).attachToRecyclerView(root.rv_items)
 

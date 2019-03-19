@@ -21,7 +21,10 @@ class MainFragment : Fragment(), MainContract.View {
 
     private val itemListener = object : ItemAdapter.ItemClickListener {
         override fun onActiveItemClick(activeItem: ListItem) {
-            presenter.removeItemFromList(activeItem)
+            presenter.apply {
+                removeItemFromList(activeItem)
+                loadData()
+            }
         }
         override fun onNonActiveItemClick(nonActiveItem: ListItem) {
             // Do nothing.
