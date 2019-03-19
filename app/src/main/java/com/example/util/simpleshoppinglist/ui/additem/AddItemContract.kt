@@ -25,6 +25,8 @@ interface AddItemContract {
 
         fun saveItem(name: String, color: Int)
 
+        fun deleteItem(id: String)
+
     }
 
 }

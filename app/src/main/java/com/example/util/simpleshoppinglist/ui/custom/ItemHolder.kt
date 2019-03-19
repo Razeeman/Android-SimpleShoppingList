@@ -21,6 +21,8 @@ class ItemHolder(inflater: LayoutInflater, private val parent: ViewGroup)
         val drawable = ContextCompat.getDrawable(parent.context.applicationContext, R.drawable.item_drawable)
         drawable?.colorFilter = PorterDuffColorFilter(listItem.color, PorterDuff.Mode.SRC_IN)
 
+        itemView.tag = listItem.id
+
         itemView.tv_item.apply {
             text = listItem.name
             background = drawable

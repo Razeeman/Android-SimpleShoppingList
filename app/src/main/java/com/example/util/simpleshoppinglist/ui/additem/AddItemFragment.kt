@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.model.ListItem
@@ -28,6 +30,7 @@ class AddItemFragment : Fragment(), AddItemContract.View {
         }
         override fun onNonActiveItemClick(nonActiveItem: ListItem) {
             presenter.addItemToList(nonActiveItem)
+            presenter.loadData()
         }
     }
 
@@ -36,6 +39,7 @@ class AddItemFragment : Fragment(), AddItemContract.View {
             // TODO
             presenter.saveItem("New item ${Random().nextInt(999)}",
                 resources.getColor(R.color.colorPrimary))
+            presenter.loadData()
             Snackbar.make(activity!!.rv_items, "Adding some items!", Snackbar.LENGTH_LONG).show()
         }
         override fun onNegativeButton() {
@@ -66,6 +70,21 @@ class AddItemFragment : Fragment(), AddItemContract.View {
             val fragment = AddItemDialogFragment()
             fragment.show(childFragmentManager, null)
         }
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                presenter.deleteItem(viewHolder.itemView.tag as String)
+                presenter.loadData()
+            }
+        }).attachToRecyclerView(root.rv_items)
 
         return root
     }
