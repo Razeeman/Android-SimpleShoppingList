@@ -1,7 +1,9 @@
 package com.example.util.simpleshoppinglist.ui.main
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.util.simpleshoppinglist.App
@@ -28,11 +30,19 @@ class MainActivity : AppCompatActivity() {
         fab_add.setOnClickListener {
             startActivity(Intent(this, AddItemActivity::class.java))
         }
+
         fab_clear.setOnClickListener {
-            presenter.apply {
-                clearList()
-                loadData()
-            }
+           AlertDialog.Builder(this)
+               .setTitle("Warning")
+               .setMessage("Do you want to clear the list?")
+               .setNegativeButton("Cancel") { _, _ -> }
+               .setPositiveButton("Clear") { _, _ ->
+                   presenter.apply {
+                       clearList()
+                       loadData()
+                   }
+               }
+               .create().show()
         }
 
         supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?
