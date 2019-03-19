@@ -2,11 +2,13 @@ package com.example.util.simpleshoppinglist.ui.additem
 
 import com.example.util.simpleshoppinglist.data.model.ListItem
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
+import com.example.util.simpleshoppinglist.di.ActivityScoped
 import javax.inject.Inject
 
 /**
  * Receives events from UI, loads and saves data in repository and updates UI.
  */
+@ActivityScoped
 class AddItemPresenter
 @Inject constructor(private val itemsRepository: BaseItemsRepository)
     : AddItemContract.Presenter {

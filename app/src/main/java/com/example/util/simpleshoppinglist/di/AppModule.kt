@@ -52,11 +52,4 @@ class AppModule(application: App) {
         return ItemsRepository.getInstance(executors, dao)
     }
 
-    // TODO should be @ActivityScope component.
-    @Provides
-    @Singleton
-    fun getBaseAddItemPresenter(addItemPresenter: AddItemPresenter): AddItemContract.Presenter {
-        return addItemPresenter
-    }
-
 }

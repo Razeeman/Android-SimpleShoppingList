@@ -72,7 +72,7 @@ class AddItemFragment : Fragment(), AddItemContract.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        App.getAppComponent().inject(this)
+        App.getAddItemComponent().inject(this)
     }
 
     override fun onResume() {
