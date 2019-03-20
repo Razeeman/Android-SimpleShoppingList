@@ -41,7 +41,6 @@ class MainPresenterTest {
     @Mock private lateinit var repository: BaseItemsRepository
     @Mock private lateinit var view: MainContract.View
     @Captor private lateinit var loadItemsCallbackCaptor: ArgumentCaptor<BaseItemsRepository.LoadItemsCallback>
-    @Captor private lateinit var loadItemCallbackCaptor: ArgumentCaptor<BaseItemsRepository.LoadItemCallback>
 
     private lateinit var presenter: MainPresenter
 

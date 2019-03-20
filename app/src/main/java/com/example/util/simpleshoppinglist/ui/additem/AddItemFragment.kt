@@ -28,19 +28,13 @@ class AddItemFragment : Fragment(), AddItemContract.View {
             // Do nothing.
         }
         override fun onNonActiveItemClick(nonActiveItem: ListItem) {
-            presenter.apply {
-                addItemToList(nonActiveItem)
-                loadData()
-            }
+            presenter.addItemToList(nonActiveItem)
         }
     }
 
     private val addItemDialogListener = object : AddItemDialogFragment.ButtonClickListener {
         override fun onPositiveButton(name: String, color: Int) {
-            presenter.apply {
-                saveItem(name, color)
-                loadData()
-            }
+            presenter.saveItem(name, color)
             Snackbar.make(activity!!.rv_items, "Adding some items!", Snackbar.LENGTH_LONG).show()
         }
         override fun onNegativeButton() {
@@ -82,10 +76,7 @@ class AddItemFragment : Fragment(), AddItemContract.View {
                 return false
             }
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                presenter.apply {
-                    deleteItem(viewHolder.itemView.tag as String)
-                    loadData()
-                }
+                presenter.deleteItem(viewHolder.itemView.tag as String)
             }
         }).attachToRecyclerView(root.rv_items)
 
@@ -144,10 +135,7 @@ class AddItemFragment : Fragment(), AddItemContract.View {
             .setMessage(getString(R.string.delete_all_dialog_message))
             .setNegativeButton(getString(R.string.delete_all_dialog_negative), null)
             .setPositiveButton(getString(R.string.delete_all_dialog_positive)) { _, _ ->
-                presenter.apply {
-                    deleteAllItems()
-                    loadData()
-                }
+                presenter.deleteAllItems()
             }
             .create().show()
     }

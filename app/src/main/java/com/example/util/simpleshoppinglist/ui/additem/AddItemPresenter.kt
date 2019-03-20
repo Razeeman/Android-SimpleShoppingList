@@ -27,30 +27,38 @@ class AddItemPresenter
                         itemsToShow.add(item)
                     }
                 }
-                view!!.showItems(itemsToShow)
+                if (itemsToShow.size != 0) {
+                    view?.showItems(itemsToShow)
+                } else {
+                    view?.showNoItems()
+                }
             }
             override fun onDataNotAvailable() {
-                view!!.showNoItems()
+                view?.showNoItems()
             }
         })
     }
 
     override fun addItemToList(item: ListItem) {
         itemsRepository.updateItemActive(item, true)
+        loadData()
     }
 
     override fun saveItem(name: String, color: Int) {
         // TODO check empty name and show message
         // TODO check if already exist and show message
         itemsRepository.saveItem(ListItem(name = name, color = color))
+        loadData()
     }
 
     override fun deleteItem(id: String) {
         itemsRepository.deleteItem(id)
+        loadData()
     }
 
     override fun deleteAllItems() {
         itemsRepository.deleteAllItems()
+        loadData()
     }
 
     override fun attachView(view: AddItemContract.View) {
