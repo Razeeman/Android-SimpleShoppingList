@@ -27,10 +27,14 @@ class MainPresenter
                         itemsToShow.add(item)
                     }
                 }
-                view!!.showItems(itemsToShow)
+                if (itemsToShow.size != 0) {
+                    view?.showItems(itemsToShow)
+                } else {
+                    view?.showNoItems()
+                }
             }
             override fun onDataNotAvailable() {
-                view!!.showNoItems()
+                view?.showNoItems()
             }
         })
     }
