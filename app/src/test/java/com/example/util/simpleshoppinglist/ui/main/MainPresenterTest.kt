@@ -59,26 +59,42 @@ class MainPresenterTest {
 
     @Test
     fun loadData_withNoDataAvailable() {
+        // When view is attached.
+
+        // Then repository called to load data and callback returned with no data.
         verify(repository).loadItems(capture(loadItemsCallbackCaptor))
         loadItemsCallbackCaptor.value.onDataNotAvailable()
+
+        // Then no items are shown.
         verify(view).showNoItems()
     }
 
     @Test
     fun loadData_withDataAvailable_noActiveItems() {
+        // With no active items.
         val newItems = arrayListOf(
             ListItem(name = "Item 1"),
             ListItem(name = "Item 2"))
 
+        // When view is attached.
+
+        // Then repository called to load data and callback returned with no active items.
         verify(repository).loadItems(capture(loadItemsCallbackCaptor))
         loadItemsCallbackCaptor.value.onItemsLoaded(newItems)
+
+        // Then no items are shown.
         verify(view).showNoItems()
     }
 
     @Test
     fun loadData_withDataAvailable_withActiveItems() {
+        // When view is attached.
+
+        // Then repository called to load data and callback returned with data.
         verify(repository).loadItems(capture(loadItemsCallbackCaptor))
         loadItemsCallbackCaptor.value.onItemsLoaded(items)
+
+        // Then items that are active are shown.
         val captor = argumentCaptor<List<ListItem>>()
         verify(view).showItems(capture(captor))
         assertThat(captor.value.size, `is`(3))
@@ -86,29 +102,36 @@ class MainPresenterTest {
 
     @Test
     fun removeItemFromList() {
+        // With new item.
         val item = ListItem()
+
+        // When presenter called to remove this item from the list.
         presenter.removeItemFromList(item)
 
+        // Then repository updates this item to not active.
         verify(repository).updateItemActive(item, false)
-        // First on attach, second after remove from list.
+        // Then repository called to reload data.First on attach, second after remove from list.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
     }
 
     @Test
     fun clearList() {
+        // When presenter called to clear the list.
         presenter.clearList()
 
+        // Then repository called to clear all active items.
         verify(repository).clearAllActive()
-        // First on attach, second after clear list.
+        // Then repository called to reload data.First on attach, second after clear list.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
     }
 
     @Test
     fun attachView_loadsData() {
+        // When view is attached.
         presenter.detachView()
         presenter.attachView(view)
 
-        // First time in setup, second then reattached.
+        // Then repository called to reload data.First time in setup, second then reattached.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
     }
 }
