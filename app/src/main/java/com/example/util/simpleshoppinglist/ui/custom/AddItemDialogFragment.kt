@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.example.util.simpleshoppinglist.R
@@ -31,8 +32,10 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
             setView(dialogView)
         }.create()
 
-        val tvItemName = dialogView.tv_item_name
+        val tvItemName = dialogView.tv_item_name.apply { requestFocus() }
         val itemColor = resources.getColor(R.color.colorPrimary)
+
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.additem_dialog_positive)) { _, _ ->
             listener?.onPositiveButton(tvItemName.text.toString(), itemColor)
