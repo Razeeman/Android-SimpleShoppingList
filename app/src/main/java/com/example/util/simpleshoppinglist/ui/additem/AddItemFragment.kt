@@ -37,7 +37,6 @@ class AddItemFragment : Fragment(), AddItemContract.View {
 
     private val addItemDialogListener = object : AddItemDialogFragment.ButtonClickListener {
         override fun onPositiveButton(name: String, color: Int) {
-            // TODO
             presenter.apply {
                 saveItem(name, color)
                 loadData()

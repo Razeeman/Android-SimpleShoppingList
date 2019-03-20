@@ -1,7 +1,6 @@
 package com.example.util.simpleshoppinglist.ui.custom
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.WindowManager
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import com.example.util.simpleshoppinglist.R
 import kotlinx.android.synthetic.main.additem_dialog.view.*
 
-// TODO DialogFragment instead?
 class AddItemDialogFragment: AppCompatDialogFragment() {
 
     private var listener: ButtonClickListener? = null
@@ -24,22 +22,21 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.additem_dialog, null)
+        val tvItemName = dialogView.tv_item_name.apply { requestFocus() }
+        val itemColor = resources.getColor(R.color.colorPrimary)
+
         val dialog = AlertDialog.Builder(activity!!).apply {
+            setView(dialogView)
             setTitle(getString(R.string.additem_dialog_title))
             setNegativeButton(getString(R.string.additem_dialog_negative)) { _, _ ->
                 listener?.onNegativeButton()
             }
-            setView(dialogView)
+            setPositiveButton(getString(R.string.additem_dialog_positive)) { _, _ ->
+                listener?.onPositiveButton(tvItemName.text.toString(), itemColor)
+            }
         }.create()
 
-        val tvItemName = dialogView.tv_item_name.apply { requestFocus() }
-        val itemColor = resources.getColor(R.color.colorPrimary)
-
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
-
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.additem_dialog_positive)) { _, _ ->
-            listener?.onPositiveButton(tvItemName.text.toString(), itemColor)
-        }
 
         return dialog
     }
