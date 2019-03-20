@@ -31,6 +31,14 @@ class AddItemPresenterTest {
     }
 
     @Test
+    fun deleteItem() {
+    }
+
+    @Test
+    fun deleteAllItems() {
+    }
+
+    @Test
     fun attachView() {
     }
 

@@ -1,14 +1,16 @@
 package com.example.util.simpleshoppinglist.ui.main
 
+import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.mockito.Mock
 
 class MainPresenterTest {
 
-    // TODO add tests
+    @Mock private lateinit var repository: BaseItemsRepository
 
     @Before
     fun setUp() {
