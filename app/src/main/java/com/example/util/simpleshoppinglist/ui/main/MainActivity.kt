@@ -51,10 +51,7 @@ class MainActivity : AppCompatActivity() {
             .setMessage(getString(R.string.clear_list_dialog_message))
             .setNegativeButton(getString(R.string.clear_list_dialog_negative), null)
             .setPositiveButton(getString(R.string.clear_list_dialog_positive)) { _, _ ->
-                presenter.apply {
-                    clearList()
-                    loadData()
-                }
+                presenter.clearList()
             }
             .create().show()
     }
