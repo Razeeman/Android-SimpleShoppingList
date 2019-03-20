@@ -25,4 +25,11 @@
     <string name="delete_all_dialog_negative">Cancel</string>
     <string name="delete_all_dialog_positive">Delete</string>
 
+    <!-- Add item dialog -->
+    <string name="additem_dialog_title">Add new item</string>
+    <string name="additem_dialog_negative">Cancel</string>
+    <string name="additem_dialog_positive">Add</string>
+    <string name="additem_dialog_name_hint">Enter item name</string>
+    <string name="additem_dialog_color_label">Choose item color:</string>
+
 </resources>

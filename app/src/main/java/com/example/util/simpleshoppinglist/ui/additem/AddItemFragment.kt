@@ -36,10 +36,10 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     }
 
     private val addItemDialogListener = object : AddItemDialogFragment.ButtonClickListener {
-        override fun onPositiveButton() {
+        override fun onPositiveButton(name: String, color: Int) {
             // TODO
             presenter.apply {
-                saveItem("New item ${Random().nextInt(999)}", resources.getColor(R.color.colorPrimary))
+                saveItem(name, color)
                 loadData()
             }
             Snackbar.make(activity!!.rv_items, "Adding some items!", Snackbar.LENGTH_LONG).show()

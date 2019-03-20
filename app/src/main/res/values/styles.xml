@@ -13,7 +13,13 @@
         <!-- TODO Elevation? -->
     </style>
 
-    <style name="Item">
+    <style name="Text">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorTextLight</item>
+    </style>
+
+    <style name="Item" parent="Text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">4dp</item>
@@ -21,7 +27,7 @@
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingRight">20dp</item>
-        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textColor">@color/colorTextDark</item>
         <item name="android:background">@drawable/item_drawable</item>
     </style>
 
