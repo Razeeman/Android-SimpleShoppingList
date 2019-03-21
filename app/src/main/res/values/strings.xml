@@ -11,7 +11,11 @@
     <!-- Message to show when no items added the app -->
     <string name="no_items_added">No items found</string>
 
-    <string name="additem_item_saved_message">New item added!</string>
+    <!-- Message to show when item is saved successfully -->
+    <string name="additem_item_saved_message">New item added</string>
+
+    <!-- Message to show when all items deleted -->
+    <string name="additem_items_deleted">All items deleted</string>
 
     <!-- Message to show when item added with empty name -->
     <string name="additem_incorrect_name">Please, type something for the item name</string>

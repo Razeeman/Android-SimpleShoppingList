@@ -45,7 +45,6 @@ class AddItemPresenter
     }
 
     override fun saveItem(name: String, color: Int) {
-        // TODO check empty name and show message
         // TODO check if already exist and show message
         if (name.isBlank()) {
             view?.showIncorrectItemNameError()
@@ -64,6 +63,7 @@ class AddItemPresenter
     override fun deleteAllItems() {
         itemsRepository.deleteAllItems()
         loadData()
+        view?.showAllItemsDeletedMessage()
     }
 
     override fun attachView(view: AddItemContract.View) {

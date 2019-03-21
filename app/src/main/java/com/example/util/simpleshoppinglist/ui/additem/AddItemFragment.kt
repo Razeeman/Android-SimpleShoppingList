@@ -132,6 +132,10 @@ class AddItemFragment : Fragment(), AddItemContract.View {
         Snackbar.make(activity!!.rv_items, getString(R.string.additem_item_saved_message), Snackbar.LENGTH_LONG).show()
     }
 
+    override fun showAllItemsDeletedMessage() {
+        Snackbar.make(activity!!.rv_items, getString(R.string.additem_items_deleted), Snackbar.LENGTH_LONG).show()
+    }
+
     override fun showIncorrectItemNameError() {
         Snackbar.make(activity!!.rv_items, getString(R.string.additem_incorrect_name), Snackbar.LENGTH_LONG).show()
     }

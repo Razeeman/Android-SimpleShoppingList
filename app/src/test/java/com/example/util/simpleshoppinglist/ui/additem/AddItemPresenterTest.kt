@@ -166,6 +166,8 @@ class AddItemPresenterTest {
         verify(repository).deleteAllItems()
         // Then repository called to reload data. First on attach, second after delete all.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
+        // Then view is called to show a successful message
+        verify(view).showAllItemsDeletedMessage()
     }
 
     @Test
