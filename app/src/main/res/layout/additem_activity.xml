@@ -26,22 +26,15 @@
                 android:layout_height="match_parent">
         </FrameLayout>
 
-        <LinearLayout
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="bottom|end">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab_done"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:useCompatPadding="true"
-                    app:fabSize="normal"
-                    app:srcCompat="@drawable/ic_done"
-                    android:layout_gravity="bottom|end"/>
-
-        </LinearLayout>
+                android:layout_margin="16dp"
+                app:useCompatPadding="true"
+                app:fabSize="normal"
+                app:srcCompat="@drawable/ic_done"
+                android:layout_gravity="bottom|end"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
