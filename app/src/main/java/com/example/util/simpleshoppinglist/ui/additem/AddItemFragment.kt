@@ -35,7 +35,6 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     private val addItemDialogListener = object : AddItemDialogFragment.ButtonClickListener {
         override fun onPositiveButton(name: String, color: Int) {
             presenter.saveItem(name, color)
-            //Snackbar.make(activity!!.rv_items, "Adding some items!", Snackbar.LENGTH_LONG).show()
         }
         override fun onNegativeButton() {
             // Do nothing.
@@ -127,6 +126,10 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     override fun showNoItems() {
         rv_items.visibility = View.INVISIBLE
         tv_no_items.visibility = View.VISIBLE
+    }
+
+    override fun showItemSavedMessage() {
+        Snackbar.make(activity!!.rv_items, getString(R.string.additem_item_saved_message), Snackbar.LENGTH_LONG).show()
     }
 
     override fun showIncorrectItemNameError() {

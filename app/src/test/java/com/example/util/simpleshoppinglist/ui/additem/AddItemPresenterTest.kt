@@ -127,6 +127,8 @@ class AddItemPresenterTest {
         assertThat(captor.value.color, `is`(newItem.color))
         // Then repository called to reload data. First on attach, second after save.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
+        // Then view called to show a message
+        verify(view).showItemSavedMessage()
     }
 
     @Test

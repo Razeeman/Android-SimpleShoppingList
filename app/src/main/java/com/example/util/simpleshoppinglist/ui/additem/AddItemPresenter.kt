@@ -53,6 +53,7 @@ class AddItemPresenter
         }
         itemsRepository.saveItem(ListItem(name = name, color = color))
         loadData()
+        view?.showItemSavedMessage()
     }
 
     override fun deleteItem(id: String) {

@@ -15,6 +15,8 @@ interface AddItemContract {
 
         fun showNoItems()
 
+        fun showItemSavedMessage()
+
         fun showIncorrectItemNameError()
 
     }
