@@ -109,6 +109,22 @@ class ItemsRepositoryTest {
     }
 
     @Test
+    fun saveAndCleanItemName() {
+        val newItem = ListItem(name = "   Item   \n   NAME \n\n\n\n   2     ", color = DEFAULT_COLOR)
+        itemsRepository.apply {
+            saveItem(newItem)
+            loadItem(newItem.id, object : BaseItemsRepository.LoadItemCallback {
+                override fun onItemLoaded(item: ListItem) {
+                    assertThat(item.name, `is`("item name 2"))
+                }
+                override fun onDataNotAvailable() {
+                    fail("Data not available")
+                }
+            })
+        }
+    }
+
+    @Test
     fun updateItem() {
         val newItem = DEFAULT_ITEM.copy()
         itemsRepository.apply {

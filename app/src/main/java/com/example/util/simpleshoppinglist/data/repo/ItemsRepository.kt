@@ -78,6 +78,7 @@ private constructor(private val executors: AppExecutors, private val listItemDao
      * @param listItem An item to save.
      */
     override fun saveItem(listItem: ListItem) {
+        listItem.name = listItem.name.replace("\\s+".toRegex(), " ").trim().toLowerCase()
         executors.diskIO.execute { listItemDao.insert(listItem) }
     }
 
