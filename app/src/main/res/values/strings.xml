@@ -5,13 +5,17 @@
     <!-- Used in UI          -->
     <!-- - - - - - - - - - - -->
 
-    <!-- Message to show then no items added to the main list -->
+    <!-- Message to show when no items added to the main list -->
     <string name="no_items_in_the_list">No items found</string>
 
-    <string name="add_new_item">Add new item</string>
-
-    <!-- Message to show then no items added the app -->
+    <!-- Message to show when no items added the app -->
     <string name="no_items_added">No items found</string>
+
+    <!-- Message to show when item added with empty name -->
+    <string name="additem_incorrect_name">Please, type something for the item name</string>
+
+    <!-- Add new item button -->
+    <string name="add_new_item">Add new item</string>
 
     <!-- Clear list alert dialog -->
     <string name="clear_list_dialog_title">Warning</string>

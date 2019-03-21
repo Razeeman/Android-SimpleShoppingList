@@ -15,6 +15,8 @@ interface AddItemContract {
 
         fun showNoItems()
 
+        fun showIncorrectItemNameError()
+
     }
 
     interface Presenter: BasePresenter<View> {
