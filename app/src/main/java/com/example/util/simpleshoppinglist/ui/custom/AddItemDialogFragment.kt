@@ -25,6 +25,11 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
         val tvItemName = dialogView.tv_item_name.apply { requestFocus() }
         val itemColor = resources.getColor(R.color.colorPrimary)
 
+        dialogView.iv_item_color.setOnClickListener {
+            val fragment = ColorPickerDialog()
+            fragment.show(childFragmentManager, null)
+        }
+
         val dialog = AlertDialog.Builder(activity!!).apply {
             setView(dialogView)
             setTitle(getString(R.string.additem_dialog_title))
