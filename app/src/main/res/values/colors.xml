@@ -6,4 +6,26 @@
 
     <color name="colorTextDark">@android:color/primary_text_dark</color>
     <color name="colorTextLight">@android:color/primary_text_light</color>
+
+    <array name="paletteColors">
+        <item>@color/red_600</item>
+        <item>@color/deep_orange_600</item>
+        <item>@color/orange_600</item>
+        <item>@color/amber_600</item>
+        <item>@color/yellow_600</item>
+        <item>@color/lime_600</item>
+        <item>@color/light_green_600</item>
+        <item>@color/green_600</item>
+        <item>@color/teal_600</item>
+        <item>@color/cyan_600</item>
+        <item>@color/light_blue_600</item>
+        <item>@color/blue_600</item>
+        <item>@color/indigo_600</item>
+        <item>@color/deep_purple_600</item>
+        <item>@color/purple_600</item>
+        <item>@color/pink_600</item>
+        <item>@color/brown_600</item>
+        <item>@color/blue_grey_600</item>
+        <item>@color/grey_600</item>
+    </array>
 </resources>

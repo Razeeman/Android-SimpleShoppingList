@@ -14,12 +14,7 @@ class ColorPickerDialog: AppCompatDialogFragment() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.color_picker_dialog, null)
         val palette = dialogView.color_palette
 
-        // TODO test data.
-        val colors = Array(14) { i -> when(i) {
-            9 -> -12627531
-            else -> 0xFF000000.toInt()
-            }
-        }
+        val colors = resources.getIntArray(R.array.paletteColors)
 
         palette.drawPalette(colors, 9)
 

@@ -30,7 +30,7 @@ class ColorPickerPalette : TableLayout {
     /**
      * Adds color pick views in rows and adds rows to the main view.
      */
-    fun drawPalette(colors: Array<Int>, selected: Int) {
+    fun drawPalette(colors: IntArray, selected: Int) {
         var row = createRow()
 
         for ((colorIndex, color) in colors.withIndex()) {
