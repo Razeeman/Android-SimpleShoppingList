@@ -10,13 +10,35 @@ import kotlinx.android.synthetic.main.color_picker_dialog.view.*
 
 class ColorPickerDialog: AppCompatDialogFragment() {
 
+    private var selectedColor: Int = 0
+
+    private lateinit var colorChangeListener: OnColorChangeListener
+
+    private val colorSelectedListener = object : ColorPick.OnColorSelectListener {
+        override fun onColorSelected(color: Int) {
+            colorChangeListener.onColorChanged(color)
+            dismiss()
+        }
+    }
+
+    interface OnColorChangeListener {
+
+        fun onColorChanged(color: Int)
+
+    }
+
+    fun init(selectedColor: Int) {
+        this.selectedColor = selectedColor
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.color_picker_dialog, null)
-        val palette = dialogView.color_palette
-
         val colors = resources.getIntArray(R.array.paletteColors)
 
-        palette.drawPalette(colors, 9)
+        dialogView.color_palette.apply {
+            setOnColorSelectListener(colorSelectedListener)
+            drawPalette(colors, selectedColor)
+        }
 
         val dialog = AlertDialog.Builder(activity!!)
             .setView(dialogView)
@@ -24,5 +46,9 @@ class ColorPickerDialog: AppCompatDialogFragment() {
             .create()
 
         return dialog
+    }
+
+    fun setOnColorChangeListener(listener: OnColorChangeListener) {
+        colorChangeListener = listener
     }
 }

@@ -1,15 +1,11 @@
 package com.example.util.simpleshoppinglist.ui.custom
 
 import android.content.Context
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.util.AttributeSet
+import android.view.ViewGroup
 import android.widget.TableLayout
 import android.widget.TableRow
 import com.example.util.simpleshoppinglist.R
-import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.content.ContextCompat
 
 /**
  * A custom color picker view that shows a grid of color to choose from.
@@ -27,6 +23,8 @@ class ColorPickerPalette : TableLayout {
     // Margin between color picks.
     private var colorPickMargin = resources.getDimensionPixelSize(R.dimen.color_pick_margin)
 
+    private lateinit var colorSelectListener: ColorPick.OnColorSelectListener
+
     /**
      * Adds color pick views in rows and adds rows to the main view.
      */
@@ -34,14 +32,11 @@ class ColorPickerPalette : TableLayout {
         var row = createRow()
 
         for ((colorIndex, color) in colors.withIndex()) {
-            val colorPick = ImageView(context).apply {
-                layoutParams = TableRow.LayoutParams(colorPickSize, colorPickSize).apply {
-                    setMargins(colorPickMargin, colorPickMargin, colorPickMargin, colorPickMargin)
-                }
+            val colorPick = ColorPick(context, color, color == selected, colorSelectListener)
+            val params = TableRow.LayoutParams(colorPickSize, colorPickSize).apply {
+                setMargins(colorPickMargin, colorPickMargin, colorPickMargin, colorPickMargin)
             }
-            val drawable = ContextCompat.getDrawable(context.applicationContext, R.drawable.item_drawable)
-            drawable?.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
-            colorPick.background = drawable
+            colorPick.layoutParams = params
 
             if (colorIndex > 0 && colorIndex % columns == 0) {
                 addView(row)
@@ -52,6 +47,10 @@ class ColorPickerPalette : TableLayout {
         }
 
         addView(row)
+    }
+
+    fun setOnColorSelectListener(listener: ColorPick.OnColorSelectListener) {
+        colorSelectListener = listener
     }
 
     /**
