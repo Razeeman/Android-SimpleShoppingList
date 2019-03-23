@@ -55,8 +55,7 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
 
         ivItemColor = dialogView.iv_item_color
         ivItemColor.setOnClickListener {
-            val fragment = ColorPickerDialog()
-            fragment.init(itemColor)
+            val fragment = ColorPickerDialog.newInstance(itemColor)
             fragment.show(childFragmentManager, null)
         }
 

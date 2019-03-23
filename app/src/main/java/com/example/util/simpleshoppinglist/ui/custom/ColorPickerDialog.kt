@@ -30,11 +30,21 @@ class ColorPickerDialog: AppCompatDialogFragment() {
 
     }
 
-    /**
-     * Initialize dialog with parameters.
-     */
-    fun init(selectedColor: Int) {
-        this.selectedColor = selectedColor
+    companion object {
+
+        private const val SELECTED_COLOR_BUNDLE_KEY = "selected_color"
+
+        fun newInstance(selectedColor: Int): ColorPickerDialog {
+            return ColorPickerDialog().apply { init(selectedColor) }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        if (savedInstanceState != null) {
+            selectedColor = savedInstanceState.getInt(SELECTED_COLOR_BUNDLE_KEY)
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -52,7 +62,19 @@ class ColorPickerDialog: AppCompatDialogFragment() {
             .create()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(SELECTED_COLOR_BUNDLE_KEY, selectedColor)
+    }
+
     fun setOnColorChangeListener(listener: OnColorChangeListener) {
         colorChangeListener = listener
+    }
+
+    /**
+     * Initialize dialog with parameters.
+     */
+    private fun init(selectedColor: Int) {
+        this.selectedColor = selectedColor
     }
 }
