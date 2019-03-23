@@ -17,6 +17,8 @@ class App: Application() {
         private var mainComponent: MainComponent? = null
         private var addItemComponent: AddItemComponent? = null
 
+        // Lint suppressed because to keep method for future reference.
+        @Suppress("unused")
         fun getAppComponent(): AppComponent {
             return appComponent
         }

@@ -141,6 +141,7 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     }
 
     private fun showDeleteAllDialog() {
+        // TODO retain?
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.delete_all_dialog_title))
             .setMessage(getString(R.string.delete_all_dialog_message))

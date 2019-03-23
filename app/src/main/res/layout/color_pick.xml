@@ -4,12 +4,14 @@
     <ImageView
             android:id="@+id/iv_color"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:contentDescription="@string/color_pick_contDesc"/>
     <ImageView
             android:id="@+id/iv_check"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="8dp"
             app:srcCompat="@drawable/ic_check"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:contentDescription="@string/color_pick_check_contDesc"/>
 </merge>

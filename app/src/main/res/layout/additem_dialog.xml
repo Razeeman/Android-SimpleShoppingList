@@ -16,6 +16,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:hint="@string/additem_dialog_name_hint"
+            android:inputType="text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -40,6 +41,8 @@
             android:background="@drawable/color_pick_drawable"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_color_label"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_color_label" app:layout_constraintDimensionRatio="h,1:1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/tv_color_label"
+            app:layout_constraintDimensionRatio="h,1:1"
+            android:contentDescription="@string/additem_dialog_color_contDesc"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

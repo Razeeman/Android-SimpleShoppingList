@@ -51,11 +51,11 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (savedInstanceState != null) {
-            itemColor = savedInstanceState.getInt(ITEM_COLOR_BUNDLE_KEY)
-        }
+        itemColor = savedInstanceState?.getInt(ITEM_COLOR_BUNDLE_KEY) ?: itemColor
     }
 
+    // Lint suppressed because dialog doesn't have a view before inflating.
+    @Suppress("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.additem_dialog, null)
         val tvItemName = dialogView.tv_item_name.apply { requestFocus() }

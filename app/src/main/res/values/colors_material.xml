@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<!-- Lint suppressed because main colors could be later changed to these -->
+<resources
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:ignore="UnusedResources">
 
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>

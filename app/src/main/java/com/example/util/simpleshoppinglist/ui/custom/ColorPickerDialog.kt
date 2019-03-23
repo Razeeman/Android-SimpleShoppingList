@@ -42,11 +42,11 @@ class ColorPickerDialog: AppCompatDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (savedInstanceState != null) {
-            selectedColor = savedInstanceState.getInt(SELECTED_COLOR_BUNDLE_KEY)
-        }
+        selectedColor = savedInstanceState?.getInt(SELECTED_COLOR_BUNDLE_KEY) ?: selectedColor
     }
 
+    // Lint suppressed because dialog doesn't have a view before inflating.
+    @Suppress("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.color_picker_dialog, null)
         val colors = resources.getIntArray(R.array.paletteColors)

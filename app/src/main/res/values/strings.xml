@@ -5,6 +5,11 @@
     <!-- Used in UI          -->
     <!-- - - - - - - - - - - -->
 
+    <!-- Add new item button -->
+    <string name="add_new_item">Add new item</string>
+
+    <!--  Messages -->
+
     <!-- Message to show when no items added to the main list -->
     <string name="no_items_in_the_list">No items found</string>
 
@@ -20,8 +25,7 @@
     <!-- Message to show when item added with empty name -->
     <string name="additem_incorrect_name">Please, type something for the item name</string>
 
-    <!-- Add new item button -->
-    <string name="add_new_item">Add new item</string>
+    <!-- Dialogs -->
 
     <!-- Clear list alert dialog -->
     <string name="clear_list_dialog_title">Warning</string>
@@ -41,6 +45,13 @@
     <string name="additem_dialog_positive">Add</string>
     <string name="additem_dialog_name_hint">Enter item name</string>
     <string name="additem_dialog_color_label">Choose item color:</string>
+    <string name="additem_dialog_color_contDesc">Choose item color</string>
     <string name="color_picker_dialog_title">Choose item color</string>
+    <string name="color_pick_contDesc">Color to select</string>
+    <string name="color_pick_check_contDesc">Color selected</string>
+
+    <!-- Menus -->
+
+    <string name="additem_menu_delete_all">Delete all</string>
 
 </resources>

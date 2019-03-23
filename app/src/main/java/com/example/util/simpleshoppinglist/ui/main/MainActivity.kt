@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.util.simpleshoppinglist.R.layout.main_activity)
+        setContentView(R.layout.main_activity)
         App.getMainComponent().inject(this)
 
         // Setting up the toolbar.
