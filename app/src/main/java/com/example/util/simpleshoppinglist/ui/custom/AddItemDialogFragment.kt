@@ -17,6 +17,9 @@ import kotlinx.android.synthetic.main.additem_dialog.view.*
 class AddItemDialogFragment: AppCompatDialogFragment() {
 
     companion object {
+
+        private const val ITEM_COLOR_BUNDLE_KEY = "item_color"
+
         private const val DEFAULT_COLOR_ID = R.color.indigo_600
     }
 
@@ -45,6 +48,14 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
 
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        if (savedInstanceState != null) {
+            itemColor = savedInstanceState.getInt(ITEM_COLOR_BUNDLE_KEY)
+        }
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.additem_dialog, null)
         val tvItemName = dialogView.tv_item_name.apply { requestFocus() }
@@ -53,10 +64,12 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
             itemColor = ContextCompat.getColor(context!!, DEFAULT_COLOR_ID)
         }
 
-        ivItemColor = dialogView.iv_item_color
-        ivItemColor.setOnClickListener {
-            val fragment = ColorPickerDialog.newInstance(itemColor)
-            fragment.show(childFragmentManager, null)
+        ivItemColor = dialogView.iv_item_color.apply {
+            background.colorFilter = PorterDuffColorFilter(itemColor, PorterDuff.Mode.SRC_IN)
+            setOnClickListener {
+                val fragment = ColorPickerDialog.newInstance(itemColor)
+                fragment.show(childFragmentManager, null)
+            }
         }
 
         val dialog = AlertDialog.Builder(activity!!).apply {
@@ -70,9 +83,15 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
             }
         }.create()
 
+        // Show keyboard right away.
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
         return dialog
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(ITEM_COLOR_BUNDLE_KEY, itemColor)
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
