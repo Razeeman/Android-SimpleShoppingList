@@ -41,5 +41,6 @@
     <string name="additem_dialog_positive">Add</string>
     <string name="additem_dialog_name_hint">Enter item name</string>
     <string name="additem_dialog_color_label">Choose item color:</string>
+    <string name="color_picker_dialog_title">Choose item color</string>
 
 </resources>

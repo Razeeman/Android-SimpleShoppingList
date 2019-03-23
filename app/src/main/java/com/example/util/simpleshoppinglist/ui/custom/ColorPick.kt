@@ -6,31 +6,39 @@ import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import com.example.util.simpleshoppinglist.R
 import kotlinx.android.synthetic.main.color_pick.view.*
 
-class ColorPick(context: Context, color: Int, checked: Boolean, colorSelectListener: OnColorSelectListener)
-    : FrameLayout(context) {
+/**
+ * Custom view to represent one color pick in color palette.
+ */
+class ColorPick(context: Context) : FrameLayout(context) {
 
-    interface OnColorSelectListener {
+    constructor(context: Context, color: Int, checked: Boolean, colorSelectListener: OnColorSelectListener)
+            : this(context) {
 
-        fun onColorSelected(color: Int)
-
-    }
-
-    init {
         LayoutInflater.from(context).inflate(R.layout.color_pick, this)
-        iv_color.background = resources.getDrawable(R.drawable.color_pick_drawable).apply {
-            colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+        iv_color.background = ContextCompat.getDrawable(context, R.drawable.color_pick_drawable).apply {
+            this?.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
         }
 
         if (checked) {
             iv_check.visibility = View.VISIBLE
         }
 
-        this.setOnClickListener {
+        setOnClickListener {
             colorSelectListener.onColorSelected(color)
         }
+    }
+
+    /**
+     * Interface to listen to click events on this view.
+     */
+    interface OnColorSelectListener {
+
+        fun onColorSelected(color: Int)
+
     }
 
 }

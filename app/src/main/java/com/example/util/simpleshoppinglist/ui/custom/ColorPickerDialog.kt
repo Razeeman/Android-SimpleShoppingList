@@ -12,21 +12,27 @@ class ColorPickerDialog: AppCompatDialogFragment() {
 
     private var selectedColor: Int = 0
 
-    private lateinit var colorChangeListener: OnColorChangeListener
+    private var colorChangeListener: OnColorChangeListener? = null
 
     private val colorSelectedListener = object : ColorPick.OnColorSelectListener {
         override fun onColorSelected(color: Int) {
-            colorChangeListener.onColorChanged(color)
+            colorChangeListener?.onColorChanged(color)
             dismiss()
         }
     }
 
+    /**
+     * Interface to listen to color change events.
+     */
     interface OnColorChangeListener {
 
         fun onColorChanged(color: Int)
 
     }
 
+    /**
+     * Initialize dialog with parameters.
+     */
     fun init(selectedColor: Int) {
         this.selectedColor = selectedColor
     }
@@ -40,12 +46,10 @@ class ColorPickerDialog: AppCompatDialogFragment() {
             drawPalette(colors, selectedColor)
         }
 
-        val dialog = AlertDialog.Builder(activity!!)
+        return AlertDialog.Builder(activity!!)
             .setView(dialogView)
-            .setTitle("Choose item color")
+            .setTitle(getString(R.string.color_picker_dialog_title))
             .create()
-
-        return dialog
     }
 
     fun setOnColorChangeListener(listener: OnColorChangeListener) {

@@ -101,7 +101,7 @@ class AddItemFragment : Fragment(), AddItemContract.View {
 
     override fun onAttachFragment(childFragment: Fragment) {
         if (childFragment is AddItemDialogFragment) {
-            childFragment.setListener(addItemDialogListener)
+            childFragment.setButtonClickListener(addItemDialogListener)
         }
     }
 

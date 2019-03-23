@@ -9,18 +9,22 @@ import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.util.simpleshoppinglist.R
 import kotlinx.android.synthetic.main.additem_dialog.view.*
 
 class AddItemDialogFragment: AppCompatDialogFragment() {
 
-    // TODO check, refactor this and all child fragments
+    companion object {
+        private const val DEFAULT_COLOR_ID = R.color.indigo_600
+    }
 
     private var itemColor: Int = 0
 
     private lateinit var ivItemColor: ImageView
 
-    private var buttonListener: ButtonClickListener? = null
+    private var buttonClickListener: ButtonClickListener? = null
 
     private val colorChangeListener = object: ColorPickerDialog.OnColorChangeListener {
         override fun onColorChanged(color: Int) {
@@ -31,6 +35,9 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
         }
     }
 
+    /**
+     * Interface to listen to dialog button clicks.
+     */
     interface ButtonClickListener {
 
         fun onPositiveButton(name: String, color: Int)
@@ -43,14 +50,13 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
         val tvItemName = dialogView.tv_item_name.apply { requestFocus() }
 
         if (itemColor == 0) {
-            itemColor = resources.getColor(R.color.indigo_600)
+            itemColor = ContextCompat.getColor(context!!, DEFAULT_COLOR_ID)
         }
 
         ivItemColor = dialogView.iv_item_color
         ivItemColor.setOnClickListener {
             val fragment = ColorPickerDialog()
             fragment.init(itemColor)
-            fragment.setOnColorChangeListener(colorChangeListener)
             fragment.show(childFragmentManager, null)
         }
 
@@ -58,10 +64,10 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
             setView(dialogView)
             setTitle(getString(R.string.additem_dialog_title))
             setNegativeButton(getString(R.string.additem_dialog_negative)) { _, _ ->
-                buttonListener?.onNegativeButton()
+                buttonClickListener?.onNegativeButton()
             }
             setPositiveButton(getString(R.string.additem_dialog_positive)) { _, _ ->
-                buttonListener?.onPositiveButton(tvItemName.text.toString(), itemColor)
+                buttonClickListener?.onPositiveButton(tvItemName.text.toString(), itemColor)
             }
         }.create()
 
@@ -70,7 +76,13 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
         return dialog
     }
 
-    fun setListener(listener: ButtonClickListener) {
-        buttonListener = listener
+    override fun onAttachFragment(childFragment: Fragment) {
+        if (childFragment is ColorPickerDialog) {
+            childFragment.setOnColorChangeListener(colorChangeListener)
+        }
+    }
+
+    fun setButtonClickListener(listener: ButtonClickListener) {
+        buttonClickListener = listener
     }
 }
