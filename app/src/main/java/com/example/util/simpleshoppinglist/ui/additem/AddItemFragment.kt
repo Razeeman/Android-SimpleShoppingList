@@ -5,13 +5,15 @@ import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.model.ListItem
 import com.example.util.simpleshoppinglist.ui.custom.AddItemDialogFragment
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.additem_fragment.*
 import kotlinx.android.synthetic.main.additem_fragment.view.*
@@ -56,7 +58,10 @@ class AddItemFragment : Fragment(), AddItemContract.View {
         val root = inflater.inflate(R.layout.additem_fragment, container, false)
 
         root.rv_items.apply {
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = FlexboxLayoutManager(activity).apply {
+                flexDirection = FlexDirection.ROW
+                justifyContent = JustifyContent.CENTER
+            }
             adapter = itemAdapter
         }
 

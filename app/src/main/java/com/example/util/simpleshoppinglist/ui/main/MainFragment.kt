@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.model.ListItem
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
 import javax.inject.Inject
@@ -43,7 +45,10 @@ class MainFragment : Fragment(), MainContract.View {
         val root = inflater.inflate(R.layout.main_fragment, container, false)
 
         root.rv_items.apply {
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = FlexboxLayoutManager(activity).apply {
+                flexDirection = FlexDirection.ROW
+                justifyContent = JustifyContent.CENTER
+            }
             adapter = itemAdapter
         }
 
