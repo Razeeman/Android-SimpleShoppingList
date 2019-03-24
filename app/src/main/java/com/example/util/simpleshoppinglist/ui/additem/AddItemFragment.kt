@@ -113,7 +113,7 @@ class AddItemFragment : Fragment(), AddItemContract.View {
         when(item.itemId) {
             R.id.menu_delete_all -> showDeleteAllDialog()
         }
-        return true
+        return false
     }
 
     override fun showItems(items: List<ListItem>) {
