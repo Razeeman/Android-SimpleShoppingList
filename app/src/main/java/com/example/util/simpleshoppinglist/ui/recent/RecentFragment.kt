@@ -1,4 +1,4 @@
-package com.example.util.simpleshoppinglist.ui.additem
+package com.example.util.simpleshoppinglist.ui.recent
 
 import android.os.Bundle
 import android.view.*
@@ -15,15 +15,15 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.additem_fragment.*
-import kotlinx.android.synthetic.main.additem_fragment.view.*
+import kotlinx.android.synthetic.main.recent_fragment.*
+import kotlinx.android.synthetic.main.recent_fragment.view.*
 import java.util.*
 import javax.inject.Inject
 
-class AddItemFragment : Fragment(), AddItemContract.View {
+class RecentFragment : Fragment(), RecentContract.View {
 
     @Inject
-    lateinit var presenter: AddItemContract.Presenter
+    lateinit var presenter: RecentContract.Presenter
 
     private val itemListener = object : ItemAdapter.ItemClickListener {
         override fun onActiveItemClick(activeItem: ListItem) {
@@ -49,13 +49,13 @@ class AddItemFragment : Fragment(), AddItemContract.View {
      * Fragment instantiation.
      */
     companion object {
-        fun newInstance(): AddItemFragment {
-            return AddItemFragment()
+        fun newInstance(): RecentFragment {
+            return RecentFragment()
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.additem_fragment, container, false)
+        val root = inflater.inflate(R.layout.recent_fragment, container, false)
 
         root.rv_items.apply {
             layoutManager = FlexboxLayoutManager(activity).apply {
@@ -91,7 +91,7 @@ class AddItemFragment : Fragment(), AddItemContract.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        App.getAddItemComponent().inject(this)
+        App.getRecentComponent().inject(this)
     }
 
     override fun onResume() {
@@ -111,7 +111,7 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.additem_fragment_menu, menu)
+        inflater.inflate(R.menu.recent_fragment_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -134,15 +134,15 @@ class AddItemFragment : Fragment(), AddItemContract.View {
     }
 
     override fun showItemSavedMessage() {
-        Snackbar.make(activity!!.rv_items, getString(R.string.additem_item_saved_message), Snackbar.LENGTH_LONG).show()
+        Snackbar.make(activity!!.rv_items, getString(R.string.recent_item_saved_message), Snackbar.LENGTH_LONG).show()
     }
 
     override fun showAllItemsDeletedMessage() {
-        Snackbar.make(activity!!.rv_items, getString(R.string.additem_items_deleted), Snackbar.LENGTH_LONG).show()
+        Snackbar.make(activity!!.rv_items, getString(R.string.recent_items_deleted), Snackbar.LENGTH_LONG).show()
     }
 
     override fun showIncorrectItemNameError() {
-        Snackbar.make(activity!!.rv_items, getString(R.string.additem_incorrect_name), Snackbar.LENGTH_LONG).show()
+        Snackbar.make(activity!!.rv_items, getString(R.string.recent_incorrect_name), Snackbar.LENGTH_LONG).show()
     }
 
     private fun showDeleteAllDialog() {

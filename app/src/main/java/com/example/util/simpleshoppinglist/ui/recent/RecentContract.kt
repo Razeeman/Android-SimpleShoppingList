@@ -1,4 +1,4 @@
-package com.example.util.simpleshoppinglist.ui.additem
+package com.example.util.simpleshoppinglist.ui.recent
 
 import com.example.util.simpleshoppinglist.BasePresenter
 import com.example.util.simpleshoppinglist.BaseView
@@ -7,7 +7,7 @@ import com.example.util.simpleshoppinglist.data.model.ListItem
 /**
  * Contract between view and presenter.
  */
-interface AddItemContract {
+interface RecentContract {
 
     interface View: BaseView {
 

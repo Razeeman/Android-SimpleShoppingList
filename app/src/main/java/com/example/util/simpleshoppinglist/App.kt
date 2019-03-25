@@ -4,8 +4,8 @@ import android.app.Application
 import com.example.util.simpleshoppinglist.di.AppComponent
 import com.example.util.simpleshoppinglist.di.AppModule
 import com.example.util.simpleshoppinglist.di.DaggerAppComponent
-import com.example.util.simpleshoppinglist.ui.additem.AddItemComponent
-import com.example.util.simpleshoppinglist.ui.additem.AddItemModule
+import com.example.util.simpleshoppinglist.ui.recent.RecentComponent
+import com.example.util.simpleshoppinglist.ui.recent.RecentModule
 import com.example.util.simpleshoppinglist.ui.main.MainComponent
 import com.example.util.simpleshoppinglist.ui.main.MainModule
 
@@ -15,7 +15,7 @@ class App: Application() {
 
         private lateinit var appComponent: AppComponent
         private var mainComponent: MainComponent? = null
-        private var addItemComponent: AddItemComponent? = null
+        private var recentComponent: RecentComponent? = null
 
         // Lint suppressed because to keep method for future reference.
         @Suppress("unused")
@@ -33,14 +33,14 @@ class App: Application() {
             mainComponent = null
         }
 
-        fun getAddItemComponent(): AddItemComponent {
-            return addItemComponent ?: appComponent.plusAddItemComponent(AddItemModule()).also {
-                addItemComponent = it
+        fun getRecentComponent(): RecentComponent {
+            return recentComponent ?: appComponent.plusRecentComponent(RecentModule()).also {
+                recentComponent = it
             }
         }
 
-        fun releaseAddItemComponent() {
-            addItemComponent = null
+        fun releaseRecentComponent() {
+            recentComponent = null
         }
 
     }

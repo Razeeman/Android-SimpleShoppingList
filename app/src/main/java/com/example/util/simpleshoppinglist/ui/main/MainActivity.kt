@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
-import com.example.util.simpleshoppinglist.ui.additem.AddItemActivity
+import com.example.util.simpleshoppinglist.ui.recent.RecentActivity
 import kotlinx.android.synthetic.main.main_activity.*
 import javax.inject.Inject
 
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         // Setting up fabs.
         fab_add.setOnClickListener {
-            startActivity(Intent(this, AddItemActivity::class.java))
+            startActivity(Intent(this, RecentActivity::class.java))
         }
 
         fab_clear.setOnClickListener {

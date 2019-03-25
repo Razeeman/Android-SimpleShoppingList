@@ -1,4 +1,4 @@
-package com.example.util.simpleshoppinglist.ui.additem
+package com.example.util.simpleshoppinglist.ui.recent
 
 import com.example.util.simpleshoppinglist.argumentCaptor
 import com.example.util.simpleshoppinglist.capture
@@ -17,7 +17,7 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
-class AddItemPresenterTest {
+class RecentPresenterTest {
 
     companion object {
 
@@ -37,16 +37,16 @@ class AddItemPresenterTest {
     }
 
     @Mock private lateinit var repository: BaseItemsRepository
-    @Mock private lateinit var view: AddItemContract.View
+    @Mock private lateinit var view: RecentContract.View
     @Captor private lateinit var loadItemsCallbackCaptor: ArgumentCaptor<BaseItemsRepository.LoadItemsCallback>
 
-    private lateinit var presenter: AddItemPresenter
+    private lateinit var presenter: RecentPresenter
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        presenter = AddItemPresenter(repository)
+        presenter = RecentPresenter(repository)
         presenter.attachView(view)
     }
 

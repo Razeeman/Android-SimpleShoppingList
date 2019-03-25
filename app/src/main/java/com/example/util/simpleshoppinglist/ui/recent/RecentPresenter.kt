@@ -1,4 +1,4 @@
-package com.example.util.simpleshoppinglist.ui.additem
+package com.example.util.simpleshoppinglist.ui.recent
 
 import com.example.util.simpleshoppinglist.data.model.ListItem
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
@@ -9,11 +9,11 @@ import javax.inject.Inject
  * Receives events from UI, loads and saves data in repository and updates UI.
  */
 @ActivityScoped
-class AddItemPresenter
+class RecentPresenter
 @Inject constructor(private val itemsRepository: BaseItemsRepository)
-    : AddItemContract.Presenter {
+    : RecentContract.Presenter {
 
-    private var view: AddItemContract.View? = null
+    private var view: RecentContract.View? = null
 
     /**
      * Loads items from repository and forwards them to view.
@@ -66,7 +66,7 @@ class AddItemPresenter
         view?.showAllItemsDeletedMessage()
     }
 
-    override fun attachView(view: AddItemContract.View) {
+    override fun attachView(view: RecentContract.View) {
         this.view = view
         loadData()
     }

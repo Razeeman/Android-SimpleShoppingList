@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".ui.additem.AddItemActivity"
+                android:name=".ui.recent.RecentActivity"
                 android:parentActivityName=".ui.main.MainActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"

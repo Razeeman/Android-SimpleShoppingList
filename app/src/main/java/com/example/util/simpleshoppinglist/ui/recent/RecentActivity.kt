@@ -1,18 +1,18 @@
-package com.example.util.simpleshoppinglist.ui.additem
+package com.example.util.simpleshoppinglist.ui.recent
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
-import kotlinx.android.synthetic.main.additem_activity.*
+import kotlinx.android.synthetic.main.recent_activity.*
 
-class AddItemActivity : AppCompatActivity() {
+class RecentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.additem_activity)
-        App.getAddItemComponent()
+        setContentView(R.layout.recent_activity)
+        App.getRecentComponent()
 
         // Setting up the toolbar.
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -27,14 +27,14 @@ class AddItemActivity : AppCompatActivity() {
             finish()
         }
 
-        supportFragmentManager.findFragmentById(R.id.content_frame) as AddItemFragment?
-            ?: AddItemFragment.newInstance().also {
+        supportFragmentManager.findFragmentById(R.id.content_frame) as RecentFragment?
+            ?: RecentFragment.newInstance().also {
                 supportFragmentManager.beginTransaction().add(R.id.content_frame, it).commit()
             }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        App.releaseAddItemComponent()
+        App.releaseRecentComponent()
     }
 }
