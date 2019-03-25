@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.model.ListItem
-import com.example.util.simpleshoppinglist.ui.custom.AddItemDialogFragment
+import com.example.util.simpleshoppinglist.ui.additem.AddItemDialogFragment
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -33,13 +33,13 @@ class RecentFragment : Fragment(), RecentContract.View {
             presenter.addItemToList(nonActiveItem)
         }
     }
-
-    private val addItemDialogListener = object : AddItemDialogFragment.ButtonClickListener {
-        override fun onPositiveButton(name: String, color: Int) {
-            presenter.saveItem(name, color)
+    private val addItemCallback = object : AddItemDialogFragment.AddItemCallback {
+        override fun itemAdded() {
+            presenter.loadData()
+            showItemSavedMessage()
         }
-        override fun onNegativeButton() {
-            // Do nothing.
+        override fun itemNotAdded() {
+            showIncorrectItemNameError()
         }
     }
 
@@ -106,7 +106,7 @@ class RecentFragment : Fragment(), RecentContract.View {
 
     override fun onAttachFragment(childFragment: Fragment) {
         if (childFragment is AddItemDialogFragment) {
-            childFragment.setButtonClickListener(addItemDialogListener)
+            childFragment.setAddItemCallback(addItemCallback)
         }
     }
 

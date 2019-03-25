@@ -113,40 +113,6 @@ class RecentPresenterTest {
     }
 
     @Test
-    fun saveItem() {
-        // With new item.
-        val newItem = ListItem(name = "Name", color = 123)
-
-        // When presenter called to save item with certain name and color.
-        presenter.saveItem(newItem.name, newItem.color)
-
-        // Then repository called with these name and color.
-        val captor = argumentCaptor<ListItem>()
-        verify(repository).saveItem(capture(captor))
-        assertThat(captor.value.name, `is`(newItem.name))
-        assertThat(captor.value.color, `is`(newItem.color))
-        // Then repository called to reload data. First on attach, second after save.
-        verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
-        // Then view called to show a message
-        verify(view).showItemSavedMessage()
-    }
-
-    @Test
-    fun saveItemWithEmptyName() {
-        // With new item.
-        val newItem = ListItem(name = "   \n   ", color = 123)
-
-        // When presenter called to save item with certain name and color.
-        presenter.saveItem(newItem.name, newItem.color)
-
-        // Then view is called to show error message.
-        verify(view).showIncorrectItemNameError()
-        // Then repository not called to save this item
-        val captor = argumentCaptor<ListItem>()
-        verify(repository, times(0)).saveItem(capture(captor))
-    }
-
-    @Test
     fun deleteItem() {
         // When presenter called to delete item with certain id.
         presenter.deleteItem("123")

@@ -1,4 +1,4 @@
-package com.example.util.simpleshoppinglist.ui.custom
+package com.example.util.simpleshoppinglist.ui.additem
 
 import android.app.Dialog
 import android.graphics.PorterDuff
@@ -11,40 +11,45 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
-import kotlinx.android.synthetic.main.additem_dialog.view.*
+import com.example.util.simpleshoppinglist.ui.custom.ColorPickerDialog
+import kotlinx.android.synthetic.main.additem_fragment.view.*
+import javax.inject.Inject
 
-class AddItemDialogFragment: AppCompatDialogFragment() {
+class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
 
     companion object {
 
         private const val ITEM_COLOR_BUNDLE_KEY = "item_color"
-
         private const val DEFAULT_COLOR_ID = R.color.indigo_600
+
     }
 
     private var itemColor: Int = 0
-
     private lateinit var ivItemColor: ImageView
 
-    private var buttonClickListener: ButtonClickListener? = null
-
+    private var addItemCallback: AddItemCallback? = null
     private val colorChangeListener = object: ColorPickerDialog.OnColorChangeListener {
         override fun onColorChanged(color: Int) {
             if (color != itemColor) {
                 itemColor = color
-                ivItemColor.background.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+                ivItemColor.background.colorFilter =
+                        PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
             }
         }
     }
 
+    @Inject
+    lateinit var presenter: AddItemContract.Presenter
+
     /**
      * Interface to listen to dialog button clicks.
      */
-    interface ButtonClickListener {
+    interface AddItemCallback {
 
-        fun onPositiveButton(name: String, color: Int)
-        fun onNegativeButton()
+        fun itemAdded()
+        fun itemNotAdded()
 
     }
 
@@ -57,7 +62,7 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
     // Lint suppressed because dialog doesn't have a view before inflating.
     @Suppress("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.additem_dialog, null)
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.additem_fragment, null)
         val tvItemName = dialogView.tv_item_name.apply { requestFocus() }
 
         if (itemColor == 0) {
@@ -76,10 +81,10 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
             setView(dialogView)
             setTitle(getString(R.string.additem_dialog_title))
             setNegativeButton(getString(R.string.additem_dialog_negative)) { _, _ ->
-                buttonClickListener?.onNegativeButton()
+                // Do nothing.
             }
             setPositiveButton(getString(R.string.additem_dialog_positive)) { _, _ ->
-                buttonClickListener?.onPositiveButton(tvItemName.text.toString(), itemColor)
+                presenter.saveItem(tvItemName.text.toString(), itemColor)
             }
         }.create()
 
@@ -87,6 +92,22 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
         return dialog
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        App.getAddItemComponent().inject(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.attachView(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detachView()
+        App.releaseAddItemComponent()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -100,7 +121,16 @@ class AddItemDialogFragment: AppCompatDialogFragment() {
         }
     }
 
-    fun setButtonClickListener(listener: ButtonClickListener) {
-        buttonClickListener = listener
+    override fun showItemSavedMessage() {
+        addItemCallback?.itemAdded()
     }
+
+    override fun showIncorrectItemNameError() {
+        addItemCallback?.itemNotAdded()
+    }
+
+    fun setAddItemCallback(callback: AddItemCallback) {
+        addItemCallback = callback
+    }
+
 }

@@ -29,8 +29,6 @@ interface RecentContract {
 
         fun addItemToList(item: ListItem)
 
-        fun saveItem(name: String, color: Int)
-
         fun deleteItem(id: String)
 
         fun deleteAllItems()
