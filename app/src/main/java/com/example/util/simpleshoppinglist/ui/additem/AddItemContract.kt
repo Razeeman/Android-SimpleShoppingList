@@ -10,6 +10,13 @@ interface AddItemContract {
 
     interface View: BaseView {
 
+        interface AddItemCallback {
+
+            fun itemAdded()
+            fun itemNotAdded()
+
+        }
+
         fun showItemSavedMessage()
 
         fun showIncorrectItemNameError()

@@ -29,7 +29,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
     private var itemColor: Int = 0
     private lateinit var ivItemColor: ImageView
 
-    private var addItemCallback: AddItemCallback? = null
+    private var addItemCallback: AddItemContract.View.AddItemCallback? = null
     private val colorChangeListener = object: ColorPickerDialog.OnColorChangeListener {
         override fun onColorChanged(color: Int) {
             if (color != itemColor) {
@@ -42,16 +42,6 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
 
     @Inject
     lateinit var presenter: AddItemContract.Presenter
-
-    /**
-     * Interface to listen to dialog button clicks.
-     */
-    interface AddItemCallback {
-
-        fun itemAdded()
-        fun itemNotAdded()
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -129,7 +119,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
         addItemCallback?.itemNotAdded()
     }
 
-    fun setAddItemCallback(callback: AddItemCallback) {
+    fun setAddItemCallback(callback: AddItemContract.View.AddItemCallback) {
         addItemCallback = callback
     }
 

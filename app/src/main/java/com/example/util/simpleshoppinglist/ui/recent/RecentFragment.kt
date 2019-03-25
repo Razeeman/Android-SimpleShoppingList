@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.ui.additem.AddItemContract
 import com.example.util.simpleshoppinglist.ui.additem.AddItemDialogFragment
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
 import com.google.android.flexbox.FlexDirection
@@ -33,7 +34,7 @@ class RecentFragment : Fragment(), RecentContract.View {
             presenter.addItemToList(nonActiveItem)
         }
     }
-    private val addItemCallback = object : AddItemDialogFragment.AddItemCallback {
+    private val addItemCallback = object : AddItemContract.View.AddItemCallback {
         override fun itemAdded() {
             presenter.loadData()
             showItemSavedMessage()
