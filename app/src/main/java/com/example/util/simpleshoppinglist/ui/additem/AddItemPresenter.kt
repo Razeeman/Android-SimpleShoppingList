@@ -35,7 +35,9 @@ class AddItemPresenter
             return
         }
         if (id == null) {
-            itemsRepository.saveItem(ListItem(name = name, color = color))
+            itemsRepository.saveItem(ListItem(name = name, color = color).apply {
+                isActive = true
+            })
             view?.showItemSavedMessage(false)
         } else {
             itemsRepository.updateNameColor(id, name, color)
