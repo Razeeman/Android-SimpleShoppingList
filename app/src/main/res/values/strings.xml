@@ -55,6 +55,11 @@
     <string name="additem_dialog_name_hint">Enter item name</string>
     <string name="additem_dialog_color_label">Choose item color:</string>
     <string name="additem_dialog_color_contDesc">Choose item color</string>
+    <string name="edit_item_dialog_title">Edit item</string>
+    <string name="edit_item_dialog_negative">Discard</string>
+    <string name="edit_item_dialog_positive">Save changes</string>
+    <string name="edit_item_dialog_name_hint">Enter new item name</string>
+    <string name="edit_item_dialog_color_label">Choose new item color:</string>
     <string name="color_picker_dialog_title">Choose item color</string>
     <string name="color_pick_contDesc">Color to select</string>
     <string name="color_pick_check_contDesc">Color selected</string>

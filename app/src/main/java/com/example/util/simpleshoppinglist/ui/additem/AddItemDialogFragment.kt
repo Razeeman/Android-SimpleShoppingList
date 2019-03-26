@@ -71,11 +71,35 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.additem_fragment, null)
 
+        // Preparing text information in dialog according to if it is a new item or edited
+        val dialogTitle: String
+        val nameHint: String
+        val colorHint: String
+        val negativeButtonText: String
+        val positiveButtonText: String
+        if (itemId == null) {
+            dialogTitle = getString(R.string.additem_dialog_title)
+            nameHint = getString(R.string.additem_dialog_name_hint)
+            colorHint = getString(R.string.additem_dialog_color_label)
+            negativeButtonText = getString(R.string.additem_dialog_negative)
+            positiveButtonText = getString(R.string.additem_dialog_positive)
+        } else {
+            dialogTitle = getString(R.string.edit_item_dialog_title)
+            nameHint = getString(R.string.edit_item_dialog_name_hint)
+            colorHint = getString(R.string.edit_item_dialog_color_label)
+            negativeButtonText = getString(R.string.edit_item_dialog_negative)
+            positiveButtonText = getString(R.string.edit_item_dialog_positive)
+        }
+
         if (itemColor == 0) {
             itemColor = ContextCompat.getColor(context!!, DEFAULT_COLOR_ID)
         }
 
-        etItemName = dialogView.et_item_name.apply { requestFocus() }
+        etItemName = dialogView.et_item_name.apply {
+            hint = nameHint
+            requestFocus()
+        }
+        dialogView.tv_color_label.text = colorHint
         ivItemColor = dialogView.iv_item_color.apply {
             setOnClickListener {
                 val fragment = ColorPickerDialog.newInstance(itemColor)
@@ -84,13 +108,14 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
         }
         updateItemColor()
 
+        // Building dialog.
         val dialog = AlertDialog.Builder(activity!!).apply {
             setView(dialogView)
-            setTitle(getString(R.string.additem_dialog_title))
-            setNegativeButton(getString(R.string.additem_dialog_negative)) { _, _ ->
+            setTitle(dialogTitle)
+            setNegativeButton(negativeButtonText) { _, _ ->
                 // Do nothing.
             }
-            setPositiveButton(getString(R.string.additem_dialog_positive)) { _, _ ->
+            setPositiveButton(positiveButtonText) { _, _ ->
                 presenter.saveItem(itemId, etItemName.text.toString(), itemColor)
             }
         }.create()
