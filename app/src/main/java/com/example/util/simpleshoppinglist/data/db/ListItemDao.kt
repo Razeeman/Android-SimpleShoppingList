@@ -46,10 +46,20 @@ interface ListItemDao {
      * Update the active status of an item.
      *
      * @param id     id of the item to update.
-     * @param active status to be set.
+     * @param active new status to be set.
      */
     @Query("UPDATE list_items SET active = :active WHERE id = :id")
     fun updateActive(id: String, active: Boolean)
+
+    /**
+     * Update the name and color of an item.
+     *
+     * @param id     id of the item to update.
+     * @param name   new name of the item.
+     * @param color  new color of of the item.
+     */
+    @Query("UPDATE list_items SET name = :name, color = :color WHERE id = :id")
+    fun updateNameColor(id: String, name: String, color: Int)
 
     /**
      * Set the active status to false on all active items.

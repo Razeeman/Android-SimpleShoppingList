@@ -102,6 +102,17 @@ private constructor(private val executors: AppExecutors, private val listItemDao
     }
 
     /**
+     * Asynchronously updates name and color of an item in the database.
+     *
+     * @param id    Id of the item to update.
+     * @param name  New name to set.
+     * @param color New color to set.
+     */
+    override fun updateNameColor(id: String, name: String, color: Int) {
+        executors.diskIO.execute { listItemDao.updateNameColor(id, name, color)}
+    }
+
+    /**
      * Asynchronously set active status to false on all active items.
      */
     override fun clearAllActive() {

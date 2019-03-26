@@ -31,6 +31,8 @@ interface BaseItemsRepository {
 
     fun updateItemActive(listItem: ListItem, isActive: Boolean)
 
+    fun updateNameColor(id:String, name: String, color: Int)
+
     fun clearAllActive()
 
     fun deleteItem(id: String)

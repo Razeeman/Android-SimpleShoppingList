@@ -129,11 +129,15 @@ class ItemsRepositoryTest {
         val newItem = DEFAULT_ITEM.copy()
         itemsRepository.apply {
             saveItem(newItem)
-            newItem.name = OTHER_NAME
+            newItem.apply {
+                name = OTHER_NAME
+                isActive = true
+            }
             updateItem(newItem)
             loadItem(newItem.id, object : BaseItemsRepository.LoadItemCallback {
                 override fun onItemLoaded(item: ListItem) {
                     assertThat(item.name, `is`(OTHER_NAME))
+                    assertThat(item.isActive, `is`(true))
                 }
                 override fun onDataNotAvailable() {
                     fail("Data not available")
@@ -150,6 +154,30 @@ class ItemsRepositoryTest {
             loadItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
                 override fun onItemLoaded(item: ListItem) {
                     assertThat(item, `is`(DEFAULT_ITEM))
+                    assertThat(item.isActive, `is`(true))
+                }
+                override fun onDataNotAvailable() {
+                    fail("Data not available")
+                }
+            })
+        }
+    }
+
+    @Test
+    fun updateNameColor() {
+        val newItem = DEFAULT_ITEM.copy().apply { isActive = true }
+        itemsRepository.apply {
+            saveItem(newItem)
+            newItem.apply {
+                name = OTHER_NAME
+                color = OTHER_COLOR
+            }
+            updateNameColor(DEFAULT_ITEM.id, OTHER_NAME, OTHER_COLOR)
+            loadItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
+                override fun onItemLoaded(item: ListItem) {
+                    assertThat(item, `is`(newItem))
+                    assertThat(item.name, `is`(OTHER_NAME))
+                    assertThat(item.color, `is`(OTHER_COLOR))
                     assertThat(item.isActive, `is`(true))
                 }
                 override fun onDataNotAvailable() {

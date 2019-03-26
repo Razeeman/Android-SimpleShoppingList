@@ -118,6 +118,17 @@ class ListItemDaoTest {
     }
 
     @Test
+    fun updateNameColor() {
+        val fromDatabase = database.listItemDao().apply {
+            insert(DEFAULT_ITEM)
+            updateNameColor(DEFAULT_ITEM.id, OTHER_NAME, OTHER_COLOR) }
+            .getById(DEFAULT_ITEM.id)
+
+        assertThat(fromDatabase!!.name, `is`(OTHER_NAME))
+        assertThat(fromDatabase.color, `is`(OTHER_COLOR))
+    }
+
+    @Test
     fun clearAllActive() {
         val newItem = DEFAULT_ITEM.copy().apply { isActive = true }
         val fromDatabase = database.listItemDao().apply {
