@@ -15,6 +15,10 @@ interface MainContract {
 
         fun showNoItems()
 
+        fun showItemSavedMessage(updated: Boolean)
+
+        fun showIncorrectItemNameError()
+
     }
 
     interface Presenter: BasePresenter<View> {

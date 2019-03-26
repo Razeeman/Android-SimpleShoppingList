@@ -33,13 +33,17 @@ class RecentFragment : Fragment(), RecentContract.View {
         override fun onNonActiveItemClick(nonActiveItem: ListItem) {
             presenter.addItemToList(nonActiveItem)
         }
+        override fun onItemLongClick(item: ListItem) {
+            val fragment = AddItemDialogFragment.newInstance(item.id)
+            fragment.show(childFragmentManager, null)
+        }
     }
     private val addItemCallback = object : AddItemContract.View.AddItemCallback {
-        override fun itemAdded() {
+        override fun itemSaved(updated: Boolean) {
             presenter.loadData()
-            showItemSavedMessage()
+            showItemSavedMessage(updated)
         }
-        override fun itemNotAdded() {
+        override fun itemNotSaved() {
             showIncorrectItemNameError()
         }
     }
@@ -67,7 +71,7 @@ class RecentFragment : Fragment(), RecentContract.View {
         }
 
         root.tv_add_new_item.setOnClickListener {
-            val fragment = AddItemDialogFragment()
+            val fragment = AddItemDialogFragment.newInstance(null)
             fragment.show(childFragmentManager, null)
         }
 
@@ -134,12 +138,16 @@ class RecentFragment : Fragment(), RecentContract.View {
         tv_no_items.visibility = View.VISIBLE
     }
 
-    override fun showItemSavedMessage() {
-        Snackbar.make(activity!!.rv_items, getString(R.string.recent_item_saved_message), Snackbar.LENGTH_LONG).show()
-    }
-
     override fun showAllItemsDeletedMessage() {
         Snackbar.make(activity!!.rv_items, getString(R.string.recent_items_deleted), Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun showItemSavedMessage(updated: Boolean) {
+        val message = when (updated) {
+            true -> getString(R.string.recent_item_updated_message)
+            false -> getString(R.string.recent_item_saved_message)
+        }
+        Snackbar.make(activity!!.rv_items, message, Snackbar.LENGTH_LONG).show()
     }
 
     override fun showIncorrectItemNameError() {

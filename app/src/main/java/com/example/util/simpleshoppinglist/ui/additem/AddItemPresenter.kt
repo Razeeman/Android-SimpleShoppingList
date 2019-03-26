@@ -15,14 +15,32 @@ class AddItemPresenter
 
     private var view: AddItemContract.View? = null
 
-    override fun saveItem(name: String, color: Int) {
+    override fun loadItem(id: String?) {
+        if (id != null) {
+            itemsRepository.loadItem(id, object : BaseItemsRepository.LoadItemCallback {
+                override fun onItemLoaded(item: ListItem) {
+                    view?.showItem(item.name, item.color)
+                }
+                override fun onDataNotAvailable() {
+                    // TODO handle error.
+                }
+            })
+        }
+    }
+
+    override fun saveItem(id: String?, name: String, color: Int) {
         // TODO check if already exist and show message
         if (name.isBlank()) {
             view?.showIncorrectItemNameError()
             return
         }
-        itemsRepository.saveItem(ListItem(name = name, color = color))
-        view?.showItemSavedMessage()
+        if (id == null) {
+            itemsRepository.saveItem(ListItem(name = name, color = color))
+            view?.showItemSavedMessage(false)
+        } else {
+            itemsRepository.updateItem(ListItem(id, name, color))
+            view?.showItemSavedMessage(true)
+        }
     }
 
     override fun attachView(view: AddItemContract.View) {

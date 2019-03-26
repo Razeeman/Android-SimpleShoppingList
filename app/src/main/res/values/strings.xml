@@ -16,8 +16,11 @@
     <!-- Message to show when no items added the app -->
     <string name="no_items_added">No items found</string>
 
-    <!-- Message to show when item is saved successfully -->
+    <!-- Message to show when new item is saved successfully -->
     <string name="recent_item_saved_message">New item added</string>
+
+    <!-- Message to show when item is updated successfully -->
+    <string name="recent_item_updated_message">Item updated</string>
 
     <!-- Message to show when all items deleted -->
     <string name="recent_items_deleted">All items deleted</string>

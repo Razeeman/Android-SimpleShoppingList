@@ -6,7 +6,7 @@
         android:layout_height="match_parent">
 
     <EditText
-            android:id="@+id/tv_item_name"
+            android:id="@+id/et_item_name"
             style="@style/Text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:text="@string/additem_dialog_color_label"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_name"
+            app:layout_constraintTop_toBottomOf="@+id/et_item_name"
             app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView

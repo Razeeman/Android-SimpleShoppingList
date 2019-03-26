@@ -15,9 +15,9 @@ interface RecentContract {
 
         fun showNoItems()
 
-        fun showItemSavedMessage()
-
         fun showAllItemsDeletedMessage()
+
+        fun showItemSavedMessage(updated: Boolean)
 
         fun showIncorrectItemNameError()
 

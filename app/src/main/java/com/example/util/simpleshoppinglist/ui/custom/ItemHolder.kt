@@ -33,6 +33,10 @@ class ItemHolder(inflater: LayoutInflater, private val parent: ViewGroup)
                     listener.onNonActiveItemClick(listItem)
                 }
             }
+            setOnLongClickListener {
+                listener.onItemLongClick(listItem)
+                false
+            }
         }
     }
 

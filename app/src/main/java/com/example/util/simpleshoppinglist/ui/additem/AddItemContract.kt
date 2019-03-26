@@ -12,12 +12,15 @@ interface AddItemContract {
 
         interface AddItemCallback {
 
-            fun itemAdded()
-            fun itemNotAdded()
+            fun itemSaved(updated: Boolean)
+
+            fun itemNotSaved()
 
         }
 
-        fun showItemSavedMessage()
+        fun showItem(name: String, color: Int)
+
+        fun showItemSavedMessage(updated: Boolean)
 
         fun showIncorrectItemNameError()
 
@@ -25,7 +28,9 @@ interface AddItemContract {
 
     interface Presenter: BasePresenter<View> {
 
-        fun saveItem(name: String, color: Int)
+        fun loadItem(id:String?)
+
+        fun saveItem(id: String?, name: String, color: Int)
 
     }
 

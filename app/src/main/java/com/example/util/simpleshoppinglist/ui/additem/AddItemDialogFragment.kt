@@ -6,6 +6,7 @@ import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
@@ -19,14 +20,9 @@ import javax.inject.Inject
 
 class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
 
-    companion object {
-
-        private const val ITEM_COLOR_BUNDLE_KEY = "item_color"
-        private const val DEFAULT_COLOR_ID = R.color.indigo_600
-
-    }
-
+    private var itemId: String? = null
     private var itemColor: Int = 0
+    private lateinit var etItemName: EditText
     private lateinit var ivItemColor: ImageView
 
     private var addItemCallback: AddItemContract.View.AddItemCallback? = null
@@ -34,8 +30,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
         override fun onColorChanged(color: Int) {
             if (color != itemColor) {
                 itemColor = color
-                ivItemColor.background.colorFilter =
-                        PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+                updateItemColor()
             }
         }
     }
@@ -43,29 +38,51 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
     @Inject
     lateinit var presenter: AddItemContract.Presenter
 
+    companion object {
+
+        private const val ITEM_ID_BUNDLE_KEY = "item_id"
+        private const val ITEM_COLOR_BUNDLE_KEY = "item_color"
+        private const val DEFAULT_COLOR_ID = R.color.indigo_600
+
+        fun newInstance(id: String?): AddItemDialogFragment {
+            val args = Bundle()
+            if (id != null) {
+                args.putString(ITEM_ID_BUNDLE_KEY, id)
+            }
+            return AddItemDialogFragment().apply { arguments = args }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        itemId = arguments?.getString(ITEM_ID_BUNDLE_KEY)
         itemColor = savedInstanceState?.getInt(ITEM_COLOR_BUNDLE_KEY) ?: itemColor
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        App.getAddItemComponent().inject(this)
     }
 
     // Lint suppressed because dialog doesn't have a view before inflating.
     @Suppress("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.additem_fragment, null)
-        val tvItemName = dialogView.tv_item_name.apply { requestFocus() }
 
         if (itemColor == 0) {
             itemColor = ContextCompat.getColor(context!!, DEFAULT_COLOR_ID)
         }
 
+        etItemName = dialogView.et_item_name.apply { requestFocus() }
         ivItemColor = dialogView.iv_item_color.apply {
-            background.colorFilter = PorterDuffColorFilter(itemColor, PorterDuff.Mode.SRC_IN)
             setOnClickListener {
                 val fragment = ColorPickerDialog.newInstance(itemColor)
                 fragment.show(childFragmentManager, null)
             }
         }
+        updateItemColor()
 
         val dialog = AlertDialog.Builder(activity!!).apply {
             setView(dialogView)
@@ -74,7 +91,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
                 // Do nothing.
             }
             setPositiveButton(getString(R.string.additem_dialog_positive)) { _, _ ->
-                presenter.saveItem(tvItemName.text.toString(), itemColor)
+                presenter.saveItem(itemId, etItemName.text.toString(), itemColor)
             }
         }.create()
 
@@ -84,14 +101,10 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
         return dialog
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        App.getAddItemComponent().inject(this)
-    }
-
     override fun onResume() {
         super.onResume()
         presenter.attachView(this)
+        presenter.loadItem(itemId)
     }
 
     override fun onDestroy() {
@@ -111,16 +124,26 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
         }
     }
 
-    override fun showItemSavedMessage() {
-        addItemCallback?.itemAdded()
+    override fun showItem(name: String, color: Int) {
+        etItemName.setText(name)
+        itemColor = color
+        updateItemColor()
+    }
+
+    override fun showItemSavedMessage(updated: Boolean) {
+        addItemCallback?.itemSaved(updated)
     }
 
     override fun showIncorrectItemNameError() {
-        addItemCallback?.itemNotAdded()
+        addItemCallback?.itemNotSaved()
     }
 
     fun setAddItemCallback(callback: AddItemContract.View.AddItemCallback) {
         addItemCallback = callback
+    }
+
+    private fun updateItemColor() {
+        ivItemColor.background.colorFilter = PorterDuffColorFilter(itemColor, PorterDuff.Mode.SRC_IN)
     }
 
 }
