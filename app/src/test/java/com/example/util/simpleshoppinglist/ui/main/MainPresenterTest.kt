@@ -123,6 +123,8 @@ class MainPresenterTest {
         verify(repository).clearAllActive()
         // Then repository called to reload data.First on attach, second after clear list.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
+        // Then view called to show a message
+        verify(view).showListClearedMessage()
     }
 
     @Test

@@ -15,6 +15,8 @@ interface MainContract {
 
         fun showNoItems()
 
+        fun showListClearedMessage()
+
         fun showItemSavedMessage(updated: Boolean)
 
         fun showIncorrectItemNameError()

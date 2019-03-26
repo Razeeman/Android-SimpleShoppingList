@@ -47,6 +47,7 @@ class MainPresenter
     override fun clearList() {
         itemsRepository.clearAllActive()
         loadData()
+        view?.showListClearedMessage()
     }
 
     override fun attachView(view: MainContract.View) {

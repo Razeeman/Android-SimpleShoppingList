@@ -105,6 +105,10 @@ class MainFragment : Fragment(), MainContract.View {
         tv_no_items.visibility = View.VISIBLE
     }
 
+    override fun showListClearedMessage() {
+        Snackbar.make(activity!!.rv_items, getString(R.string.main_list_cleared), Snackbar.LENGTH_LONG).show()
+    }
+
     override fun showItemSavedMessage(updated: Boolean) {
         val message = when (updated) {
             true -> getString(R.string.recent_item_updated_message)
