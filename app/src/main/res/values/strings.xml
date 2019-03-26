@@ -11,9 +11,9 @@
     <!--  Messages -->
 
     <!-- Message to show when no items added to the main list -->
-    <string name="no_items_in_the_list">No items found</string>
+    <string name="no_items_in_the_list">No items in the list</string>
 
-    <!-- Message to show when no items added the app -->
+    <!-- Message to show when no items added to the app -->
     <string name="no_items_added">No items found</string>
 
     <!-- Message to show when all items deleted -->

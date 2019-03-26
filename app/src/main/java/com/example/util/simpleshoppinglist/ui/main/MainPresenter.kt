@@ -30,7 +30,7 @@ class MainPresenter
                 if (itemsToShow.size != 0) {
                     view?.showItems(itemsToShow)
                 } else {
-                    view?.showNoItems()
+                    view?.showNoActiveItems()
                 }
             }
             override fun onDataNotAvailable() {

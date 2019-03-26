@@ -103,6 +103,13 @@ class MainFragment : Fragment(), MainContract.View {
     override fun showNoItems() {
         rv_items.visibility = View.INVISIBLE
         tv_no_items.visibility = View.VISIBLE
+        tv_no_items.text = getString(R.string.no_items_added)
+    }
+
+    override fun showNoActiveItems() {
+        rv_items.visibility = View.INVISIBLE
+        tv_no_items.visibility = View.VISIBLE
+        tv_no_items.text = getString(R.string.no_items_in_the_list)
     }
 
     override fun showListClearedMessage() {
