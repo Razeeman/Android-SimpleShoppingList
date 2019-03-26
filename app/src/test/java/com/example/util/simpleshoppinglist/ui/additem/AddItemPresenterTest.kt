@@ -83,27 +83,6 @@ class AddItemPresenterTest {
         Mockito.verify(repository).saveItem(capture(captor))
         assertThat(captor.value.name, CoreMatchers.`is`(newItem.name))
         assertThat(captor.value.color, CoreMatchers.`is`(newItem.color))
-        assertThat(captor.value.isActive, CoreMatchers.`is`(newItem.isActive))
-        // Then view called to show a message
-        Mockito.verify(view).showItemSavedMessage(false)
-    }
-
-    @Test
-    fun saveItemActive() {
-        // With new item.
-        val newItem = ListItem(name = "Name", color = 123).apply {
-            isActive = true
-        }
-
-        // When presenter called to save item with certain name and color.
-        presenter.saveItem(null, newItem.name, newItem.color)
-
-        // Then repository called with these name and color.
-        val captor = argumentCaptor<ListItem>()
-        Mockito.verify(repository).saveItem(capture(captor))
-        assertThat(captor.value.name, CoreMatchers.`is`(newItem.name))
-        assertThat(captor.value.color, CoreMatchers.`is`(newItem.color))
-        assertThat(captor.value.isActive, CoreMatchers.`is`(newItem.isActive))
         // Then view called to show a message
         Mockito.verify(view).showItemSavedMessage(false)
     }
@@ -134,10 +113,7 @@ class AddItemPresenterTest {
         // Then repository called to update this item.
         val captor = argumentCaptor<ListItem>()
         Mockito.verify(repository, times(0)).saveItem(capture(captor))
-        Mockito.verify(repository).updateItem(capture(captor))
-        assertThat(captor.value.id, CoreMatchers.`is`(newItem.id))
-        assertThat(captor.value.name, CoreMatchers.`is`(newItem.name))
-        assertThat(captor.value.color, CoreMatchers.`is`(newItem.color))
+        Mockito.verify(repository).updateNameColor(newItem.id, newItem.name, newItem.color)
         // Then view called to show a message
         Mockito.verify(view).showItemSavedMessage(true)
     }

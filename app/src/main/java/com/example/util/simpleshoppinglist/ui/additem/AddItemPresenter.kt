@@ -38,7 +38,7 @@ class AddItemPresenter
             itemsRepository.saveItem(ListItem(name = name, color = color))
             view?.showItemSavedMessage(false)
         } else {
-            itemsRepository.updateItem(ListItem(id, name, color))
+            itemsRepository.updateNameColor(id, name, color)
             view?.showItemSavedMessage(true)
         }
     }
