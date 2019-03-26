@@ -30,7 +30,7 @@ class RecentPresenter
                 if (itemsToShow.size != 0) {
                     view?.showItems(itemsToShow)
                 } else {
-                    view?.showNoItems()
+                    view?.showAllItemsActive()
                 }
             }
             override fun onDataNotAvailable() {

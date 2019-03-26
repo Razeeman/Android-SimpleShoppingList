@@ -16,6 +16,9 @@
     <!-- Message to show when no items added to the app -->
     <string name="no_items_added">No items found</string>
 
+    <!-- Message to show when all items are already added to the list -->
+    <string name="all_items_added">All recent items are in the list</string>
+
     <!-- Message to show when all items deleted -->
     <string name="main_list_cleared">List is cleared</string>
 

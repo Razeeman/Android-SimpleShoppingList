@@ -136,6 +136,13 @@ class RecentFragment : Fragment(), RecentContract.View {
     override fun showNoItems() {
         rv_items.visibility = View.INVISIBLE
         tv_no_items.visibility = View.VISIBLE
+        tv_no_items.text = getString(R.string.no_items_added)
+    }
+
+    override fun showAllItemsActive() {
+        rv_items.visibility = View.INVISIBLE
+        tv_no_items.visibility = View.VISIBLE
+        tv_no_items.text = getString(R.string.all_items_added)
     }
 
     override fun showAllItemsDeletedMessage() {

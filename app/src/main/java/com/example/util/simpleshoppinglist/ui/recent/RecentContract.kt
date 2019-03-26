@@ -15,6 +15,8 @@ interface RecentContract {
 
         fun showNoItems()
 
+        fun showAllItemsActive()
+
         fun showAllItemsDeletedMessage()
 
         fun showItemSavedMessage(updated: Boolean)

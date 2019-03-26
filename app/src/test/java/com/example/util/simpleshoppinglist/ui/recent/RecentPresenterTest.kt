@@ -81,7 +81,7 @@ class RecentPresenterTest {
         loadItemsCallbackCaptor.value.onItemsLoaded(newItems)
 
         // Then no items are shown.
-        verify(view).showNoItems()
+        verify(view).showAllItemsActive()
     }
 
     @Test
