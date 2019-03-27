@@ -45,14 +45,6 @@ class ListItemTest {
     }
 
     @Test
-    fun setId() {
-        val listItem = ListItem()
-        listItem.id = NEW_ID
-
-        assertThat("New id is set", listItem.id, `is`(NEW_ID))
-    }
-
-    @Test
     fun setAndGetName() {
         val listItem = ListItem()
         listItem.name = NEW_NAME

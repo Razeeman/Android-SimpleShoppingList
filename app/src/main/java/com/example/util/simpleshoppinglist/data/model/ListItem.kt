@@ -12,7 +12,7 @@ import java.util.*
 @Entity(tableName = "list_items")
 data class ListItem (
     @PrimaryKey @ColumnInfo(name = "id")
-    var id: String = UUID.randomUUID().toString(),
+    val id: String = UUID.randomUUID().toString(),
 
     @ColumnInfo(name = "name")
     var name: String = "",
