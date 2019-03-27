@@ -1,17 +1,17 @@
 package com.example.util.simpleshoppinglist.data.repo
 
-import com.example.util.simpleshoppinglist.data.db.ListItemDao
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.db.ItemDao
+import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.util.AppExecutors
 
 /**
- * Implementation of the list items repository.
+ * Implementation of the items repository.
  *
- * @param executors   Executors pool for disk IO thread and main thread.
- * @param listItemDao Data access object for database.
+ * @param executors Executors pool for disk IO thread and main thread.
+ * @param itemDao   Data access object for database.
  */
 class ItemsRepository
-private constructor(private val executors: AppExecutors, private val listItemDao: ListItemDao)
+private constructor(private val executors: AppExecutors, private val itemDao: ItemDao)
     : BaseItemsRepository {
 
     companion object {
@@ -20,11 +20,11 @@ private constructor(private val executors: AppExecutors, private val listItemDao
         @Volatile private var INSTANCE: ItemsRepository? = null
 
         // Singleton instantiation.
-        fun getInstance(executors: AppExecutors, listItemDao: ListItemDao): ItemsRepository {
+        fun getInstance(executors: AppExecutors, itemDao: ItemDao): ItemsRepository {
             if (INSTANCE == null)
                 synchronized(ItemsRepository::class.java) {
                     if (INSTANCE == null) {
-                        INSTANCE = ItemsRepository(executors, listItemDao)
+                        INSTANCE = ItemsRepository(executors, itemDao)
                     }
                 }
             return INSTANCE!!
@@ -42,7 +42,7 @@ private constructor(private val executors: AppExecutors, private val listItemDao
      */
     override fun loadItems(callback: BaseItemsRepository.LoadItemsCallback) {
         executors.diskIO.execute {
-            val items = listItemDao.getAll()
+            val items = itemDao.getAll()
             executors.mainThreadIO.execute {
                 if (items.isEmpty()) {
                     callback.onDataNotAvailable()
@@ -61,7 +61,7 @@ private constructor(private val executors: AppExecutors, private val listItemDao
      */
     override fun loadItem(id: String, callback: BaseItemsRepository.LoadItemCallback) {
         executors.diskIO.execute {
-            val item = listItemDao.getById(id)
+            val item = itemDao.getById(id)
             executors.mainThreadIO.execute {
                 if (item != null) {
                     callback.onItemLoaded(item)
@@ -75,30 +75,30 @@ private constructor(private val executors: AppExecutors, private val listItemDao
     /**
      * Asynchronously save an item to the database.
      *
-     * @param listItem An item to save.
+     * @param item An item to save.
      */
-    override fun saveItem(listItem: ListItem) {
-        listItem.name = listItem.name.replace("\\s+".toRegex(), " ").trim().toLowerCase()
-        executors.diskIO.execute { listItemDao.insert(listItem) }
+    override fun saveItem(item: Item) {
+        item.name = item.name.replace("\\s+".toRegex(), " ").trim().toLowerCase()
+        executors.diskIO.execute { itemDao.insert(item) }
     }
 
     /**
      * Asynchronously updates an item in the database.
      *
-     * @param listItem An item to update.
+     * @param item An item to update.
      */
-    override fun updateItem(listItem: ListItem) {
-        executors.diskIO.execute { listItemDao.update(listItem) }
+    override fun updateItem(item: Item) {
+        executors.diskIO.execute { itemDao.update(item) }
     }
 
     /**
      * Asynchronously updates an active status of an item in the database.
      *
-     * @param listItem An item to update.
+     * @param item     An item to update.
      * @param isActive New status to set.
      */
-    override fun updateItemActive(listItem: ListItem, isActive: Boolean) {
-        executors.diskIO.execute { listItemDao.updateActive(listItem.id, isActive)}
+    override fun updateItemActive(item: Item, isActive: Boolean) {
+        executors.diskIO.execute { itemDao.updateActive(item.id, isActive)}
     }
 
     /**
@@ -109,7 +109,7 @@ private constructor(private val executors: AppExecutors, private val listItemDao
      * @param color New color to set.
      */
     override fun updateNameColor(id: String, name: String, color: Int) {
-        executors.diskIO.execute { listItemDao.updateNameColor(id, name, color)}
+        executors.diskIO.execute { itemDao.updateNameColor(id, name, color)}
     }
 
     /**
@@ -117,7 +117,7 @@ private constructor(private val executors: AppExecutors, private val listItemDao
      */
     override fun clearAllActive() {
         executors.diskIO.execute {
-            listItemDao.clearAllActive()
+            itemDao.clearAllActive()
         }
     }
 
@@ -127,13 +127,13 @@ private constructor(private val executors: AppExecutors, private val listItemDao
      * @param id Id of an item to delete.
      */
     override fun deleteItem(id: String) {
-        executors.diskIO.execute { listItemDao.deleteById(id) }
+        executors.diskIO.execute { itemDao.deleteById(id) }
     }
 
     /**
      * Asynchronously delete all item from the database.
      */
     override fun deleteAllItems() {
-        executors.diskIO.execute { listItemDao.deleteAll() }
+        executors.diskIO.execute { itemDao.deleteAll() }
     }
 }

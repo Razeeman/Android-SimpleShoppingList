@@ -3,19 +3,19 @@ package com.example.util.simpleshoppinglist.ui.custom
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 
 /**
  * Adapter for RecyclerView of ListItems.
  */
-class ItemAdapter(var items: List<ListItem>, private val listener: ItemClickListener)
+class ItemAdapter(var items: List<Item>, private val listener: ItemClickListener)
     : RecyclerView.Adapter<ItemHolder>() {
 
     interface ItemClickListener {
 
-        fun onActiveItemClick(activeItem: ListItem)
-        fun onNonActiveItemClick(nonActiveItem: ListItem)
-        fun onItemLongClick(item: ListItem)
+        fun onActiveItemClick(activeItem: Item)
+        fun onNonActiveItemClick(nonActiveItem: Item)
+        fun onItemLongClick(item: Item)
 
     }
 

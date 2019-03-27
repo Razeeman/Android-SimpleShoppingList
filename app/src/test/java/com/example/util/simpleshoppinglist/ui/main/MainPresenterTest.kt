@@ -2,7 +2,7 @@ package com.example.util.simpleshoppinglist.ui.main
 
 import com.example.util.simpleshoppinglist.argumentCaptor
 import com.example.util.simpleshoppinglist.capture
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
@@ -23,17 +23,17 @@ class MainPresenterTest {
 
     companion object {
 
-        private lateinit var items: List<ListItem>
+        private lateinit var items: List<Item>
 
         @BeforeClass
         @JvmStatic
         fun before() {
             items = arrayListOf(
-                ListItem(name = "Item 1"),
-                ListItem(name = "Item 2"),
-                ListItem(name = "Item 3").apply { isActive = true },
-                ListItem(name = "Item 4").apply { isActive = true },
-                ListItem(name = "Item 5").apply { isActive = true }
+                Item(name = "Item 1"),
+                Item(name = "Item 2"),
+                Item(name = "Item 3").apply { isActive = true },
+                Item(name = "Item 4").apply { isActive = true },
+                Item(name = "Item 5").apply { isActive = true }
             )
         }
     }
@@ -73,8 +73,8 @@ class MainPresenterTest {
     fun loadData_withDataAvailable_noActiveItems() {
         // With no active items.
         val newItems = arrayListOf(
-            ListItem(name = "Item 1"),
-            ListItem(name = "Item 2"))
+            Item(name = "Item 1"),
+            Item(name = "Item 2"))
 
         // When view is attached.
 
@@ -95,7 +95,7 @@ class MainPresenterTest {
         loadItemsCallbackCaptor.value.onItemsLoaded(items)
 
         // Then items that are active are shown.
-        val captor = argumentCaptor<List<ListItem>>()
+        val captor = argumentCaptor<List<Item>>()
         verify(view).showItems(capture(captor))
         assertThat(captor.value.size, `is`(3))
     }
@@ -103,7 +103,7 @@ class MainPresenterTest {
     @Test
     fun removeItemFromList() {
         // With new item.
-        val item = ListItem()
+        val item = Item()
 
         // When presenter called to remove this item from the list.
         presenter.removeItemFromList(item)

@@ -2,7 +2,7 @@ package com.example.util.simpleshoppinglist.ui.main
 
 import com.example.util.simpleshoppinglist.BasePresenter
 import com.example.util.simpleshoppinglist.BaseView
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 
 /**
  * Contract between view and presenter.
@@ -11,7 +11,7 @@ interface MainContract {
 
     interface View: BaseView {
 
-        fun showItems(items: List<ListItem>)
+        fun showItems(items: List<Item>)
 
         fun showNoItems()
 
@@ -29,7 +29,7 @@ interface MainContract {
 
         fun loadData()
 
-        fun removeItemFromList(item: ListItem)
+        fun removeItemFromList(item: Item)
 
         fun clearList()
 

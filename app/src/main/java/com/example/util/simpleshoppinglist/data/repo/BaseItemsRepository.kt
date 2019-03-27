@@ -1,6 +1,6 @@
 package com.example.util.simpleshoppinglist.data.repo
 
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 
 /**
  * Repository contract.
@@ -9,14 +9,14 @@ interface BaseItemsRepository {
 
     interface LoadItemsCallback {
 
-        fun onItemsLoaded(items: List<ListItem>)
+        fun onItemsLoaded(items: List<Item>)
         fun onDataNotAvailable()
 
     }
 
     interface LoadItemCallback {
 
-        fun onItemLoaded(item: ListItem)
+        fun onItemLoaded(item: Item)
         fun onDataNotAvailable()
 
     }
@@ -25,11 +25,11 @@ interface BaseItemsRepository {
 
     fun loadItem(id: String, callback: LoadItemCallback)
 
-    fun saveItem(listItem: ListItem)
+    fun saveItem(item: Item)
 
-    fun updateItem(listItem: ListItem)
+    fun updateItem(item: Item)
 
-    fun updateItemActive(listItem: ListItem, isActive: Boolean)
+    fun updateItemActive(item: Item, isActive: Boolean)
 
     fun updateNameColor(id:String, name: String, color: Int)
 

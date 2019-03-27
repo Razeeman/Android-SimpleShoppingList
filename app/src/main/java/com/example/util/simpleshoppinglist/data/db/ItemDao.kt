@@ -1,46 +1,46 @@
 package com.example.util.simpleshoppinglist.data.db
 
 import androidx.room.*
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 
 /**
- * Data access object for list items database table.
+ * Data access object for items database table.
  */
 @Dao
-interface ListItemDao {
+interface ItemDao {
 
     /**
-     * Select all list items.
+     * Select all items.
      *
      * @return list of all items.
      */
-    @Query("SELECT * FROM list_items")
-    fun getAll(): List<ListItem>
+    @Query("SELECT * FROM items")
+    fun getAll(): List<Item>
 
     /**
-     * Select list item with certain id.
+     * Select item with certain id.
      *
      * @param id id of the item to select.
      * @return   item with specified id, null if not found.
      */
-    @Query("SELECT * FROM list_items WHERE id = :id LIMIT 1")
-    fun getById(id: String): ListItem?
+    @Query("SELECT * FROM items WHERE id = :id LIMIT 1")
+    fun getById(id: String): Item?
 
     /**
-     * Insert list item into database.
+     * Insert item into database.
      *
-     * @param listItem item to insert.
+     * @param item item to insert.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(listItem: ListItem)
+    fun insert(item: Item)
 
     /**
-     * Update list item in the database.
+     * Update item in the database.
      *
-     * @param listItem item to update.
+     * @param item item to update.
      */
     @Update
-    fun update(listItem: ListItem)
+    fun update(item: Item)
 
     /**
      * Update the active status of an item.
@@ -48,7 +48,7 @@ interface ListItemDao {
      * @param id     id of the item to update.
      * @param active new status to be set.
      */
-    @Query("UPDATE list_items SET active = :active WHERE id = :id")
+    @Query("UPDATE items SET active = :active WHERE id = :id")
     fun updateActive(id: String, active: Boolean)
 
     /**
@@ -58,35 +58,35 @@ interface ListItemDao {
      * @param name   new name of the item.
      * @param color  new color of of the item.
      */
-    @Query("UPDATE list_items SET name = :name, color = :color WHERE id = :id")
+    @Query("UPDATE items SET name = :name, color = :color WHERE id = :id")
     fun updateNameColor(id: String, name: String, color: Int)
 
     /**
      * Set the active status to false on all active items.
      */
-    @Query("UPDATE list_items SET active = 0 WHERE active = 1")
+    @Query("UPDATE items SET active = 0 WHERE active = 1")
     fun clearAllActive()
 
     /**
-     * Delete list item from the database.
+     * Delete item from the database.
      *
-     * @param listItem item to delete.
+     * @param item item to delete.
      */
     @Delete
-    fun delete(listItem: ListItem)
+    fun delete(item: Item)
 
     /**
-     * Delete list item from the database by id.
+     * Delete item from the database by id.
      *
      * @param id Id of the item to delete.
      */
-    @Query("DELETE FROM list_items WHERE id = :id")
+    @Query("DELETE FROM items WHERE id = :id")
     fun deleteById(id: String)
 
     /**
-     * Delete all list items from the database.
+     * Delete all items from the database.
      */
-    @Query("DELETE FROM list_items")
+    @Query("DELETE FROM items")
     fun deleteAll()
 
 }

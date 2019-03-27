@@ -2,7 +2,7 @@ package com.example.util.simpleshoppinglist.ui.recent
 
 import com.example.util.simpleshoppinglist.BasePresenter
 import com.example.util.simpleshoppinglist.BaseView
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 
 /**
  * Contract between view and presenter.
@@ -11,7 +11,7 @@ interface RecentContract {
 
     interface View: BaseView {
 
-        fun showItems(items: List<ListItem>)
+        fun showItems(items: List<Item>)
 
         fun showNoItems()
 
@@ -29,7 +29,7 @@ interface RecentContract {
 
         fun loadData()
 
-        fun addItemToList(item: ListItem)
+        fun addItemToList(item: Item)
 
         fun deleteItem(id: String)
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.ui.additem.AddItemContract
 import com.example.util.simpleshoppinglist.ui.additem.AddItemDialogFragment
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
@@ -26,13 +26,13 @@ class MainFragment : Fragment(), MainContract.View {
 
     private val itemListener = object : ItemAdapter.ItemClickListener {
         // TODO view shouldn't know about the model?
-        override fun onActiveItemClick(activeItem: ListItem) {
+        override fun onActiveItemClick(activeItem: Item) {
             presenter.removeItemFromList(activeItem)
         }
-        override fun onNonActiveItemClick(nonActiveItem: ListItem) {
+        override fun onNonActiveItemClick(nonActiveItem: Item) {
             // Do nothing.
         }
-        override fun onItemLongClick(item: ListItem) {
+        override fun onItemLongClick(item: Item) {
             val fragment = AddItemDialogFragment.newInstance(item.id)
             fragment.show(childFragmentManager, null)
         }
@@ -93,7 +93,7 @@ class MainFragment : Fragment(), MainContract.View {
         }
     }
 
-    override fun showItems(items: List<ListItem>) {
+    override fun showItems(items: List<Item>) {
         rv_items.visibility = View.VISIBLE
         tv_no_items.visibility = View.INVISIBLE
         itemAdapter.items = items

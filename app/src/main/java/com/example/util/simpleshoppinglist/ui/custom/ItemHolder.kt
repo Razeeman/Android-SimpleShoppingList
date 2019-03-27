@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.util.simpleshoppinglist.R
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 import kotlinx.android.synthetic.main.item_layout.view.*
-
 
 /**
  * Holder for RecyclerView of ListItems.
@@ -17,24 +16,24 @@ import kotlinx.android.synthetic.main.item_layout.view.*
 class ItemHolder(inflater: LayoutInflater, private val parent: ViewGroup)
     : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_layout, parent, false)) {
 
-    fun bind(listItem: ListItem, listener: ItemAdapter.ItemClickListener) {
+    fun bind(item: Item, listener: ItemAdapter.ItemClickListener) {
         val drawable = ContextCompat.getDrawable(parent.context.applicationContext, R.drawable.item_drawable)
-        drawable?.colorFilter = PorterDuffColorFilter(listItem.color, PorterDuff.Mode.SRC_IN)
+        drawable?.colorFilter = PorterDuffColorFilter(item.color, PorterDuff.Mode.SRC_IN)
 
-        itemView.tag = listItem.id
+        itemView.tag = item.id
 
         itemView.tv_item.apply {
-            text = listItem.name
+            text = item.name
             background = drawable
             setOnClickListener {
-                if (listItem.isActive) {
-                    listener.onActiveItemClick(listItem)
+                if (item.isActive) {
+                    listener.onActiveItemClick(item)
                 } else {
-                    listener.onNonActiveItemClick(listItem)
+                    listener.onNonActiveItemClick(item)
                 }
             }
             setOnLongClickListener {
-                listener.onItemLongClick(listItem)
+                listener.onItemLongClick(item)
                 false
             }
         }

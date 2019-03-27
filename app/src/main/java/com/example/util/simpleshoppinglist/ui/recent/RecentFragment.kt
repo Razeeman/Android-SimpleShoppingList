@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.ui.additem.AddItemContract
 import com.example.util.simpleshoppinglist.ui.additem.AddItemDialogFragment
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
@@ -27,13 +27,13 @@ class RecentFragment : Fragment(), RecentContract.View {
     lateinit var presenter: RecentContract.Presenter
 
     private val itemListener = object : ItemAdapter.ItemClickListener {
-        override fun onActiveItemClick(activeItem: ListItem) {
+        override fun onActiveItemClick(activeItem: Item) {
             // Do nothing.
         }
-        override fun onNonActiveItemClick(nonActiveItem: ListItem) {
+        override fun onNonActiveItemClick(nonActiveItem: Item) {
             presenter.addItemToList(nonActiveItem)
         }
-        override fun onItemLongClick(item: ListItem) {
+        override fun onItemLongClick(item: Item) {
             val fragment = AddItemDialogFragment.newInstance(item.id)
             fragment.show(childFragmentManager, null)
         }
@@ -126,7 +126,7 @@ class RecentFragment : Fragment(), RecentContract.View {
         return false
     }
 
-    override fun showItems(items: List<ListItem>) {
+    override fun showItems(items: List<Item>) {
         rv_items.visibility = View.VISIBLE
         tv_no_items.visibility = View.INVISIBLE
         itemAdapter.items = items

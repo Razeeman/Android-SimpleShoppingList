@@ -5,15 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.util.simpleshoppinglist.data.db.AppDatabase.Companion.DATABASE_VERSION
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 
 /**
  * Room database.
  */
-@Database(entities = [ListItem::class], version = DATABASE_VERSION)
+@Database(entities = [Item::class], version = DATABASE_VERSION)
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun listItemDao(): ListItemDao
+    abstract fun itemDao(): ItemDao
 
     companion object {
 

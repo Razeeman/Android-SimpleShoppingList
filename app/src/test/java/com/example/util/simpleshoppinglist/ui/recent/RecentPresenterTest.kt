@@ -2,7 +2,7 @@ package com.example.util.simpleshoppinglist.ui.recent
 
 import com.example.util.simpleshoppinglist.argumentCaptor
 import com.example.util.simpleshoppinglist.capture
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
@@ -21,17 +21,17 @@ class RecentPresenterTest {
 
     companion object {
 
-        private lateinit var items: List<ListItem>
+        private lateinit var items: List<Item>
 
         @BeforeClass
         @JvmStatic
         fun before() {
             items = arrayListOf(
-                ListItem(name = "Item 1"),
-                ListItem(name = "Item 2"),
-                ListItem(name = "Item 3").apply { isActive = true },
-                ListItem(name = "Item 4").apply { isActive = true },
-                ListItem(name = "Item 5").apply { isActive = true }
+                Item(name = "Item 1"),
+                Item(name = "Item 2"),
+                Item(name = "Item 3").apply { isActive = true },
+                Item(name = "Item 4").apply { isActive = true },
+                Item(name = "Item 5").apply { isActive = true }
             )
         }
     }
@@ -71,8 +71,8 @@ class RecentPresenterTest {
     fun loadData_withDataAvailable_AllActiveItems() {
         // With items that are all active.
         val newItems = arrayListOf(
-            ListItem(name = "Item 1").apply { isActive = true },
-            ListItem(name = "Item 2").apply { isActive = true })
+            Item(name = "Item 1").apply { isActive = true },
+            Item(name = "Item 2").apply { isActive = true })
 
         // When view is attached.
 
@@ -93,7 +93,7 @@ class RecentPresenterTest {
         loadItemsCallbackCaptor.value.onItemsLoaded(items)
 
         // Then items that are not active are shown.
-        val captor = argumentCaptor<List<ListItem>>()
+        val captor = argumentCaptor<List<Item>>()
         verify(view).showItems(capture(captor))
         assertThat(captor.value.size, `is`(2))
     }
@@ -101,7 +101,7 @@ class RecentPresenterTest {
     @Test
     fun addItemToList() {
         // With new item.
-        val newItem = ListItem()
+        val newItem = Item()
 
         // When presenter called to add item to the list.
         presenter.addItemToList(newItem)

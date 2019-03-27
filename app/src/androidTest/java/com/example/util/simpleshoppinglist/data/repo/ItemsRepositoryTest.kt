@@ -5,7 +5,7 @@ import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.util.simpleshoppinglist.data.db.AppDatabase
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.data.util.InstantExecutors
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
@@ -23,13 +23,13 @@ class ItemsRepositoryTest {
         private const val DEFAULT_NAME = "item name"
         private const val DEFAULT_COLOR = 0xFFFFFF
         private const val DEFAULT_IS_ACTIVE = false
-        private val DEFAULT_ITEM = ListItem(name = DEFAULT_NAME, color = DEFAULT_COLOR)
+        private val DEFAULT_ITEM = Item(name = DEFAULT_NAME, color = DEFAULT_COLOR)
             .apply { isActive = DEFAULT_IS_ACTIVE }
 
         private const val OTHER_NAME = "other name"
         private const val OTHER_COLOR = 0xABCDEF
         private const val OTHER_IS_ACTIVE = true
-        private val OTHER_ITEM = ListItem(name = OTHER_NAME, color = OTHER_COLOR)
+        private val OTHER_ITEM = Item(name = OTHER_NAME, color = OTHER_COLOR)
             .apply { isActive = OTHER_IS_ACTIVE }
 
     }
@@ -43,7 +43,7 @@ class ItemsRepositoryTest {
             InstrumentationRegistry.getInstrumentation().context,
             AppDatabase::class.java).build()
         val executors = InstantExecutors()
-        itemsRepository = ItemsRepository.getInstance(executors, database.listItemDao())
+        itemsRepository = ItemsRepository.getInstance(executors, database.itemDao())
     }
 
     @After
@@ -63,7 +63,7 @@ class ItemsRepositoryTest {
             saveItem(DEFAULT_ITEM)
             saveItem(OTHER_ITEM)
             loadItems(object: BaseItemsRepository.LoadItemsCallback {
-                override fun onItemsLoaded(items: List<ListItem>) {
+                override fun onItemsLoaded(items: List<Item>) {
                     assertThat(items.size, `is`(2))
                 }
                 override fun onDataNotAvailable() {
@@ -78,7 +78,7 @@ class ItemsRepositoryTest {
         itemsRepository.apply {
             saveItem(DEFAULT_ITEM)
             loadItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
-                override fun onItemLoaded(item: ListItem) {
+                override fun onItemLoaded(item: Item) {
                     assertThat(item, `is`(DEFAULT_ITEM))
                     assertThat(item.isActive, `is`(false))
                 }
@@ -91,12 +91,12 @@ class ItemsRepositoryTest {
 
     @Test
     fun saveAndReplaceOnConflict() {
-        val newItem = ListItem(DEFAULT_ITEM.id, OTHER_NAME, OTHER_COLOR)
+        val newItem = Item(DEFAULT_ITEM.id, OTHER_NAME, OTHER_COLOR)
         itemsRepository.apply {
             saveItem(DEFAULT_ITEM)
             saveItem(newItem)
             loadItems(object : BaseItemsRepository.LoadItemsCallback {
-                override fun onItemsLoaded(items: List<ListItem>) {
+                override fun onItemsLoaded(items: List<Item>) {
                     assertThat(items.size, `is`(1))
                     assertThat(items[0], `is`(newItem))
                     assertThat(items[0].name, `is`(OTHER_NAME))
@@ -110,11 +110,11 @@ class ItemsRepositoryTest {
 
     @Test
     fun saveAndCleanItemName() {
-        val newItem = ListItem(name = "   Item   \n   NAME \n\n\n\n   2     ", color = DEFAULT_COLOR)
+        val newItem = Item(name = "   Item   \n   NAME \n\n\n\n   2     ", color = DEFAULT_COLOR)
         itemsRepository.apply {
             saveItem(newItem)
             loadItem(newItem.id, object : BaseItemsRepository.LoadItemCallback {
-                override fun onItemLoaded(item: ListItem) {
+                override fun onItemLoaded(item: Item) {
                     assertThat(item.name, `is`("item name 2"))
                 }
                 override fun onDataNotAvailable() {
@@ -135,7 +135,7 @@ class ItemsRepositoryTest {
             }
             updateItem(newItem)
             loadItem(newItem.id, object : BaseItemsRepository.LoadItemCallback {
-                override fun onItemLoaded(item: ListItem) {
+                override fun onItemLoaded(item: Item) {
                     assertThat(item.name, `is`(OTHER_NAME))
                     assertThat(item.isActive, `is`(true))
                 }
@@ -152,7 +152,7 @@ class ItemsRepositoryTest {
             saveItem(DEFAULT_ITEM)
             updateItemActive(DEFAULT_ITEM, true)
             loadItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
-                override fun onItemLoaded(item: ListItem) {
+                override fun onItemLoaded(item: Item) {
                     assertThat(item, `is`(DEFAULT_ITEM))
                     assertThat(item.isActive, `is`(true))
                 }
@@ -174,7 +174,7 @@ class ItemsRepositoryTest {
             }
             updateNameColor(DEFAULT_ITEM.id, OTHER_NAME, OTHER_COLOR)
             loadItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
-                override fun onItemLoaded(item: ListItem) {
+                override fun onItemLoaded(item: Item) {
                     assertThat(item, `is`(newItem))
                     assertThat(item.name, `is`(OTHER_NAME))
                     assertThat(item.color, `is`(OTHER_COLOR))
@@ -194,7 +194,7 @@ class ItemsRepositoryTest {
             saveItem(newItem)
             clearAllActive()
             loadItems(object : BaseItemsRepository.LoadItemsCallback {
-                override fun onItemsLoaded(items: List<ListItem>) {
+                override fun onItemsLoaded(items: List<Item>) {
                     assertThat(items[0].isActive, `is`(false))
                 }
                 override fun onDataNotAvailable() {
@@ -211,7 +211,7 @@ class ItemsRepositoryTest {
             saveItem(OTHER_ITEM)
             deleteItem(DEFAULT_ITEM.id)
             loadItems(object: BaseItemsRepository.LoadItemsCallback {
-                override fun onItemsLoaded(items: List<ListItem>) {
+                override fun onItemsLoaded(items: List<Item>) {
                     assertThat(items.size, `is`(1))
                     assertThat(items[0], `is`(OTHER_ITEM))
                 }
@@ -229,7 +229,7 @@ class ItemsRepositoryTest {
             saveItem(OTHER_ITEM)
             deleteAllItems()
             loadItems(object: BaseItemsRepository.LoadItemsCallback {
-                override fun onItemsLoaded(items: List<ListItem>) {
+                override fun onItemsLoaded(items: List<Item>) {
                     fail("Data not available")
                 }
                 override fun onDataNotAvailable() {

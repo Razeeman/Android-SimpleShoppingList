@@ -2,7 +2,7 @@ package com.example.util.simpleshoppinglist.ui.additem
 
 import com.example.util.simpleshoppinglist.argumentCaptor
 import com.example.util.simpleshoppinglist.capture
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
@@ -37,7 +37,7 @@ class AddItemPresenterTest {
     @Test
     fun loadData_withNoDataAvailable() {
         // With this item.
-        val newItem = ListItem(name = "Item 1")
+        val newItem = Item(name = "Item 1")
 
         // When presenter called to load data.
         presenter.loadItem(newItem.id)
@@ -55,7 +55,7 @@ class AddItemPresenterTest {
     @Test
     fun loadDataWithDataAvailable() {
         // With this item.
-        val newItem = ListItem(name = "Item 1")
+        val newItem = Item(name = "Item 1")
 
         // When presenter called to load data.
         presenter.loadItem(newItem.id)
@@ -73,13 +73,13 @@ class AddItemPresenterTest {
     @Test
     fun saveItem() {
         // With new item.
-        val newItem = ListItem(name = "Name", color = 123)
+        val newItem = Item(name = "Name", color = 123)
 
         // When presenter called to save item with certain name and color.
         presenter.saveItem(null, newItem.name, newItem.color)
 
         // Then repository called with these name and color.
-        val captor = argumentCaptor<ListItem>()
+        val captor = argumentCaptor<Item>()
         Mockito.verify(repository).saveItem(capture(captor))
         assertThat(captor.value.name, CoreMatchers.`is`(newItem.name))
         assertThat(captor.value.color, CoreMatchers.`is`(newItem.color))
@@ -90,7 +90,7 @@ class AddItemPresenterTest {
     @Test
     fun saveItemWithEmptyName() {
         // With new item.
-        val newItem = ListItem(name = "   \n   ", color = 123)
+        val newItem = Item(name = "   \n   ", color = 123)
 
         // When presenter called to save item with certain name and color.
         presenter.saveItem(null, newItem.name, newItem.color)
@@ -98,20 +98,20 @@ class AddItemPresenterTest {
         // Then view is called to show error message.
         Mockito.verify(view).showIncorrectItemNameError()
         // Then repository not called to save this item
-        val captor = argumentCaptor<ListItem>()
+        val captor = argumentCaptor<Item>()
         Mockito.verify(repository, Mockito.times(0)).saveItem(capture(captor))
     }
 
     @Test
     fun updateItem() {
         // With already existing item.
-        val newItem = ListItem(name = "Name", color = 123)
+        val newItem = Item(name = "Name", color = 123)
 
         // When presenter called to save item with certain name and color.
         presenter.saveItem(newItem.id, newItem.name, newItem.color)
 
         // Then repository called to update this item.
-        val captor = argumentCaptor<ListItem>()
+        val captor = argumentCaptor<Item>()
         Mockito.verify(repository, times(0)).saveItem(capture(captor))
         Mockito.verify(repository).updateNameColor(newItem.id, newItem.name, newItem.color)
         // Then view called to show a message

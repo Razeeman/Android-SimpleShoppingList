@@ -1,6 +1,6 @@
 package com.example.util.simpleshoppinglist.ui.additem
 
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.di.ActivityScoped
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class AddItemPresenter
     override fun loadItem(id: String?) {
         if (id != null) {
             itemsRepository.loadItem(id, object : BaseItemsRepository.LoadItemCallback {
-                override fun onItemLoaded(item: ListItem) {
+                override fun onItemLoaded(item: Item) {
                     view?.showItem(item.name, item.color)
                 }
                 override fun onDataNotAvailable() {
@@ -35,7 +35,7 @@ class AddItemPresenter
             return
         }
         if (id == null) {
-            itemsRepository.saveItem(ListItem(name = name, color = color).apply {
+            itemsRepository.saveItem(Item(name = name, color = color).apply {
                 isActive = true
             })
             view?.showItemSavedMessage(false)

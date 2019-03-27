@@ -1,6 +1,6 @@
 package com.example.util.simpleshoppinglist.ui.main
 
-import com.example.util.simpleshoppinglist.data.model.ListItem
+import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.di.ActivityScoped
 import javax.inject.Inject
@@ -20,8 +20,8 @@ class MainPresenter
      */
     override fun loadData() {
         itemsRepository.loadItems(object : BaseItemsRepository.LoadItemsCallback {
-            override fun onItemsLoaded(items: List<ListItem>) {
-                val itemsToShow = ArrayList<ListItem>()
+            override fun onItemsLoaded(items: List<Item>) {
+                val itemsToShow = ArrayList<Item>()
                 for (item in items) {
                     if (item.isActive) {
                         itemsToShow.add(item)
@@ -39,7 +39,7 @@ class MainPresenter
         })
     }
 
-    override fun removeItemFromList(item: ListItem) {
+    override fun removeItemFromList(item: Item) {
         itemsRepository.updateItemActive(item, false)
         loadData()
     }
