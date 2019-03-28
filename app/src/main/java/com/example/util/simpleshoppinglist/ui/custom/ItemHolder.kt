@@ -13,15 +13,15 @@ import kotlinx.android.synthetic.main.item_layout.view.*
 /**
  * Holder for RecyclerView of ListItems.
  */
-class ItemHolder(inflater: LayoutInflater, private val parent: ViewGroup)
+class ItemHolder(inflater: LayoutInflater, private val parent: ViewGroup, private val itemsCheckable: Boolean)
     : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_layout, parent, false)) {
 
     fun bind(item: Item, listener: ItemAdapter.ItemClickListener) {
         val drawable = ContextCompat.getDrawable(parent.context.applicationContext, R.drawable.item_drawable)
 
-        val color = when(item.isActive) {
-            true -> item.color
-            false -> ContextCompat.getColor(parent.context.applicationContext, R.color.grey_500)
+        val color = when(itemsCheckable and !item.isActive) {
+            false -> item.color
+            true -> ContextCompat.getColor(parent.context.applicationContext, R.color.grey_500)
         }
 
         drawable?.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)

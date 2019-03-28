@@ -9,7 +9,7 @@ import com.example.util.simpleshoppinglist.data.model.Item
 /**
  * Adapter for RecyclerView of ListItems.
  */
-class ItemAdapter(var items: List<Item>, private val listener: ItemClickListener)
+class ItemAdapter(var items: List<Item>, private val itemsCheckable: Boolean, private val listener: ItemClickListener)
     : RecyclerView.Adapter<ItemHolder>() {
 
     interface ItemClickListener {
@@ -21,7 +21,7 @@ class ItemAdapter(var items: List<Item>, private val listener: ItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ItemHolder(inflater, parent)
+        return ItemHolder(inflater, parent, itemsCheckable)
     }
 
     override fun getItemCount(): Int {

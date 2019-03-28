@@ -44,7 +44,7 @@ class MainFragment : Fragment(), MainContract.View {
         }
     }
 
-    private var itemAdapter = ItemAdapter(ArrayList(), itemClickListener)
+    private var itemAdapter = ItemAdapter(ArrayList(), true, itemClickListener)
 
     /**
      * Fragment instantiation.
