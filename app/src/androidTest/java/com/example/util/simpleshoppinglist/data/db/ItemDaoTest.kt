@@ -19,12 +19,16 @@ class ItemDaoTest {
         private const val DEFAULT_NAME = "item name"
         private const val DEFAULT_COLOR = 0xFFFFFF
         private const val DEFAULT_LISTED = false
-        private val DEFAULT_ITEM = Item(name = DEFAULT_NAME, color = DEFAULT_COLOR, isListed = DEFAULT_LISTED)
+        private const val DEFAULT_ACTIVE = false
+        private val DEFAULT_ITEM = Item(name = DEFAULT_NAME, color = DEFAULT_COLOR,
+            isListed = DEFAULT_LISTED, isActive = DEFAULT_ACTIVE)
 
         private const val OTHER_NAME = "other name"
         private const val OTHER_COLOR = 0xABCDEF
         private const val OTHER_LISTED = true
-        private val OTHER_ITEM = Item(name = OTHER_NAME, color = OTHER_COLOR, isListed = OTHER_LISTED)
+        private const val OTHER_ACTIVE = true
+        private val OTHER_ITEM = Item(name = OTHER_NAME, color = OTHER_COLOR,
+            isListed = OTHER_LISTED, isActive = OTHER_ACTIVE)
 
     }
 
@@ -49,7 +53,6 @@ class ItemDaoTest {
             .getById(DEFAULT_ITEM.id)
 
         assertThat(fromDatabase, `is`(DEFAULT_ITEM))
-        assertThat(fromDatabase!!.isListed, `is`(DEFAULT_LISTED))
     }
 
     @Test
@@ -59,7 +62,6 @@ class ItemDaoTest {
             .getById(OTHER_ITEM.id)
 
         assertThat(fromDatabase, `is`(OTHER_ITEM))
-        assertThat(fromDatabase!!.isListed, `is`(OTHER_LISTED))
     }
 
     @Test
@@ -113,6 +115,16 @@ class ItemDaoTest {
             .getById(DEFAULT_ITEM.id)
 
         assertThat(fromDatabase!!.isListed, `is`(true))
+    }
+
+    @Test
+    fun updateActive() {
+        val fromDatabase = database.itemDao().apply {
+            insert(DEFAULT_ITEM)
+            updateActive(DEFAULT_ITEM.id, true) }
+            .getById(DEFAULT_ITEM.id)
+
+        assertThat(fromDatabase!!.isActive, `is`(true))
     }
 
     @Test

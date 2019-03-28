@@ -102,6 +102,16 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
     }
 
     /**
+     * Asynchronously updates an active status of an item in the database.
+     *
+     * @param item     An item to update.
+     * @param active   New status to set.
+     */
+    override fun updateItemActive(item: Item, active: Boolean) {
+        executors.diskIO.execute { itemDao.updateActive(item.id, active)}
+    }
+
+    /**
      * Asynchronously updates name and color of an item in the database.
      *
      * @param id    Id of the item to update.

@@ -52,6 +52,15 @@ interface ItemDao {
     fun updateListed(id: String, listed: Boolean)
 
     /**
+     * Update the active status of an item.
+     *
+     * @param id     id of the item to update.
+     * @param active new status to be set.
+     */
+    @Query("UPDATE items SET active = :active WHERE id = :id")
+    fun updateActive(id: String, active: Boolean)
+
+    /**
      * Update the name and color of an item.
      *
      * @param id     id of the item to update.
