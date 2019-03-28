@@ -41,7 +41,7 @@ class MainPresenter
 
     override fun removeItemFromList(item: Item) {
         itemsRepository.updateItemListed(item, false)
-        itemsRepository.updateItemListed(item, true)
+        itemsRepository.updateItemActive(item, true)
         loadData()
     }
 

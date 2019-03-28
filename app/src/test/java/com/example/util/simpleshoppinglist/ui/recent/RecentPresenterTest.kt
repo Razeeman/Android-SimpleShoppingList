@@ -108,6 +108,8 @@ class RecentPresenterTest {
 
         // Then repository updates this item to listed.
         verify(repository).updateItemListed(newItem, true)
+        // Then repository updates this item to active.
+        verify(repository).updateItemActive(newItem, true)
         // Then repository called to reload data. First on attach, second after add to list.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
     }

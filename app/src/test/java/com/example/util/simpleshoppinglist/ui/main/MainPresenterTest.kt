@@ -110,6 +110,8 @@ class MainPresenterTest {
 
         // Then repository updates this item to not listed.
         verify(repository).updateItemListed(item, false)
+        // Then repository updates this item to not active.
+        verify(repository).updateItemActive(item, true)
         // Then repository called to reload data.First on attach, second after remove from list.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
     }

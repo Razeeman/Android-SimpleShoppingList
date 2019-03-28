@@ -78,11 +78,13 @@ class AddItemPresenterTest {
         // When presenter called to save item with certain name and color.
         presenter.saveItem(null, newItem.name, newItem.color)
 
-        // Then repository called with these name and color.
+        // Then repository called with these name and color and item is listed and active.
         val captor = argumentCaptor<Item>()
         Mockito.verify(repository).saveItem(capture(captor))
         assertThat(captor.value.name, CoreMatchers.`is`(newItem.name))
         assertThat(captor.value.color, CoreMatchers.`is`(newItem.color))
+        assertThat(captor.value.isListed, CoreMatchers.`is`(true))
+        assertThat(captor.value.isActive, CoreMatchers.`is`(true))
         // Then view called to show a message
         Mockito.verify(view).showItemSavedMessage(false)
     }
