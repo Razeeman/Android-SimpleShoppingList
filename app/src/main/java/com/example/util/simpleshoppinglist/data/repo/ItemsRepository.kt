@@ -92,13 +92,13 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
     }
 
     /**
-     * Asynchronously updates an active status of an item in the database.
+     * Asynchronously updates a listed status of an item in the database.
      *
      * @param item     An item to update.
-     * @param isActive New status to set.
+     * @param listed   New status to set.
      */
-    override fun updateItemActive(item: Item, isActive: Boolean) {
-        executors.diskIO.execute { itemDao.updateActive(item.id, isActive)}
+    override fun updateItemListed(item: Item, listed: Boolean) {
+        executors.diskIO.execute { itemDao.updateListed(item.id, listed)}
     }
 
     /**
@@ -113,11 +113,11 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
     }
 
     /**
-     * Asynchronously set active status to false on all active items.
+     * Asynchronously set listed status to false on all items in the list.
      */
-    override fun clearAllActive() {
+    override fun clearAllListed() {
         executors.diskIO.execute {
-            itemDao.clearAllActive()
+            itemDao.clearAllListed()
         }
     }
 

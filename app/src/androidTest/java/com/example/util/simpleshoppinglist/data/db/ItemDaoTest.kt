@@ -18,15 +18,13 @@ class ItemDaoTest {
 
         private const val DEFAULT_NAME = "item name"
         private const val DEFAULT_COLOR = 0xFFFFFF
-        private const val DEFAULT_IS_ACTIVE = false
-        private val DEFAULT_ITEM = Item(name = DEFAULT_NAME, color = DEFAULT_COLOR)
-            .apply { isActive = DEFAULT_IS_ACTIVE }
+        private const val DEFAULT_LISTED = false
+        private val DEFAULT_ITEM = Item(name = DEFAULT_NAME, color = DEFAULT_COLOR, isListed = DEFAULT_LISTED)
 
         private const val OTHER_NAME = "other name"
         private const val OTHER_COLOR = 0xABCDEF
-        private const val OTHER_IS_ACTIVE = true
-        private val OTHER_ITEM = Item(name = OTHER_NAME, color = OTHER_COLOR)
-            .apply { isActive = OTHER_IS_ACTIVE }
+        private const val OTHER_LISTED = true
+        private val OTHER_ITEM = Item(name = OTHER_NAME, color = OTHER_COLOR, isListed = OTHER_LISTED)
 
     }
 
@@ -51,7 +49,7 @@ class ItemDaoTest {
             .getById(DEFAULT_ITEM.id)
 
         assertThat(fromDatabase, `is`(DEFAULT_ITEM))
-        assertThat(fromDatabase!!.isActive, `is`(DEFAULT_IS_ACTIVE))
+        assertThat(fromDatabase!!.isListed, `is`(DEFAULT_LISTED))
     }
 
     @Test
@@ -61,7 +59,7 @@ class ItemDaoTest {
             .getById(OTHER_ITEM.id)
 
         assertThat(fromDatabase, `is`(OTHER_ITEM))
-        assertThat(fromDatabase!!.isActive, `is`(OTHER_IS_ACTIVE))
+        assertThat(fromDatabase!!.isListed, `is`(OTHER_LISTED))
     }
 
     @Test
@@ -108,13 +106,13 @@ class ItemDaoTest {
     }
 
     @Test
-    fun updateActive() {
+    fun updateListed() {
         val fromDatabase = database.itemDao().apply {
             insert(DEFAULT_ITEM)
-            updateActive(DEFAULT_ITEM.id, true) }
+            updateListed(DEFAULT_ITEM.id, true) }
             .getById(DEFAULT_ITEM.id)
 
-        assertThat(fromDatabase!!.isActive, `is`(true))
+        assertThat(fromDatabase!!.isListed, `is`(true))
     }
 
     @Test
@@ -129,29 +127,29 @@ class ItemDaoTest {
     }
 
     @Test
-    fun clearAllActive() {
-        val newItem = DEFAULT_ITEM.copy().apply { isActive = true }
+    fun clearAllListed() {
+        val newItem = DEFAULT_ITEM.copy().apply { isListed = true }
         val fromDatabase = database.itemDao().apply {
             insert(newItem)
             insert(OTHER_ITEM)
-            clearAllActive()
+            clearAllListed()
         }.getById(newItem.id)
 
-        assertThat(fromDatabase!!.isActive, `is`(false))
+        assertThat(fromDatabase!!.isListed, `is`(false))
     }
 
     @Test
-    fun clearAllActive2() {
-        val newItem1 = DEFAULT_ITEM.copy().apply { isActive = true }
-        val newItem2 = OTHER_ITEM.copy().apply { isActive = true }
+    fun clearAllListed2() {
+        val newItem1 = DEFAULT_ITEM.copy().apply { isListed = true }
+        val newItem2 = OTHER_ITEM.copy().apply { isListed = true }
         val fromDatabase = database.itemDao().apply {
             insert(newItem1)
             insert(newItem2)
-            clearAllActive()
+            clearAllListed()
         }.getAll()
 
-        assertThat(fromDatabase[0].isActive, `is`(false))
-        assertThat(fromDatabase[1].isActive, `is`(false))
+        assertThat(fromDatabase[0].isListed, `is`(false))
+        assertThat(fromDatabase[1].isListed, `is`(false))
     }
 
     @Test

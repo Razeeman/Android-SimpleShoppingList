@@ -29,11 +29,11 @@ interface BaseItemsRepository {
 
     fun updateItem(item: Item)
 
-    fun updateItemActive(item: Item, isActive: Boolean)
+    fun updateItemListed(item: Item, listed: Boolean)
 
     fun updateNameColor(id:String, name: String, color: Int)
 
-    fun clearAllActive()
+    fun clearAllListed()
 
     fun deleteItem(id: String)
 

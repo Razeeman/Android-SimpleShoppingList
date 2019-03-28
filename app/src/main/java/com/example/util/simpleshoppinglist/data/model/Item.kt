@@ -18,12 +18,11 @@ data class Item (
     var name: String = "",
 
     @ColumnInfo(name = "color")
-    var color: Int = 0) {
+    var color: Int = 0,
 
     /**
-     * True if the task is active (in the main list), false otherwise.
+     * True if the task is listed (in the main list), false otherwise.
      */
-    @ColumnInfo(name = "active")
-    var isActive = false
-
-}
+    @ColumnInfo(name = "listed")
+    var isListed: Boolean = false
+)

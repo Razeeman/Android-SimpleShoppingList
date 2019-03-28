@@ -13,9 +13,9 @@ interface MainContract {
 
         fun showItems(items: List<Item>)
 
-        fun showNoItems()
+        fun showNoItemsMessage()
 
-        fun showNoActiveItems()
+        fun showNoListedItemsMessage()
 
         fun showListClearedMessage()
 

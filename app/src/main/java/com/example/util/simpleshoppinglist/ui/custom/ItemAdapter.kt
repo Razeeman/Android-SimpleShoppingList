@@ -13,8 +13,8 @@ class ItemAdapter(var items: List<Item>, private val listener: ItemClickListener
 
     interface ItemClickListener {
 
-        fun onActiveItemClick(activeItem: Item)
-        fun onNonActiveItemClick(nonActiveItem: Item)
+        fun onListedItemClick(listedItem: Item)
+        fun onNotListedItemClick(notListedItem: Item)
         fun onItemLongClick(item: Item)
 
     }

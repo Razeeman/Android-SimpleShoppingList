@@ -27,11 +27,11 @@ class RecentFragment : Fragment(), RecentContract.View {
     lateinit var presenter: RecentContract.Presenter
 
     private val itemListener = object : ItemAdapter.ItemClickListener {
-        override fun onActiveItemClick(activeItem: Item) {
+        override fun onListedItemClick(listedItem: Item) {
             // Do nothing.
         }
-        override fun onNonActiveItemClick(nonActiveItem: Item) {
-            presenter.addItemToList(nonActiveItem)
+        override fun onNotListedItemClick(notListedItem: Item) {
+            presenter.addItemToList(notListedItem)
         }
         override fun onItemLongClick(item: Item) {
             val fragment = AddItemDialogFragment.newInstance(item.id)
@@ -133,13 +133,13 @@ class RecentFragment : Fragment(), RecentContract.View {
         itemAdapter.notifyDataSetChanged()
     }
 
-    override fun showNoItems() {
+    override fun showNoItemsMessage() {
         rv_items.visibility = View.INVISIBLE
         tv_no_items.visibility = View.VISIBLE
         tv_no_items.text = getString(R.string.no_items_added)
     }
 
-    override fun showAllItemsActive() {
+    override fun showAllItemsListedMessage() {
         rv_items.visibility = View.INVISIBLE
         tv_no_items.visibility = View.VISIBLE
         tv_no_items.text = getString(R.string.all_items_added)

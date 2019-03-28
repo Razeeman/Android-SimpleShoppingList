@@ -26,10 +26,10 @@ class MainFragment : Fragment(), MainContract.View {
 
     private val itemListener = object : ItemAdapter.ItemClickListener {
         // TODO view shouldn't know about the model?
-        override fun onActiveItemClick(activeItem: Item) {
-            presenter.removeItemFromList(activeItem)
+        override fun onListedItemClick(listedItem: Item) {
+            presenter.removeItemFromList(listedItem)
         }
-        override fun onNonActiveItemClick(nonActiveItem: Item) {
+        override fun onNotListedItemClick(notListedItem: Item) {
             // Do nothing.
         }
         override fun onItemLongClick(item: Item) {
@@ -100,13 +100,13 @@ class MainFragment : Fragment(), MainContract.View {
         itemAdapter.notifyDataSetChanged()
     }
 
-    override fun showNoItems() {
+    override fun showNoItemsMessage() {
         rv_items.visibility = View.INVISIBLE
         tv_no_items.visibility = View.VISIBLE
         tv_no_items.text = getString(R.string.no_items_added)
     }
 
-    override fun showNoActiveItems() {
+    override fun showNoListedItemsMessage() {
         rv_items.visibility = View.INVISIBLE
         tv_no_items.visibility = View.VISIBLE
         tv_no_items.text = getString(R.string.no_items_in_the_list)

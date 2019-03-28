@@ -23,24 +23,24 @@ class RecentPresenter
             override fun onItemsLoaded(items: List<Item>) {
                 val itemsToShow = ArrayList<Item>()
                 for (item in items) {
-                    if (!item.isActive) {
+                    if (!item.isListed) {
                         itemsToShow.add(item)
                     }
                 }
                 if (itemsToShow.size != 0) {
                     view?.showItems(itemsToShow)
                 } else {
-                    view?.showAllItemsActive()
+                    view?.showAllItemsListedMessage()
                 }
             }
             override fun onDataNotAvailable() {
-                view?.showNoItems()
+                view?.showNoItemsMessage()
             }
         })
     }
 
     override fun addItemToList(item: Item) {
-        itemsRepository.updateItemActive(item, true)
+        itemsRepository.updateItemListed(item, true)
         loadData()
     }
 

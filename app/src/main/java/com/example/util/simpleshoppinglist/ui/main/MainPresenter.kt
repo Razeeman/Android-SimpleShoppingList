@@ -23,29 +23,29 @@ class MainPresenter
             override fun onItemsLoaded(items: List<Item>) {
                 val itemsToShow = ArrayList<Item>()
                 for (item in items) {
-                    if (item.isActive) {
+                    if (item.isListed) {
                         itemsToShow.add(item)
                     }
                 }
                 if (itemsToShow.size != 0) {
                     view?.showItems(itemsToShow)
                 } else {
-                    view?.showNoActiveItems()
+                    view?.showNoListedItemsMessage()
                 }
             }
             override fun onDataNotAvailable() {
-                view?.showNoItems()
+                view?.showNoItemsMessage()
             }
         })
     }
 
     override fun removeItemFromList(item: Item) {
-        itemsRepository.updateItemActive(item, false)
+        itemsRepository.updateItemListed(item, false)
         loadData()
     }
 
     override fun clearList() {
-        itemsRepository.clearAllActive()
+        itemsRepository.clearAllListed()
         loadData()
         view?.showListClearedMessage()
     }

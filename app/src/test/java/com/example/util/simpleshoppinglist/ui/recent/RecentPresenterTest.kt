@@ -29,9 +29,9 @@ class RecentPresenterTest {
             items = arrayListOf(
                 Item(name = "Item 1"),
                 Item(name = "Item 2"),
-                Item(name = "Item 3").apply { isActive = true },
-                Item(name = "Item 4").apply { isActive = true },
-                Item(name = "Item 5").apply { isActive = true }
+                Item(name = "Item 3", isListed = true),
+                Item(name = "Item 4", isListed = true),
+                Item(name = "Item 5", isListed = true)
             )
         }
     }
@@ -64,35 +64,35 @@ class RecentPresenterTest {
         loadItemsCallbackCaptor.value.onDataNotAvailable()
 
         // Then no items are shown.
-        verify(view).showNoItems()
+        verify(view).showNoItemsMessage()
     }
 
     @Test
-    fun loadData_withDataAvailable_AllActiveItems() {
-        // With items that are all active.
+    fun loadData_withDataAvailable_AllListedItems() {
+        // With items that are all listed.
         val newItems = arrayListOf(
-            Item(name = "Item 1").apply { isActive = true },
-            Item(name = "Item 2").apply { isActive = true })
+            Item(name = "Item 1", isListed = true),
+            Item(name = "Item 2", isListed = true))
 
         // When view is attached.
 
-        // Then repository called to load data and callback returned with all active items.
+        // Then repository called to load data and callback returned with all listed items.
         verify(repository).loadItems(capture(loadItemsCallbackCaptor))
         loadItemsCallbackCaptor.value.onItemsLoaded(newItems)
 
         // Then no items are shown.
-        verify(view).showAllItemsActive()
+        verify(view).showAllItemsListedMessage()
     }
 
     @Test
-    fun loadData_withDataAvailable_withNoActiveItems() {
+    fun loadData_withDataAvailable_withNoListedItems() {
         // When view is attached.
 
         // Then repository called to load data and callback returned with data.
         verify(repository).loadItems(capture(loadItemsCallbackCaptor))
         loadItemsCallbackCaptor.value.onItemsLoaded(items)
 
-        // Then items that are not active are shown.
+        // Then items that are not listed are shown.
         val captor = argumentCaptor<List<Item>>()
         verify(view).showItems(capture(captor))
         assertThat(captor.value.size, `is`(2))
@@ -106,8 +106,8 @@ class RecentPresenterTest {
         // When presenter called to add item to the list.
         presenter.addItemToList(newItem)
 
-        // Then repository updates this item to active.
-        verify(repository).updateItemActive(newItem, true)
+        // Then repository updates this item to listed.
+        verify(repository).updateItemListed(newItem, true)
         // Then repository called to reload data. First on attach, second after add to list.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
     }

@@ -26,10 +26,10 @@ class ItemHolder(inflater: LayoutInflater, private val parent: ViewGroup)
             text = item.name
             background = drawable
             setOnClickListener {
-                if (item.isActive) {
-                    listener.onActiveItemClick(item)
+                if (item.isListed) {
+                    listener.onListedItemClick(item)
                 } else {
-                    listener.onNonActiveItemClick(item)
+                    listener.onNotListedItemClick(item)
                 }
             }
             setOnLongClickListener {

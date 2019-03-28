@@ -13,9 +13,9 @@ interface RecentContract {
 
         fun showItems(items: List<Item>)
 
-        fun showNoItems()
+        fun showNoItemsMessage()
 
-        fun showAllItemsActive()
+        fun showAllItemsListedMessage()
 
         fun showAllItemsDeletedMessage()
 

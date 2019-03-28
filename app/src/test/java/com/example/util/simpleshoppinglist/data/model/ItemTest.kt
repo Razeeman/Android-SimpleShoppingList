@@ -16,6 +16,7 @@ class ItemTest {
         private const val NEW_ID = "new_id"
         private const val NEW_NAME = "new name"
         private const val NEW_COLOR = 0x123456
+        private const val NEW_LISTED = false
 
     }
 
@@ -25,7 +26,7 @@ class ItemTest {
 
         assertThat("Item created with empty name", listItem.name, `is`(""))
         assertThat("Item created with empty color", listItem.color, `is`(0))
-        assertThat("Item created with empty color", listItem.isActive, `is`(false))
+        assertThat("Item created with empty color", listItem.isListed, `is`(false))
     }
 
     @Test
@@ -61,18 +62,17 @@ class ItemTest {
     }
 
     @Test
-    fun setAndGetActive() {
+    fun setAndGetListed() {
         val item = Item()
-        item.isActive = true
+        item.isListed = true
 
-        assertThat("Active status is set", item.isActive, `is`(true))
+        assertThat("Listed status is set", item.isListed, `is`(true))
     }
 
     @Test
     fun equals() {
-        val item = Item(NEW_ID, NEW_NAME, NEW_COLOR)
-        val otherItem = Item(NEW_ID, NEW_NAME, NEW_COLOR)
-        otherItem.isActive = true
+        val item = Item(NEW_ID, NEW_NAME, NEW_COLOR, NEW_LISTED)
+        val otherItem = Item(NEW_ID, NEW_NAME, NEW_COLOR, NEW_LISTED)
 
         assertThat("Items are the same", item, `is`(otherItem))
     }

@@ -31,9 +31,9 @@ class MainPresenterTest {
             items = arrayListOf(
                 Item(name = "Item 1"),
                 Item(name = "Item 2"),
-                Item(name = "Item 3").apply { isActive = true },
-                Item(name = "Item 4").apply { isActive = true },
-                Item(name = "Item 5").apply { isActive = true }
+                Item(name = "Item 3", isListed = true),
+                Item(name = "Item 4", isListed = true),
+                Item(name = "Item 5", isListed = true)
             )
         }
     }
@@ -66,35 +66,35 @@ class MainPresenterTest {
         loadItemsCallbackCaptor.value.onDataNotAvailable()
 
         // Then no items are shown.
-        verify(view).showNoItems()
+        verify(view).showNoItemsMessage()
     }
 
     @Test
-    fun loadData_withDataAvailable_noActiveItems() {
-        // With no active items.
+    fun loadData_withDataAvailable_noListedItems() {
+        // With no listed items.
         val newItems = arrayListOf(
             Item(name = "Item 1"),
             Item(name = "Item 2"))
 
         // When view is attached.
 
-        // Then repository called to load data and callback returned with no active items.
+        // Then repository called to load data and callback returned with no listed items.
         verify(repository).loadItems(capture(loadItemsCallbackCaptor))
         loadItemsCallbackCaptor.value.onItemsLoaded(newItems)
 
         // Then no items are shown.
-        verify(view).showNoActiveItems()
+        verify(view).showNoListedItemsMessage()
     }
 
     @Test
-    fun loadData_withDataAvailable_withActiveItems() {
+    fun loadData_withDataAvailable_withListedItems() {
         // When view is attached.
 
         // Then repository called to load data and callback returned with data.
         verify(repository).loadItems(capture(loadItemsCallbackCaptor))
         loadItemsCallbackCaptor.value.onItemsLoaded(items)
 
-        // Then items that are active are shown.
+        // Then items that are listed are shown.
         val captor = argumentCaptor<List<Item>>()
         verify(view).showItems(capture(captor))
         assertThat(captor.value.size, `is`(3))
@@ -108,8 +108,8 @@ class MainPresenterTest {
         // When presenter called to remove this item from the list.
         presenter.removeItemFromList(item)
 
-        // Then repository updates this item to not active.
-        verify(repository).updateItemActive(item, false)
+        // Then repository updates this item to not listed.
+        verify(repository).updateItemListed(item, false)
         // Then repository called to reload data.First on attach, second after remove from list.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
     }
@@ -119,9 +119,9 @@ class MainPresenterTest {
         // When presenter called to clear the list.
         presenter.clearList()
 
-        // Then repository called to clear all active items.
-        verify(repository).clearAllActive()
-        // Then repository called to reload data.First on attach, second after clear list.
+        // Then repository called to clear all listed items.
+        verify(repository).clearAllListed()
+        // Then repository called to reload data. First on attach, second after clear list.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
         // Then view called to show a message
         verify(view).showListClearedMessage()
@@ -133,7 +133,7 @@ class MainPresenterTest {
         presenter.detachView()
         presenter.attachView(view)
 
-        // Then repository called to reload data.First time in setup, second then reattached.
+        // Then repository called to reload data. First time in setup, second then reattached.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
     }
 }
