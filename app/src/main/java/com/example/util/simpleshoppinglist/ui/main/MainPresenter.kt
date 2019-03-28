@@ -41,6 +41,12 @@ class MainPresenter
 
     override fun removeItemFromList(item: Item) {
         itemsRepository.updateItemListed(item, false)
+        itemsRepository.updateItemListed(item, true)
+        loadData()
+    }
+
+    override fun toggleActiveStatus(item: Item) {
+        itemsRepository.updateItemActive(item, !item.isActive)
         loadData()
     }
 

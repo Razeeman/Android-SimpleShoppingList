@@ -26,12 +26,9 @@ class RecentFragment : Fragment(), RecentContract.View {
     @Inject
     lateinit var presenter: RecentContract.Presenter
 
-    private val itemListener = object : ItemAdapter.ItemClickListener {
-        override fun onListedItemClick(listedItem: Item) {
-            // Do nothing.
-        }
-        override fun onNotListedItemClick(notListedItem: Item) {
-            presenter.addItemToList(notListedItem)
+    private val itemClickListener = object : ItemAdapter.ItemClickListener {
+        override fun onItemClick(item: Item) {
+            presenter.addItemToList(item)
         }
         override fun onItemLongClick(item: Item) {
             val fragment = AddItemDialogFragment.newInstance(item.id)
@@ -48,7 +45,7 @@ class RecentFragment : Fragment(), RecentContract.View {
         }
     }
 
-    private var itemAdapter = ItemAdapter(ArrayList(), itemListener)
+    private var itemAdapter = ItemAdapter(ArrayList(), itemClickListener)
 
     /**
      * Fragment instantiation.

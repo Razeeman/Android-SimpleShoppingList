@@ -18,7 +18,13 @@ class ItemHolder(inflater: LayoutInflater, private val parent: ViewGroup)
 
     fun bind(item: Item, listener: ItemAdapter.ItemClickListener) {
         val drawable = ContextCompat.getDrawable(parent.context.applicationContext, R.drawable.item_drawable)
-        drawable?.colorFilter = PorterDuffColorFilter(item.color, PorterDuff.Mode.SRC_IN)
+
+        val color = when(item.isActive) {
+            true -> item.color
+            false -> ContextCompat.getColor(parent.context.applicationContext, R.color.grey_500)
+        }
+
+        drawable?.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
 
         itemView.tag = item.id
 
@@ -26,11 +32,7 @@ class ItemHolder(inflater: LayoutInflater, private val parent: ViewGroup)
             text = item.name
             background = drawable
             setOnClickListener {
-                if (item.isListed) {
-                    listener.onListedItemClick(item)
-                } else {
-                    listener.onNotListedItemClick(item)
-                }
+                listener.onItemClick(item)
             }
             setOnLongClickListener {
                 listener.onItemLongClick(item)

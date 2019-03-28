@@ -31,6 +31,8 @@ interface MainContract {
 
         fun removeItemFromList(item: Item)
 
+        fun toggleActiveStatus(item: Item)
+
         fun clearList()
 
     }

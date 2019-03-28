@@ -1,6 +1,7 @@
 package com.example.util.simpleshoppinglist.ui.custom
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.util.simpleshoppinglist.data.model.Item
@@ -13,8 +14,7 @@ class ItemAdapter(var items: List<Item>, private val listener: ItemClickListener
 
     interface ItemClickListener {
 
-        fun onListedItemClick(listedItem: Item)
-        fun onNotListedItemClick(notListedItem: Item)
+        fun onItemClick(item: Item)
         fun onItemLongClick(item: Item)
 
     }

@@ -24,13 +24,10 @@ class MainFragment : Fragment(), MainContract.View {
     @Inject
     lateinit var presenter: MainContract.Presenter
 
-    private val itemListener = object : ItemAdapter.ItemClickListener {
+    private val itemClickListener = object : ItemAdapter.ItemClickListener {
         // TODO view shouldn't know about the model?
-        override fun onListedItemClick(listedItem: Item) {
-            presenter.removeItemFromList(listedItem)
-        }
-        override fun onNotListedItemClick(notListedItem: Item) {
-            // Do nothing.
+        override fun onItemClick(item: Item) {
+            presenter.toggleActiveStatus(item)
         }
         override fun onItemLongClick(item: Item) {
             val fragment = AddItemDialogFragment.newInstance(item.id)
@@ -47,7 +44,7 @@ class MainFragment : Fragment(), MainContract.View {
         }
     }
 
-    private var itemAdapter = ItemAdapter(ArrayList(), itemListener)
+    private var itemAdapter = ItemAdapter(ArrayList(), itemClickListener)
 
     /**
      * Fragment instantiation.
@@ -97,7 +94,7 @@ class MainFragment : Fragment(), MainContract.View {
         rv_items.visibility = View.VISIBLE
         tv_no_items.visibility = View.INVISIBLE
         itemAdapter.items = items
-        itemAdapter.notifyDataSetChanged()
+        itemAdapter.notifyDataSetChanged() // TODO expensive, only redraw one item?
     }
 
     override fun showNoItemsMessage() {
