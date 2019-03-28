@@ -21,8 +21,14 @@ data class Item (
     var color: Int = 0,
 
     /**
-     * True if the task is listed (in the main list), false otherwise.
+     * True if the item is listed (in the main list), false otherwise.
      */
     @ColumnInfo(name = "listed")
-    var isListed: Boolean = false
+    var isListed: Boolean = false,
+
+    /**
+     * True if the item is listed but not checked yet, false if listed and checked.
+     */
+    @ColumnInfo(name = "active")
+    var isActive: Boolean = false
 )
