@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">SimpleShoppingList</string>
 
     <!-- - - - - - - - - - - -->
@@ -8,7 +9,9 @@
     <!-- Add new item button -->
     <string name="add_new_item">Add new item</string>
 
-    <!--  Messages -->
+    <!-- - - - - - - - - - - -->
+    <!-- Messages            -->
+    <!-- - - - - - - - - - - -->
 
     <!-- Message to show when no items added to the main list -->
     <string name="no_items_in_the_list">No items in the list</string>
@@ -34,7 +37,9 @@
     <!-- Message to show when item added with empty name -->
     <string name="recent_incorrect_name">Please, type something for the item name</string>
 
-    <!-- Dialogs -->
+    <!-- - - - - - - - - - - -->
+    <!-- Dialogs             -->
+    <!-- - - - - - - - - - - -->
 
     <!-- Clear list alert dialog -->
     <string name="clear_list_dialog_title">Warning</string>
@@ -64,8 +69,15 @@
     <string name="color_pick_contDesc">Color to select</string>
     <string name="color_pick_check_contDesc">Color selected</string>
 
-    <!-- Menus -->
+    <!-- - - - - - - - - - - -->
+    <!-- Menus               -->
+    <!-- - - - - - - - - - - -->
 
-    <string name="recent_menu_delete_all">Delete all</string>
+    <string name="menu_delete_all">Delete all</string>
+    <string name="menu_arrange_items">Arrange items</string>
+    <string name="menu_hide_checked">Hide checked items</string>
+    <string name="menu_sort">Sort</string>
+    <string name="menu_sort_by_name">By name</string>
+    <string name="menu_sort_default">Default</string>
 
 </resources>

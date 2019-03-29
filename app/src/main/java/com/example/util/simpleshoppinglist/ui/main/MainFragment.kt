@@ -1,9 +1,7 @@
 package com.example.util.simpleshoppinglist.ui.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
@@ -66,6 +64,8 @@ class MainFragment : Fragment(), MainContract.View {
             adapter = itemAdapter
         }
 
+        setHasOptionsMenu(true)
+
         return root
     }
 
@@ -88,6 +88,18 @@ class MainFragment : Fragment(), MainContract.View {
         if (childFragment is AddItemDialogFragment) {
             childFragment.setAddItemCallback(addItemCallback)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.fragment_menu_sort, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_hide_checked ->
+                Snackbar.make(activity!!.rv_items, "Menu item clicked!", Snackbar.LENGTH_LONG).show()
+        }
+        return false
     }
 
     override fun showItems(items: List<Item>) {
