@@ -13,6 +13,8 @@ interface MainContract {
 
         fun showItems(items: List<Item>)
 
+        fun updateMenuHideChecked(value: Boolean)
+
         fun showNoItemsMessage()
 
         fun showNoListedItemsMessage()
@@ -34,6 +36,8 @@ interface MainContract {
         fun toggleActiveStatus(item: Item)
 
         fun clearList()
+
+        fun togglePrefHideChecked()
 
     }
 

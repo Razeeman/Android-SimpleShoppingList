@@ -19,6 +19,8 @@ import javax.inject.Inject
 
 class MainFragment : Fragment(), MainContract.View {
 
+    private lateinit var menu: Menu
+
     @Inject
     lateinit var presenter: MainContract.Presenter
 
@@ -92,12 +94,12 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.fragment_menu_sort, menu)
+        this.menu = menu
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.menu_hide_checked ->
-                Snackbar.make(activity!!.rv_items, "Menu item clicked!", Snackbar.LENGTH_LONG).show()
+            R.id.menu_hide_checked -> presenter.togglePrefHideChecked()
         }
         return false
     }
@@ -107,6 +109,10 @@ class MainFragment : Fragment(), MainContract.View {
         tv_no_items.visibility = View.INVISIBLE
         itemAdapter.items = items
         itemAdapter.notifyDataSetChanged() // TODO expensive, only redraw one item?
+    }
+
+    override fun updateMenuHideChecked(value: Boolean) {
+        menu.findItem(R.id.menu_hide_checked).isChecked = value
     }
 
     override fun showNoItemsMessage() {

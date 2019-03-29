@@ -58,6 +58,10 @@ class MainPresenter
         view?.showListClearedMessage()
     }
 
+    override fun togglePrefHideChecked() {
+
+    }
+
     override fun attachView(view: MainContract.View) {
         this.view = view
         loadData()
