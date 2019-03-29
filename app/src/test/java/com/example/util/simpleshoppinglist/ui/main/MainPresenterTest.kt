@@ -3,6 +3,7 @@ package com.example.util.simpleshoppinglist.ui.main
 import com.example.util.simpleshoppinglist.argumentCaptor
 import com.example.util.simpleshoppinglist.capture
 import com.example.util.simpleshoppinglist.data.model.Item
+import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
@@ -17,7 +18,6 @@ import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.junit.BeforeClass
 import org.mockito.Mockito.times
-
 
 class MainPresenterTest {
 
@@ -39,6 +39,7 @@ class MainPresenterTest {
     }
 
     @Mock private lateinit var repository: BaseItemsRepository
+    @Mock private lateinit var preferenceHelper: BasePreferenceHelper
     @Mock private lateinit var view: MainContract.View
     @Captor private lateinit var loadItemsCallbackCaptor: ArgumentCaptor<BaseItemsRepository.LoadItemsCallback>
 
@@ -48,7 +49,7 @@ class MainPresenterTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        presenter = MainPresenter(repository)
+        presenter = MainPresenter(repository, preferenceHelper)
         presenter.attachView(view)
     }
 

@@ -1,9 +1,13 @@
 package com.example.util.simpleshoppinglist.di
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.data.db.AppDatabase
 import com.example.util.simpleshoppinglist.data.db.ItemDao
+import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
+import com.example.util.simpleshoppinglist.data.prefs.PreferenceHelper
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.data.repo.ItemsRepository
 import com.example.util.simpleshoppinglist.util.AppExecutors
@@ -44,8 +48,20 @@ class AppModule(application: App) {
 
     @Provides
     @Singleton
+    fun getSharedPreferences(@Named("AppContext") context: Context): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+    }
+
+    @Provides
+    @Singleton
     fun getBaseItemsRepository(executors: AppExecutors, dao: ItemDao): BaseItemsRepository {
         return ItemsRepository.getInstance(executors, dao)
+    }
+
+    @Provides
+    @Singleton
+    fun getBasePreferenceHelper(preferenceHelper: PreferenceHelper): BasePreferenceHelper {
+        return preferenceHelper
     }
 
 }

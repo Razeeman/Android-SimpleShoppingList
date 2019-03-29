@@ -1,6 +1,7 @@
 package com.example.util.simpleshoppinglist.ui.main
 
 import com.example.util.simpleshoppinglist.data.model.Item
+import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.di.ActivityScoped
 import javax.inject.Inject
@@ -10,7 +11,8 @@ import javax.inject.Inject
  */
 @ActivityScoped
 class MainPresenter
-@Inject constructor(private val itemsRepository: BaseItemsRepository)
+@Inject constructor(private val itemsRepository: BaseItemsRepository,
+                    private val preferenceHelper: BasePreferenceHelper)
     : MainContract.Presenter {
 
     private var view: MainContract.View? = null

@@ -2,14 +2,17 @@ package com.example.util.simpleshoppinglist.data.prefs
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
- * implementation of the preferences helper.
+ * Implementation of the preference helper.
  *
  * @param sharedPreferences SharedPreferences to access preferences.
  */
+@Singleton
 class PreferenceHelper
-(private val sharedPreferences: SharedPreferences)
+@Inject constructor(private val sharedPreferences: SharedPreferences)
     : BasePreferenceHelper {
 
     companion object {
