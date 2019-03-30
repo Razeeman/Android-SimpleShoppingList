@@ -1,7 +1,6 @@
 package com.example.util.simpleshoppinglist.ui.custom
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.util.simpleshoppinglist.data.model.Item
@@ -9,7 +8,8 @@ import com.example.util.simpleshoppinglist.data.model.Item
 /**
  * Adapter for RecyclerView of ListItems.
  */
-class ItemAdapter(var items: List<Item>, private val itemsCheckable: Boolean, private val listener: ItemClickListener)
+class ItemAdapter(var items: List<Item>, private val listener: ItemClickListener,
+                  private var itemsCheckable: Boolean = false)
     : RecyclerView.Adapter<ItemHolder>() {
 
     interface ItemClickListener {

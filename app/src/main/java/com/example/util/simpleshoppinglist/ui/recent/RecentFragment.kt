@@ -45,7 +45,7 @@ class RecentFragment : Fragment(), RecentContract.View {
         }
     }
 
-    private var itemAdapter = ItemAdapter(ArrayList(), false, itemClickListener)
+    private var itemAdapter = ItemAdapter(ArrayList(), itemClickListener)
 
     /**
      * Fragment instantiation.
