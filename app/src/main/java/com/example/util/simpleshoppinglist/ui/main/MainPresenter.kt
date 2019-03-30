@@ -26,7 +26,7 @@ class MainPresenter
             override fun onItemsLoaded(items: List<Item>) {
                 val itemsToShow = ArrayList<Item>()
                 for (item in items) {
-                    if (item.isListed && item.isActive || !hideChecked) {
+                    if (item.isListed && (item.isActive || !hideChecked)) {
                         itemsToShow.add(item)
                     }
                 }
