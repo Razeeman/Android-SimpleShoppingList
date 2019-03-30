@@ -40,8 +40,8 @@ class RecentPresenter
     }
 
     override fun addItemToList(item: Item) {
-        itemsRepository.updateItemListed(item, true)
-        itemsRepository.updateItemActive(item, true)
+        itemsRepository.updateItemListed(item.id, true)
+        itemsRepository.updateItemActive(item.id, true)
         loadData()
     }
 

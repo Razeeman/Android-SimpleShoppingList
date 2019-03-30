@@ -46,14 +46,14 @@ class MainPresenter
         view?.updateMenuHideChecked(preferenceHelper.hideChecked)
     }
 
-    override fun removeItemFromList(item: Item) {
-        itemsRepository.updateItemListed(item, false)
-        itemsRepository.updateItemActive(item, true)
+    override fun removeItemFromList(id: String) {
+        itemsRepository.updateItemListed(id, false)
+        itemsRepository.updateItemActive(id, true)
         loadData()
     }
 
     override fun toggleActiveStatus(item: Item) {
-        itemsRepository.updateItemActive(item, !item.isActive)
+        itemsRepository.updateItemActive(item.id, !item.isActive)
         loadData()
     }
 

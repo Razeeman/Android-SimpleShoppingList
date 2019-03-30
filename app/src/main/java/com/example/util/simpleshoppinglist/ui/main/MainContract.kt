@@ -33,7 +33,7 @@ interface MainContract {
 
         fun loadMenuData()
 
-        fun removeItemFromList(item: Item)
+        fun removeItemFromList(id: String)
 
         fun toggleActiveStatus(item: Item)
 
