@@ -95,6 +95,7 @@ class MainFragment : Fragment(), MainContract.View {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.fragment_menu_sort, menu)
         this.menu = menu
+        presenter.loadMenuData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

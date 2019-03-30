@@ -41,6 +41,10 @@ class MainPresenter
         })
     }
 
+    override fun loadMenuData() {
+        view?.updateMenuHideChecked(preferenceHelper.hideChecked)
+    }
+
     override fun removeItemFromList(item: Item) {
         itemsRepository.updateItemListed(item, false)
         itemsRepository.updateItemActive(item, true)
@@ -59,7 +63,9 @@ class MainPresenter
     }
 
     override fun togglePrefHideChecked() {
-
+        val newValue = !preferenceHelper.hideChecked
+        preferenceHelper.hideChecked = newValue
+        view?.updateMenuHideChecked(newValue)
     }
 
     override fun attachView(view: MainContract.View) {
