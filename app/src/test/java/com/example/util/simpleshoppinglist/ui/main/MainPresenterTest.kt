@@ -14,10 +14,9 @@ import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Captor
 import org.mockito.Mock
-import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.junit.BeforeClass
-import org.mockito.Mockito.times
+import org.mockito.Mockito.*
 
 class MainPresenterTest {
 
@@ -102,18 +101,46 @@ class MainPresenterTest {
     }
 
     @Test
+    fun loadMenuData() {
+        // With preference set up.
+        doReturn(true).`when`(preferenceHelper).hideChecked
+
+        // When presenter loads menu data.
+        presenter.loadMenuData()
+
+        // Then preferences are queried. First time on attach, second after on load menu data.
+        verify(preferenceHelper, times(2)).hideChecked
+        // Then view is called to update menu with this value.
+        verify(view).updateMenuHideChecked(true)
+    }
+
+    @Test
     fun removeItemFromList() {
         // With new item.
         val item = Item()
 
         // When presenter called to remove this item from the list.
-        presenter.removeItemFromList(item)
+        presenter.removeItemFromList(item.id)
 
         // Then repository updates this item to not listed.
-        verify(repository).updateItemListed(item, false)
+        verify(repository).updateItemListed(item.id, false)
         // Then repository updates this item to not active.
-        verify(repository).updateItemActive(item, true)
-        // Then repository called to reload data.First on attach, second after remove from list.
+        verify(repository).updateItemActive(item.id, true)
+        // Then repository called to reload data. First on attach, second after remove from list.
+        verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
+    }
+
+    @Test
+    fun toggleActiveStatus() {
+        // With new not active item.
+        val item = Item().apply { isActive = false }
+
+        // When presenter called to update a status of the item.
+        presenter.toggleActiveStatus(item)
+
+        // Then repository is called to update this item.
+        verify(repository).updateItemActive(item.id, true)
+        // Then repository called to reload data. First on attach, second after updating item.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
     }
 
@@ -128,6 +155,22 @@ class MainPresenterTest {
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
         // Then view called to show a message
         verify(view).showListClearedMessage()
+    }
+
+    @Test
+    fun togglePrefHideChecked() {
+        // With preference set up.
+        doReturn(true).`when`(preferenceHelper).hideChecked
+
+        // When presenter called to update preference.
+        presenter.togglePrefHideChecked()
+
+        // Then preferences are queried to update preference. First on attach, second after update preference.
+        verify(preferenceHelper, times((3))).hideChecked
+        // Then view is called to update menu.
+        verify(view).updateMenuHideChecked(false)
+        // Then repository called to reload data. First on attach, second after updating item.
+        verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
     }
 
     @Test

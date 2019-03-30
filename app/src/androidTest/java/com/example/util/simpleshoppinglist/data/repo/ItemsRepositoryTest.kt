@@ -153,7 +153,7 @@ class ItemsRepositoryTest {
     fun updateItemListed() {
         itemsRepository.apply {
             saveItem(DEFAULT_ITEM)
-            updateItemListed(DEFAULT_ITEM, true)
+            updateItemListed(DEFAULT_ITEM.id, true)
             loadItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
                 override fun onItemLoaded(item: Item) {
                     assertThat(item.isListed, `is`(true))
@@ -169,7 +169,7 @@ class ItemsRepositoryTest {
     fun updateItemActive() {
         itemsRepository.apply {
             saveItem(DEFAULT_ITEM)
-            updateItemActive(DEFAULT_ITEM, true)
+            updateItemActive(DEFAULT_ITEM.id, true)
             loadItem(DEFAULT_ITEM.id, object : BaseItemsRepository.LoadItemCallback {
                 override fun onItemLoaded(item: Item) {
                     assertThat(item.isActive, `is`(true))
