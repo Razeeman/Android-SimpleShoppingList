@@ -4,13 +4,14 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/white</item>
     </style>
 
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark">
         <item name="android:background">@color/colorPrimary</item>
-        <!-- TODO Elevation? -->
     </style>
 
     <style name="BottomBar" parent="Widget.MaterialComponents.BottomAppBar.Colored">
