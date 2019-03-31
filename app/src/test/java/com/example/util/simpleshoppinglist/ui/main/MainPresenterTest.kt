@@ -30,9 +30,9 @@ class MainPresenterTest {
             items = arrayListOf(
                 Item(name = "Item 1"),
                 Item(name = "Item 2"),
-                Item(name = "Item 3", isListed = true),
-                Item(name = "Item 4", isListed = true),
-                Item(name = "Item 5", isListed = true)
+                Item(name = "Item 3", isListed = true, isActive = false),
+                Item(name = "Item 4", isListed = true, isActive = true),
+                Item(name = "Item 5", isListed = true, isActive = true)
             )
         }
     }
@@ -101,6 +101,45 @@ class MainPresenterTest {
     }
 
     @Test
+    fun loadData_withDataAvailable_withHideChecked() {
+        // With hide checked preference.
+        doReturn(true).`when`(preferenceHelper).hideChecked
+
+        // When view is attached.
+
+        // Then repository called to load data and callback returned with data.
+        verify(repository).loadItems(capture(loadItemsCallbackCaptor))
+        loadItemsCallbackCaptor.value.onItemsLoaded(items)
+
+        // Then items that are listed and active are shown.
+        val captor = argumentCaptor<List<Item>>()
+        verify(view).showItems(capture(captor))
+        assertThat(captor.value.size, `is`(2))
+    }
+
+    @Test
+    fun loadData_withDataAvailable_withHideChecked_AllChecked() {
+        // With hide checked preference.
+        doReturn(true).`when`(preferenceHelper).hideChecked
+
+        // With no active items.
+        val newItems = arrayListOf(
+            Item(name = "Item 1", isListed = true),
+            Item(name = "Item 2", isListed = true))
+
+        // When view is attached.
+
+        // Then repository called to load data and callback returned with no active items.
+        verify(repository).loadItems(capture(loadItemsCallbackCaptor))
+        loadItemsCallbackCaptor.value.onItemsLoaded(newItems)
+
+        // Then repository is called to clear the list.
+        verify(repository).clearAllListed()
+        // Then no items are shown.
+        verify(view).showNoListedItemsMessage()
+    }
+
+    @Test
     fun loadMenuData() {
         // With preference set up.
         doReturn(true).`when`(preferenceHelper).hideChecked
@@ -108,8 +147,8 @@ class MainPresenterTest {
         // When presenter loads menu data.
         presenter.loadMenuData()
 
-        // Then preferences are queried. First time on attach, second after on load menu data.
-        verify(preferenceHelper, times(2)).hideChecked
+        // Then preferences are queried.
+        verify(preferenceHelper).hideChecked
         // Then view is called to update menu with this value.
         verify(view).updateMenuHideChecked(true)
     }
@@ -165,8 +204,8 @@ class MainPresenterTest {
         // When presenter called to update preference.
         presenter.togglePrefHideChecked()
 
-        // Then preferences are queried to update preference. First on attach, second after update preference.
-        verify(preferenceHelper, times((3))).hideChecked
+        // Then preferences are queried to update preference.
+        verify(preferenceHelper).hideChecked
         // Then view is called to update menu.
         verify(view).updateMenuHideChecked(false)
         // Then repository called to reload data. First on attach, second after updating item.

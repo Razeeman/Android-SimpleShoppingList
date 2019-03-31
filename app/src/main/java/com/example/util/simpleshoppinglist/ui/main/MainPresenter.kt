@@ -21,15 +21,23 @@ class MainPresenter
      * Loads items from repository and forwards them to view.
      */
     override fun loadData() {
-        val hideChecked = preferenceHelper.hideChecked
         itemsRepository.loadItems(object : BaseItemsRepository.LoadItemsCallback {
             override fun onItemsLoaded(items: List<Item>) {
+                var listedItems = 0
+                var activeItems = 0
+                val hideChecked = preferenceHelper.hideChecked
                 val itemsToShow = ArrayList<Item>()
+
                 for (item in items) {
                     if (item.isListed && (item.isActive || !hideChecked)) {
                         itemsToShow.add(item)
                     }
+                    if (item.isListed) listedItems++
+                    if (item.isListed && item.isActive) activeItems++
                 }
+
+                if (listedItems != 0 && activeItems == 0) itemsRepository.clearAllListed()
+
                 if (itemsToShow.size != 0) {
                     view?.showItems(itemsToShow)
                 } else {
