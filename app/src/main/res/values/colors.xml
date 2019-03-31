@@ -26,6 +26,6 @@
         <item>@color/pink_600</item>
         <item>@color/brown_600</item>
         <item>@color/blue_grey_600</item>
-        <item>@color/grey_600</item>
+        <item>@color/grey_900</item>
     </array>
 </resources>
