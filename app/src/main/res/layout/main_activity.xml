@@ -19,6 +19,16 @@
                 android:layout_height="match_parent">
         </FrameLayout>
 
+        <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottom_bar"
+                style="@style/BottomBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:fabAlignmentMode="end"
+                app:fabCradleMargin="4dp"
+                app:fabCradleRoundedCornerRadius="4dp"/>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_clear"
                 android:layout_width="wrap_content"
@@ -38,16 +48,6 @@
                 app:fabSize="normal"
                 app:srcCompat="@drawable/ic_add"
                 android:layout_gravity="bottom|end"/>
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-                android:id="@+id/bottom_bar"
-                style="@style/BottomBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                app:fabAlignmentMode="end"
-                app:fabCradleMargin="4dp"
-                app:fabCradleRoundedCornerRadius="4dp"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
