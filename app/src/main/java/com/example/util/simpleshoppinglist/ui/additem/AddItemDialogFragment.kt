@@ -150,7 +150,10 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
     }
 
     override fun showItem(name: String, color: Int) {
-        etItemName.setText(name)
+        etItemName.apply {
+            setText(name)
+            setSelection(this.text.length)
+        }
         itemColor = color
         updateItemColor()
     }
