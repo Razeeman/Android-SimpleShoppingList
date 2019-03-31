@@ -2,9 +2,11 @@ package com.example.util.simpleshoppinglist.ui.recent
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.recent_activity.*
 
 class RecentActivity : AppCompatActivity() {
@@ -17,12 +19,18 @@ class RecentActivity : AppCompatActivity() {
         // Setting up the toolbar.
         val toolbar = findViewById<BottomAppBar>(R.id.bottom_bar)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Setting up fab.
         fab_done.setOnClickListener {
             finish()
         }
+
+        // Invisible placeholder to shift menu in bottom bar to the start.
+        val fab = FloatingActionButton(this)
+        fab.layoutParams = CoordinatorLayout.LayoutParams(0, 0).apply {
+            anchorId = bottom_bar.id
+        }
+        coordinator.addView(fab)
 
         supportFragmentManager.findFragmentById(R.id.content_frame) as RecentFragment?
             ?: RecentFragment.newInstance().also {

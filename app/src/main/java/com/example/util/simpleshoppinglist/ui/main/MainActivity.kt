@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.ui.recent.RecentActivity
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.main_activity.*
 import javax.inject.Inject
 
@@ -33,6 +35,13 @@ class MainActivity : AppCompatActivity() {
         fab_clear.setOnClickListener {
             showClearListDialog()
         }
+
+        // Invisible placeholder to shift menu in bottom bar to the start.
+        val fab = FloatingActionButton(this)
+        fab.layoutParams = CoordinatorLayout.LayoutParams(0, 0).apply {
+            anchorId = bottom_bar.id
+        }
+        coordinator.addView(fab)
 
         supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?
             ?: MainFragment.newInstance().also {
