@@ -39,7 +39,9 @@ class MainPresenter
                     if (item.isListed && item.isActive) activeItems++
                 }
 
-                if (listedItems != 0 && activeItems == 0) itemsRepository.clearAllListed()
+                if (hideChecked && listedItems != 0 && activeItems == 0) {
+                    itemsRepository.clearAllListed()
+                }
 
                 // Lint suppressed because DEFAULT items sort type doesn't change item list.
                 @Suppress("UNUSED_EXPRESSION")

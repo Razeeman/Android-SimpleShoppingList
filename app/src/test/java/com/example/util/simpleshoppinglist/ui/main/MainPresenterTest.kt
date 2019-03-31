@@ -122,6 +122,28 @@ class MainPresenterTest {
 
     @Test
     fun loadData_withDataAvailable_withHideChecked_AllChecked() {
+        // Without hide checked preference.
+        doReturn(false).`when`(preferenceHelper).hideChecked
+
+        // With no active items.
+        val newItems = arrayListOf(
+            Item(name = "Item 1", isListed = true),
+            Item(name = "Item 2", isListed = true))
+
+        // When view is attached.
+
+        // Then repository called to load data and callback returned with no active items.
+        verify(repository).loadItems(capture(loadItemsCallbackCaptor))
+        loadItemsCallbackCaptor.value.onItemsLoaded(newItems)
+
+        // Then repository is not called to clear the list.
+        verify(repository, never()).clearAllListed()
+        // Then these items are shown.
+        verify(view).showItems(newItems)
+    }
+
+    @Test
+    fun loadData_withDataAvailable_withHideChecked_AllChecked2() {
         // With hide checked preference.
         doReturn(true).`when`(preferenceHelper).hideChecked
 
