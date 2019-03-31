@@ -3,6 +3,7 @@ package com.example.util.simpleshoppinglist.ui.main
 import com.example.util.simpleshoppinglist.BasePresenter
 import com.example.util.simpleshoppinglist.BaseView
 import com.example.util.simpleshoppinglist.data.model.Item
+import com.example.util.simpleshoppinglist.data.prefs.ItemsSortType
 
 /**
  * Contract between view and presenter.
@@ -40,6 +41,8 @@ interface MainContract {
         fun clearList()
 
         fun togglePrefHideChecked()
+
+        fun setPrefSortType(sortType: ItemsSortType)
 
     }
 

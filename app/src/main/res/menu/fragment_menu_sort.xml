@@ -16,10 +16,10 @@
             <item android:title="@string/menu_sort">
                 <menu>
                     <item
-                            android:id="@+id/actionSortName"
+                            android:id="@+id/menu_sort_name"
                             android:title="@string/menu_sort_by_name"/>
                     <item
-                            android:id="@+id/actionSortScore"
+                            android:id="@+id/menu_sort_default"
                             android:title="@string/menu_sort_default"/>
                 </menu>
             </item>

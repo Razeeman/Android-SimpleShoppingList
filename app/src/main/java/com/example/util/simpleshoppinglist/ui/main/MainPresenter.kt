@@ -2,8 +2,10 @@ package com.example.util.simpleshoppinglist.ui.main
 
 import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
+import com.example.util.simpleshoppinglist.data.prefs.ItemsSortType
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.di.ActivityScoped
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -26,6 +28,7 @@ class MainPresenter
                 var listedItems = 0
                 var activeItems = 0
                 val hideChecked = preferenceHelper.hideChecked
+                val sortType = preferenceHelper.sortBy
                 val itemsToShow = ArrayList<Item>()
 
                 for (item in items) {
@@ -37,6 +40,15 @@ class MainPresenter
                 }
 
                 if (listedItems != 0 && activeItems == 0) itemsRepository.clearAllListed()
+
+                // Lint suppressed because DEFAULT items sort type doesn't change item list.
+                @Suppress("UNUSED_EXPRESSION")
+                when (sortType) {
+                    ItemsSortType.DEFAULT -> false
+                    ItemsSortType.BY_NAME -> itemsToShow.sortBy {
+                        it.name
+                    }
+                }
 
                 if (itemsToShow.size != 0) {
                     view?.showItems(itemsToShow)
@@ -75,6 +87,11 @@ class MainPresenter
         val newValue = !preferenceHelper.hideChecked
         preferenceHelper.hideChecked = newValue
         view?.updateMenuHideChecked(newValue)
+        loadData()
+    }
+
+    override fun setPrefSortType(sortType: ItemsSortType) {
+        preferenceHelper.sortBy = sortType
         loadData()
     }
 

@@ -4,6 +4,7 @@ import com.example.util.simpleshoppinglist.argumentCaptor
 import com.example.util.simpleshoppinglist.capture
 import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
+import com.example.util.simpleshoppinglist.data.prefs.ItemsSortType
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
@@ -50,6 +51,8 @@ class MainPresenterTest {
 
         presenter = MainPresenter(repository, preferenceHelper)
         presenter.attachView(view)
+
+        doReturn(ItemsSortType.DEFAULT).`when`(preferenceHelper).sortBy
     }
 
     @After
@@ -137,6 +140,32 @@ class MainPresenterTest {
         verify(repository).clearAllListed()
         // Then no items are shown.
         verify(view).showNoListedItemsMessage()
+    }
+
+    @Test
+    fun loadData_withDataAvailable_withSortByName() {
+        // With sort by name preference.
+        doReturn(ItemsSortType.BY_NAME).`when`(preferenceHelper).sortBy
+
+        // With unsorted items.
+        val newItems = arrayListOf(
+            Item(name = "B", isListed = true),
+            Item(name = "A", isListed = true),
+            Item(name = "C", isListed = true))
+
+        // When view is attached.
+
+        // Then repository called to load data and callback returned with unsorted items.
+        verify(repository).loadItems(capture(loadItemsCallbackCaptor))
+        loadItemsCallbackCaptor.value.onItemsLoaded(newItems)
+
+        // Then items are shown sorted by name.
+        val captor = argumentCaptor<List<Item>>()
+        verify(view).showItems(capture(captor))
+        assertThat(captor.value.size, `is`(3))
+        assertThat(captor.value[0], `is`(newItems[1]))
+        assertThat(captor.value[1], `is`(newItems[0]))
+        assertThat(captor.value[2], `is`(newItems[2]))
     }
 
     @Test

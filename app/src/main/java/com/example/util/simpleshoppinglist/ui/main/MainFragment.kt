@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.model.Item
+import com.example.util.simpleshoppinglist.data.prefs.ItemsSortType
 import com.example.util.simpleshoppinglist.ui.additem.AddItemContract
 import com.example.util.simpleshoppinglist.ui.additem.AddItemDialogFragment
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
@@ -118,6 +119,8 @@ class MainFragment : Fragment(), MainContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.menu_hide_checked -> presenter.togglePrefHideChecked()
+            R.id.menu_sort_name -> presenter.setPrefSortType(ItemsSortType.BY_NAME)
+            R.id.menu_sort_default -> presenter.setPrefSortType(ItemsSortType.DEFAULT)
         }
         return false
     }
