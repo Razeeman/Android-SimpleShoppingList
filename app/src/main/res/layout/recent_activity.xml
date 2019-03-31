@@ -8,14 +8,6 @@
         android:orientation="vertical"
         tools:context=".ui.main.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/Toolbar"
-            tools:title="Title" />
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -26,21 +18,24 @@
                 android:layout_height="match_parent">
         </FrameLayout>
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                android:layout_gravity="bottom"/>
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="18dp"
                 app:useCompatPadding="true"
                 app:fabSize="normal"
                 app:srcCompat="@drawable/ic_done"
-                android:layout_gravity="bottom|end"/>
+                app:layout_anchor="@id/bottom_bar"/>
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottom_bar"
+                style="@style/BottomBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:fabAlignmentMode="end"
+                app:fabCradleMargin="4dp"
+                app:fabCradleRoundedCornerRadius="4dp"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

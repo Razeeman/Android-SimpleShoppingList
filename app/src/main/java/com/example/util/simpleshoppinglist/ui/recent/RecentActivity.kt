@@ -2,9 +2,9 @@ package com.example.util.simpleshoppinglist.ui.recent
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
+import com.google.android.material.bottomappbar.BottomAppBar
 import kotlinx.android.synthetic.main.recent_activity.*
 
 class RecentActivity : AppCompatActivity() {
@@ -15,12 +15,9 @@ class RecentActivity : AppCompatActivity() {
         App.getRecentComponent()
 
         // Setting up the toolbar.
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = findViewById<BottomAppBar>(R.id.bottom_bar)
         setSupportActionBar(toolbar)
-        supportActionBar?.apply {
-            setDisplayShowTitleEnabled(false)
-            setDisplayHomeAsUpEnabled(true)
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Setting up fab.
         fab_done.setOnClickListener {

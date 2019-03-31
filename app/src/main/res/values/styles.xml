@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,6 +11,9 @@
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark">
         <item name="android:background">@color/colorPrimary</item>
         <!-- TODO Elevation? -->
+    </style>
+
+    <style name="BottomBar" parent="Widget.MaterialComponents.BottomAppBar.Colored">
     </style>
 
     <style name="Text">

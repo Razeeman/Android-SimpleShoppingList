@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.ui.recent.RecentActivity
+import com.google.android.material.bottomappbar.BottomAppBar
 import kotlinx.android.synthetic.main.main_activity.*
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         App.getMainComponent().inject(this)
 
         // Setting up the toolbar.
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = findViewById<BottomAppBar>(R.id.bottom_bar)
         setSupportActionBar(toolbar)
 
         // Setting up fabs.
