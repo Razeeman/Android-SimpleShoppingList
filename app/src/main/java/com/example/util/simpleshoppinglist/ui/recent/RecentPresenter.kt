@@ -27,6 +27,11 @@ class RecentPresenter
                         itemsToShow.add(item)
                     }
                 }
+
+                itemsToShow.sortBy {
+                    it.name
+                }
+
                 if (itemsToShow.size != 0) {
                     view?.showItems(itemsToShow)
                 } else {
