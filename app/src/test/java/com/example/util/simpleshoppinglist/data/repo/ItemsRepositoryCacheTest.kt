@@ -32,6 +32,7 @@ class ItemsRepositoryCacheTest {
 
     @Mock private lateinit var dao: ItemDao
     @Mock private lateinit var loadItemsCallback: BaseItemsRepository.LoadItemsCallback
+    @Mock private lateinit var loadItemCallback: BaseItemsRepository.LoadItemCallback
 
     private lateinit var itemsRepository: ItemsRepository
 
@@ -60,5 +61,20 @@ class ItemsRepositoryCacheTest {
         // Then database only queried one time.
         verify(dao).getAll()
         verify(loadItemsCallback, times(2)).onItemsLoaded(items)
+    }
+
+    @Test
+    fun loadItemFromCache() {
+        // With item in the database.
+        val item = items[0]
+        doReturn(item).`when`(dao).getById(item.id)
+
+        // When repository is queried two times.
+        itemsRepository.loadItem(item.id, loadItemCallback)
+        itemsRepository.loadItem(item.id, loadItemCallback)
+
+        // Then database only queried one time.
+        verify(dao).getById(item.id)
+        verify(loadItemCallback, times(2)).onItemLoaded(item)
     }
 }

@@ -75,6 +75,7 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
         val cachedItem = itemsCache[id]
         if (cachedItem != null) {
             callback.onItemLoaded(cachedItem)
+            return
         }
 
         executors.diskIO.execute {
