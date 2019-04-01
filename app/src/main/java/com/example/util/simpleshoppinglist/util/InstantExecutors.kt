@@ -1,10 +1,9 @@
-package com.example.util.simpleshoppinglist.data.util
+package com.example.util.simpleshoppinglist.util
 
-import com.example.util.simpleshoppinglist.util.AppExecutors
 import java.util.concurrent.Executor
 
 /**
- * Allow instant execution of tasks.
+ * Allow instant execution of tasks. Used in tests.
  */
 class InstantExecutors : AppExecutors(instant, instant) {
     companion object {

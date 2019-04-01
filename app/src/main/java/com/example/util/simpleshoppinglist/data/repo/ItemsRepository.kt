@@ -35,12 +35,22 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
         }
     }
 
+    // Cache for items in the form of <item.id, item>.
+    // LinkedHashMap to preserve order of insertion.
+    private var itemsCache = LinkedHashMap<String, Item>()
+
     /**
      * Asynchronously load items from the database fire a callback with response.
      *
      * @param callback A callback to return items on the main thread.
      */
     override fun loadItems(callback: BaseItemsRepository.LoadItemsCallback) {
+        // Return cached items if available.
+        if (!itemsCache.isEmpty()) {
+            callback.onItemsLoaded(itemsCache.values.toList())
+            return
+        }
+
         executors.diskIO.execute {
             val items = itemDao.getAll()
             executors.mainThreadIO.execute {
@@ -48,6 +58,7 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
                     callback.onDataNotAvailable()
                 } else {
                     callback.onItemsLoaded(items)
+                    items.forEach { itemsCache[it.id] = it }
                 }
             }
         }
@@ -60,11 +71,18 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
      * @param callback A callback to return item on the main thread.
      */
     override fun loadItem(id: String, callback: BaseItemsRepository.LoadItemCallback) {
+        // Return cached item if available.
+        val cachedItem = itemsCache[id]
+        if (cachedItem != null) {
+            callback.onItemLoaded(cachedItem)
+        }
+
         executors.diskIO.execute {
             val item = itemDao.getById(id)
             executors.mainThreadIO.execute {
                 if (item != null) {
                     callback.onItemLoaded(item)
+                    itemsCache[item.id] = item
                 } else {
                     callback.onDataNotAvailable()
                 }
@@ -79,7 +97,9 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
      */
     override fun saveItem(item: Item) {
         item.name = item.name.replace("\\s+".toRegex(), " ").trim().toLowerCase()
+
         executors.diskIO.execute { itemDao.insert(item) }
+        itemsCache[item.id] = item
     }
 
     /**
@@ -89,6 +109,7 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
      */
     override fun updateItem(item: Item) {
         executors.diskIO.execute { itemDao.update(item) }
+        itemsCache[item.id] = item
     }
 
     /**
@@ -98,7 +119,8 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
      * @param listed   New status to set.
      */
     override fun updateItemListed(id: String, listed: Boolean) {
-        executors.diskIO.execute { itemDao.updateListed(id, listed)}
+        executors.diskIO.execute { itemDao.updateListed(id, listed) }
+        itemsCache[id]?.isListed = listed
     }
 
     /**
@@ -108,7 +130,8 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
      * @param active   New status to set.
      */
     override fun updateItemActive(id: String, active: Boolean) {
-        executors.diskIO.execute { itemDao.updateActive(id, active)}
+        executors.diskIO.execute { itemDao.updateActive(id, active) }
+        itemsCache[id]?.isActive = active
     }
 
     /**
@@ -119,16 +142,19 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
      * @param color New color to set.
      */
     override fun updateNameColor(id: String, name: String, color: Int) {
-        executors.diskIO.execute { itemDao.updateNameColor(id, name, color)}
+        executors.diskIO.execute { itemDao.updateNameColor(id, name, color) }
+        itemsCache[id]?.apply {
+            this.name = name
+            this.color = color
+        }
     }
 
     /**
      * Asynchronously set listed status to false on all items in the list.
      */
     override fun clearAllListed() {
-        executors.diskIO.execute {
-            itemDao.clearAllListed()
-        }
+        executors.diskIO.execute { itemDao.clearAllListed() }
+        itemsCache = itemsCache.filterValues { !it.isListed } as LinkedHashMap<String, Item>
     }
 
     /**
@@ -138,6 +164,7 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
      */
     override fun deleteItem(id: String) {
         executors.diskIO.execute { itemDao.deleteById(id) }
+        itemsCache.remove(id)
     }
 
     /**
@@ -145,5 +172,6 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
      */
     override fun deleteAllItems() {
         executors.diskIO.execute { itemDao.deleteAll() }
+        itemsCache.clear()
     }
 }

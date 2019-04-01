@@ -6,9 +6,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.util.simpleshoppinglist.data.db.AppDatabase
 import com.example.util.simpleshoppinglist.data.model.Item
-import com.example.util.simpleshoppinglist.data.util.InstantExecutors
+import com.example.util.simpleshoppinglist.util.InstantExecutors
 import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Assert
 import org.junit.Assert.fail
