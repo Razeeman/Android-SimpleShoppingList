@@ -31,4 +31,6 @@
         <item>@color/blue_grey_600</item>
         <item>@color/grey_900</item>
     </array>
+
+    <color name="ic_launcher_background">#443FFF</color>
 </resources>
