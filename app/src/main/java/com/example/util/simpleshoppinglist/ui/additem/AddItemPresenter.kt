@@ -29,18 +29,31 @@ class AddItemPresenter
     }
 
     override fun saveItem(id: String?, name: String, color: Int) {
-        // TODO check if already exist and show message
+        // Check if name is empty.
         if (name.isBlank()) {
             view?.showIncorrectItemNameError()
             return
         }
-        if (id == null) {
-            itemsRepository.saveItem(Item(name = name, color = color, isListed = true, isActive = true))
-            view?.showItemSavedMessage(false)
-        } else {
-            itemsRepository.updateNameColor(id, name, color)
-            view?.showItemSavedMessage(true)
-        }
+
+        // Check if name already exists.
+        itemsRepository.loadItems(object : BaseItemsRepository.LoadItemsCallback {
+            override fun onItemsLoaded(items: List<Item>) {
+                for(item in items) {
+                    if (name == item.name && id != item.id) {
+                        view?.showItemAlreadyExistMessage()
+                        return
+                    }
+                }
+                if (id == null) {
+                    saveItem(name, color)
+                } else {
+                    updateItem(id, name, color)
+                }
+            }
+            override fun onDataNotAvailable() {
+                saveItem(name, color)
+            }
+        })
     }
 
     override fun attachView(view: AddItemContract.View) {
@@ -49,6 +62,16 @@ class AddItemPresenter
 
     override fun detachView() {
         view = null
+    }
+
+    private fun saveItem(name: String, color: Int) {
+        itemsRepository.saveItem(Item(name = name, color = color, isListed = true, isActive = true))
+        view?.showItemSavedMessage(false)
+    }
+
+    private fun updateItem(id: String, name: String, color: Int) {
+        itemsRepository.updateNameColor(id, name, color)
+        view?.showItemSavedMessage(true)
     }
 
 }

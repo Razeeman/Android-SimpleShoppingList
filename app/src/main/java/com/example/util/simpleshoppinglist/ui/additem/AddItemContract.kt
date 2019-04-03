@@ -14,7 +14,9 @@ interface AddItemContract {
 
             fun itemSaved(updated: Boolean)
 
-            fun itemNotSaved()
+            fun itemNotSavedEmptyName()
+
+            fun itemNotSavedAlreadyExists()
 
         }
 
@@ -23,6 +25,8 @@ interface AddItemContract {
         fun showItemSavedMessage(updated: Boolean)
 
         fun showIncorrectItemNameError()
+
+        fun showItemAlreadyExistMessage()
 
     }
 

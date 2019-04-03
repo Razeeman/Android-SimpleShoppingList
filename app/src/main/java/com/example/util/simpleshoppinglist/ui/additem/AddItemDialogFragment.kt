@@ -163,7 +163,11 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
     }
 
     override fun showIncorrectItemNameError() {
-        addItemCallback?.itemNotSaved()
+        addItemCallback?.itemNotSavedEmptyName()
+    }
+
+    override fun showItemAlreadyExistMessage() {
+        addItemCallback?.itemNotSavedAlreadyExists()
     }
 
     fun setAddItemCallback(callback: AddItemContract.View.AddItemCallback) {

@@ -40,8 +40,11 @@ class RecentFragment : Fragment(), RecentContract.View {
             presenter.loadData()
             showItemSavedMessage(updated)
         }
-        override fun itemNotSaved() {
+        override fun itemNotSavedEmptyName() {
             showIncorrectItemNameError()
+        }
+        override fun itemNotSavedAlreadyExists() {
+            showItemAlreadyExistsMessage()
         }
     }
 
@@ -156,6 +159,10 @@ class RecentFragment : Fragment(), RecentContract.View {
 
     override fun showIncorrectItemNameError() {
         Snackbar.make(activity!!.rv_items, getString(R.string.recent_incorrect_name), Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun showItemAlreadyExistsMessage() {
+        Snackbar.make(activity!!.rv_items, getString(R.string.recent_item_already_exists), Snackbar.LENGTH_LONG).show()
     }
 
     private fun showDeleteAllDialog() {

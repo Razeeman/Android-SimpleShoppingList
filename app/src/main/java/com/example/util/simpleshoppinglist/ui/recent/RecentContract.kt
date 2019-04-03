@@ -23,6 +23,8 @@ interface RecentContract {
 
         fun showIncorrectItemNameError()
 
+        fun showItemAlreadyExistsMessage()
+
     }
 
     interface Presenter: BasePresenter<View> {

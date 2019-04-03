@@ -26,6 +26,8 @@ interface MainContract {
 
         fun showIncorrectItemNameError()
 
+        fun showItemAlreadyExistsMessage()
+
     }
 
     interface Presenter: BasePresenter<View> {

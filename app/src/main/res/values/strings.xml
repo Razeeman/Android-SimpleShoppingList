@@ -37,6 +37,9 @@
     <!-- Message to show when item added with empty name -->
     <string name="recent_incorrect_name">Please, type something for the item name</string>
 
+    <!-- Message to show when item added with the name of already existing item -->
+    <string name="recent_item_already_exists">Item with this name already exist</string>
+
     <!-- - - - - - - - - - - -->
     <!-- Dialogs             -->
     <!-- - - - - - - - - - - -->
