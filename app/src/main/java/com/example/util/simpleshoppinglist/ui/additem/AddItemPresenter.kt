@@ -39,6 +39,7 @@ class AddItemPresenter
         itemsRepository.loadItems(object : BaseItemsRepository.LoadItemsCallback {
             override fun onItemsLoaded(items: List<Item>) {
                 for(item in items) {
+                    // If different item found with the same name.
                     if (name == item.name && id != item.id) {
                         view?.showItemAlreadyExistMessage()
                         return

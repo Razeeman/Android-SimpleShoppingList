@@ -18,6 +18,7 @@ class AddItemPresenterTest {
     @Mock private lateinit var repository: BaseItemsRepository
     @Mock private lateinit var view: AddItemContract.View
     @Captor private lateinit var loadItemCallbackCaptor: ArgumentCaptor<BaseItemsRepository.LoadItemCallback>
+    @Captor private lateinit var loadItemsCallbackCaptor: ArgumentCaptor<BaseItemsRepository.LoadItemsCallback>
 
     private lateinit var presenter: AddItemPresenter
 
@@ -78,6 +79,33 @@ class AddItemPresenterTest {
         // When presenter called to save item with certain name and color.
         presenter.saveItem(null, newItem.name, newItem.color)
 
+        // Then repository called to check item name.
+        val captor = argumentCaptor<Item>()
+        Mockito.verify(repository).loadItems(capture(loadItemsCallbackCaptor))
+        loadItemsCallbackCaptor.value.onDataNotAvailable()
+        // Then repository called with these name and color and item is listed and active.
+        Mockito.verify(repository).saveItem(capture(captor))
+        assertThat(captor.value.name, CoreMatchers.`is`(newItem.name))
+        assertThat(captor.value.color, CoreMatchers.`is`(newItem.color))
+        assertThat(captor.value.isListed, CoreMatchers.`is`(true))
+        assertThat(captor.value.isActive, CoreMatchers.`is`(true))
+        // Then view called to show a message
+        Mockito.verify(view).showItemSavedMessage(false)
+    }
+
+    @Test
+    fun saveItem2() {
+        // With new item.
+        val newItem = Item(name = "Name", color = 123)
+        // With another item in repository.
+        val anotherItem = Item(name = "Name 2", color = 123)
+
+        // When presenter called to save item with certain name and color.
+        presenter.saveItem(null, newItem.name, newItem.color)
+
+        // Then repository called to check item name.
+        Mockito.verify(repository).loadItems(capture(loadItemsCallbackCaptor))
+        loadItemsCallbackCaptor.value.onItemsLoaded(listOf(anotherItem))
         // Then repository called with these name and color and item is listed and active.
         val captor = argumentCaptor<Item>()
         Mockito.verify(repository).saveItem(capture(captor))
@@ -87,6 +115,26 @@ class AddItemPresenterTest {
         assertThat(captor.value.isActive, CoreMatchers.`is`(true))
         // Then view called to show a message
         Mockito.verify(view).showItemSavedMessage(false)
+    }
+
+    @Test
+    fun saveItemWithExistingName() {
+        // With new item.
+        val newItem = Item(name = "Name", color = 123)
+        // With another item in repository with the same name.
+        val anotherItem = Item(name = "Name", color = 456)
+
+        // When presenter called to save item with certain name and color.
+        presenter.saveItem(null, newItem.name, newItem.color)
+
+        // Then repository called to check item name.
+        Mockito.verify(repository).loadItems(capture(loadItemsCallbackCaptor))
+        loadItemsCallbackCaptor.value.onItemsLoaded(listOf(anotherItem))
+        // Then view is called to show error message.
+        Mockito.verify(view).showItemAlreadyExistMessage()
+        // Then repository not called to save this item
+        val captor = argumentCaptor<Item>()
+        Mockito.verify(repository, Mockito.times(0)).saveItem(capture(captor))
     }
 
     @Test
@@ -112,11 +160,34 @@ class AddItemPresenterTest {
         // When presenter called to save item with certain name and color.
         presenter.saveItem(newItem.id, newItem.name, newItem.color)
 
+        // Then repository called to check item name.
+        Mockito.verify(repository).loadItems(capture(loadItemsCallbackCaptor))
+        loadItemsCallbackCaptor.value.onItemsLoaded(listOf(newItem))
         // Then repository called to update this item.
         val captor = argumentCaptor<Item>()
         Mockito.verify(repository, times(0)).saveItem(capture(captor))
         Mockito.verify(repository).updateNameColor(newItem.id, newItem.name, newItem.color)
         // Then view called to show a message
         Mockito.verify(view).showItemSavedMessage(true)
+    }
+
+    @Test
+    fun updateItemWithExistingName() {
+        // With already existing item.
+        val newItem = Item(name = "Name", color = 123)
+        // With another item in repository.
+        val anotherItem = Item(name = "Name 2", color = 123)
+
+        // When presenter called to save item with certain name and color.
+        presenter.saveItem(newItem.id, anotherItem.name, newItem.color)
+
+        // Then repository called to check item name.
+        Mockito.verify(repository).loadItems(capture(loadItemsCallbackCaptor))
+        loadItemsCallbackCaptor.value.onItemsLoaded(listOf(anotherItem))
+        // Then view is called to show error message.
+        Mockito.verify(view).showItemAlreadyExistMessage()
+        // Then repository not called to save this item
+        val captor = argumentCaptor<Item>()
+        Mockito.verify(repository, Mockito.times(0)).saveItem(capture(captor))
     }
 }
