@@ -11,11 +11,12 @@ import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.ui.additem.AddItemContract
 import com.example.util.simpleshoppinglist.ui.additem.AddItemDialogFragment
+import com.example.util.simpleshoppinglist.ui.custom.CustomSnackBar
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.recent_activity.*
 import kotlinx.android.synthetic.main.recent_fragment.*
 import kotlinx.android.synthetic.main.recent_fragment.view.*
 import java.util.*
@@ -146,7 +147,9 @@ class RecentFragment : Fragment(), RecentContract.View {
     }
 
     override fun showAllItemsDeletedMessage() {
-        Snackbar.make(activity!!.rv_items, getString(R.string.recent_items_deleted), Snackbar.LENGTH_LONG).show()
+        CustomSnackBar
+            .make(activity!!.bottom_bar, getString(R.string.recent_items_deleted))
+            .show()
     }
 
     override fun showItemSavedMessage(updated: Boolean) {
@@ -154,15 +157,21 @@ class RecentFragment : Fragment(), RecentContract.View {
             true -> getString(R.string.recent_item_updated_message)
             false -> getString(R.string.recent_item_saved_message)
         }
-        Snackbar.make(activity!!.rv_items, message, Snackbar.LENGTH_LONG).show()
+        CustomSnackBar
+            .make(activity!!.bottom_bar, message)
+            .show()
     }
 
     override fun showIncorrectItemNameError() {
-        Snackbar.make(activity!!.rv_items, getString(R.string.recent_incorrect_name), Snackbar.LENGTH_LONG).show()
+        CustomSnackBar
+            .make(activity!!.bottom_bar, getString(R.string.recent_incorrect_name))
+            .show()
     }
 
     override fun showItemAlreadyExistsMessage() {
-        Snackbar.make(activity!!.rv_items, getString(R.string.recent_item_already_exists), Snackbar.LENGTH_LONG).show()
+        CustomSnackBar
+            .make(activity!!.bottom_bar, getString(R.string.recent_item_already_exists))
+            .show()
     }
 
     private fun showDeleteAllDialog() {
