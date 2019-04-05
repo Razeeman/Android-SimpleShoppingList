@@ -20,7 +20,7 @@ class App: Application() {
         private var recentComponent: RecentComponent? = null
         private var addItemComponent: AddItemComponent? = null
 
-        // Lint suppressed because to keep method for future reference.
+        // Lint suppressed to keep method for future reference.
         @Suppress("unused")
         fun getAppComponent(): AppComponent {
             return appComponent

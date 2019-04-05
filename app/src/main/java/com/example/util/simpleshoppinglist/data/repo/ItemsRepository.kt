@@ -40,9 +40,9 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
     private var itemsCache = LinkedHashMap<String, Item>()
 
     /**
-     * Asynchronously load items from the database fire a callback with response.
+     * Asynchronously load items from the database and fire a callback with response.
      *
-     * @param callback A callback to return items on the main thread.
+     * @param callback A callback to return items to the caller.
      */
     override fun loadItems(callback: BaseItemsRepository.LoadItemsCallback) {
         // Return cached items if available.
@@ -65,10 +65,10 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
     }
 
     /**
-     * Asynchronously load one item from the database fire a callback with response.
+     * Asynchronously load one item from the database and fire a callback with response.
      *
      * @param id       Id of the item to load from database.
-     * @param callback A callback to return item on the main thread.
+     * @param callback A callback to return item to the caller.
      */
     override fun loadItem(id: String, callback: BaseItemsRepository.LoadItemCallback) {
         // Return cached item if available.

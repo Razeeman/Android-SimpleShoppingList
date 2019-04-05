@@ -17,6 +17,10 @@ class PreferenceHelper
 
     companion object {
 
+        /**
+         * Preferences keys and default values.
+         */
+
         private const val PREFS_APP_THEME_KEY = "prefs_app_theme_key"
         private val PREFS_APP_THEME_DEFAULT = AppThemeType.values().indexOf(AppThemeType.THEME_LIGHT)
 
