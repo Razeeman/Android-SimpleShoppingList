@@ -3,6 +3,7 @@ package com.example.util.simpleshoppinglist.ui.recent
 import com.example.util.simpleshoppinglist.argumentCaptor
 import com.example.util.simpleshoppinglist.capture
 import com.example.util.simpleshoppinglist.data.model.Item
+import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
@@ -37,6 +38,7 @@ class RecentPresenterTest {
     }
 
     @Mock private lateinit var repository: BaseItemsRepository
+    @Mock private lateinit var preferenceHelper: BasePreferenceHelper
     @Mock private lateinit var view: RecentContract.View
     @Captor private lateinit var loadItemsCallbackCaptor: ArgumentCaptor<BaseItemsRepository.LoadItemsCallback>
 
@@ -46,13 +48,22 @@ class RecentPresenterTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        presenter = RecentPresenter(repository)
+        presenter = RecentPresenter(repository, preferenceHelper)
         presenter.attachView(view)
     }
 
     @After
     fun tearDown() {
         // Not used.
+    }
+
+    @Test
+    fun getAppTheme() {
+        // When presenter queried for app theme.
+        presenter.appTheme
+
+        // Then preferences should be queried.
+        verify(preferenceHelper).appTheme
     }
 
     @Test

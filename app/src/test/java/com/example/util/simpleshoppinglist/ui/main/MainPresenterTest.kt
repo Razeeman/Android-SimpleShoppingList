@@ -3,6 +3,7 @@ package com.example.util.simpleshoppinglist.ui.main
 import com.example.util.simpleshoppinglist.argumentCaptor
 import com.example.util.simpleshoppinglist.capture
 import com.example.util.simpleshoppinglist.data.model.Item
+import com.example.util.simpleshoppinglist.data.prefs.AppThemeType
 import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
 import com.example.util.simpleshoppinglist.data.prefs.ItemsSortType
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
@@ -58,6 +59,15 @@ class MainPresenterTest {
     @After
     fun tearDown() {
         // Not used.
+    }
+
+    @Test
+    fun getAppTheme() {
+        // When presenter queried for app theme.
+        presenter.appTheme
+
+        // Then preferences should be queried.
+        verify(preferenceHelper).appTheme
     }
 
     @Test
@@ -193,14 +203,17 @@ class MainPresenterTest {
     @Test
     fun loadMenuData() {
         // With preference set up.
+        doReturn(AppThemeType.THEME_DARK).`when`(preferenceHelper).appTheme
         doReturn(true).`when`(preferenceHelper).hideChecked
 
         // When presenter loads menu data.
         presenter.loadMenuData()
 
         // Then preferences are queried.
+        verify(preferenceHelper).appTheme
         verify(preferenceHelper).hideChecked
-        // Then view is called to update menu with this value.
+        // Then view is called to update menu with these values.
+        verify(view).updateMenuNightMode(true)
         verify(view).updateMenuHideChecked(true)
     }
 
@@ -245,6 +258,20 @@ class MainPresenterTest {
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
         // Then view called to show a message
         verify(view).showListClearedMessage()
+    }
+
+    @Test
+    fun switchTheme() {
+        // With preference set up.
+        doReturn(AppThemeType.THEME_LIGHT).`when`(preferenceHelper).appTheme
+
+        // When presenter called to switch app theme.
+        presenter.switchTheme()
+
+        // Then preferences are queried to update preference.
+        verify(preferenceHelper).appTheme
+        // Then view is called to update menu.
+        verify(view).updateMenuNightMode(true)
     }
 
     @Test
