@@ -8,6 +8,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.ui.recent.RecentActivity
+import com.example.util.simpleshoppinglist.util.ThemeManager
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.main_activity.*
@@ -20,8 +21,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
         App.getMainComponent().inject(this)
+        ThemeManager.setTheme(this, presenter.appTheme)
+        setContentView(R.layout.main_activity)
 
         // Setting up the toolbar.
         val toolbar = findViewById<BottomAppBar>(R.id.bottom_bar)

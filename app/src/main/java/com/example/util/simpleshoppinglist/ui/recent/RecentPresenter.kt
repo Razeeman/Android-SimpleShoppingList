@@ -1,6 +1,8 @@
 package com.example.util.simpleshoppinglist.ui.recent
 
 import com.example.util.simpleshoppinglist.data.model.Item
+import com.example.util.simpleshoppinglist.data.prefs.AppThemeType
+import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.di.ActivityScoped
 import javax.inject.Inject
@@ -10,10 +12,15 @@ import javax.inject.Inject
  */
 @ActivityScoped
 class RecentPresenter
-@Inject constructor(private val itemsRepository: BaseItemsRepository)
+@Inject constructor(private val itemsRepository: BaseItemsRepository,
+                    private val preferenceHelper: BasePreferenceHelper
+)
     : RecentContract.Presenter {
 
     private var view: RecentContract.View? = null
+
+    override val appTheme: AppThemeType
+        get() = preferenceHelper.appTheme
 
     /**
      * Loads items from repository and forwards them to view.

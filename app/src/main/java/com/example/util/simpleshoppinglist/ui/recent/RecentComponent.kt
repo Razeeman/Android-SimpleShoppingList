@@ -8,5 +8,6 @@ import dagger.Subcomponent
 interface RecentComponent {
 
     fun inject(fragment: RecentFragment)
+    fun inject(activity: RecentActivity)
 
 }

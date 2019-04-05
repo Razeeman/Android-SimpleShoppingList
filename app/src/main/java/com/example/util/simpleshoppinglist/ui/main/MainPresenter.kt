@@ -1,6 +1,7 @@
 package com.example.util.simpleshoppinglist.ui.main
 
 import com.example.util.simpleshoppinglist.data.model.Item
+import com.example.util.simpleshoppinglist.data.prefs.AppThemeType
 import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
 import com.example.util.simpleshoppinglist.data.prefs.ItemsSortType
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
@@ -18,6 +19,9 @@ class MainPresenter
     : MainContract.Presenter {
 
     private var view: MainContract.View? = null
+
+    override val appTheme: AppThemeType
+        get() = preferenceHelper.appTheme
 
     /**
      * Loads items from repository and forwards them to view.
@@ -65,6 +69,7 @@ class MainPresenter
     }
 
     override fun loadMenuData() {
+        view?.updateMenuNightMode(preferenceHelper.appTheme == AppThemeType.THEME_DARK)
         view?.updateMenuHideChecked(preferenceHelper.hideChecked)
     }
 
@@ -83,6 +88,15 @@ class MainPresenter
         itemsRepository.clearAllListed()
         loadData()
         view?.showListClearedMessage()
+    }
+
+    override fun switchTheme() {
+        val newTheme = when (preferenceHelper.appTheme) {
+            AppThemeType.THEME_LIGHT -> AppThemeType.THEME_DARK
+            AppThemeType.THEME_DARK -> AppThemeType.THEME_LIGHT
+        }
+        preferenceHelper.appTheme = newTheme
+        view?.updateMenuNightMode(newTheme == AppThemeType.THEME_DARK)
     }
 
     override fun togglePrefHideChecked() {

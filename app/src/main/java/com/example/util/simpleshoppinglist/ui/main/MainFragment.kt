@@ -13,6 +13,7 @@ import com.example.util.simpleshoppinglist.ui.additem.AddItemContract
 import com.example.util.simpleshoppinglist.ui.additem.AddItemDialogFragment
 import com.example.util.simpleshoppinglist.ui.custom.CustomSnackBar
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
+import com.example.util.simpleshoppinglist.util.ThemeManager
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
@@ -123,6 +124,7 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
+            R.id.menu_night_mode -> switchNightMode()
             R.id.menu_hide_checked -> presenter.togglePrefHideChecked()
             R.id.menu_sort_name -> presenter.setPrefSortType(ItemsSortType.BY_NAME)
             R.id.menu_sort_default -> presenter.setPrefSortType(ItemsSortType.DEFAULT)
@@ -135,6 +137,10 @@ class MainFragment : Fragment(), MainContract.View {
         tv_no_items.visibility = View.INVISIBLE
         itemAdapter.items = items
         itemAdapter.notifyDataSetChanged() // TODO expensive, only redraw one item?
+    }
+
+    override fun updateMenuNightMode(value: Boolean) {
+        menu.findItem(R.id.menu_night_mode).isChecked = value
     }
 
     override fun updateMenuHideChecked(value: Boolean) {
@@ -179,4 +185,9 @@ class MainFragment : Fragment(), MainContract.View {
         CustomSnackBar
             .make(activity!!.bottom_bar, getString(R.string.recent_item_already_exists))
             .show()    }
+
+    private fun switchNightMode() {
+        presenter.switchTheme()
+        ThemeManager.changeTheme(activity!!)
+    }
 }

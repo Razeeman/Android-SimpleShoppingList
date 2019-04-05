@@ -5,16 +5,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
+import com.example.util.simpleshoppinglist.util.ThemeManager
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.recent_activity.*
+import javax.inject.Inject
 
 class RecentActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var presenter: RecentContract.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        App.getRecentComponent().inject(this)
+        ThemeManager.setTheme(this, presenter.appTheme)
         setContentView(R.layout.recent_activity)
-        App.getRecentComponent()
 
         // Setting up the toolbar.
         val toolbar = findViewById<BottomAppBar>(R.id.bottom_bar)

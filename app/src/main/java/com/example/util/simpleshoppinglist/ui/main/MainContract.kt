@@ -3,6 +3,7 @@ package com.example.util.simpleshoppinglist.ui.main
 import com.example.util.simpleshoppinglist.BasePresenter
 import com.example.util.simpleshoppinglist.BaseView
 import com.example.util.simpleshoppinglist.data.model.Item
+import com.example.util.simpleshoppinglist.data.prefs.AppThemeType
 import com.example.util.simpleshoppinglist.data.prefs.ItemsSortType
 
 /**
@@ -13,6 +14,8 @@ interface MainContract {
     interface View: BaseView {
 
         fun showItems(items: List<Item>)
+
+        fun updateMenuNightMode(value: Boolean)
 
         fun updateMenuHideChecked(value: Boolean)
 
@@ -32,6 +35,8 @@ interface MainContract {
 
     interface Presenter: BasePresenter<View> {
 
+        val appTheme: AppThemeType
+
         fun loadData()
 
         fun loadMenuData()
@@ -41,6 +46,8 @@ interface MainContract {
         fun toggleActiveStatus(item: Item)
 
         fun clearList()
+
+        fun switchTheme()
 
         fun togglePrefHideChecked()
 
