@@ -5,6 +5,8 @@ package com.example.util.simpleshoppinglist.data.prefs
  */
 interface BasePreferenceHelper {
 
+    var appTheme: AppThemeType
+
     var hideChecked: Boolean
 
     var sortBy: ItemsSortType

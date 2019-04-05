@@ -17,6 +17,9 @@ class PreferenceHelper
 
     companion object {
 
+        private const val PREFS_APP_THEME_KEY = "prefs_app_theme_key"
+        private val PREFS_APP_THEME_DEFAULT = AppThemeType.values().indexOf(AppThemeType.THEME_LIGHT)
+
         private const val PREFS_HIDE_CHECKED_KEY = "prefs_hide_checked_key"
         private const val PREFS_HIDE_CHECKED_DEFAULT = false
 
@@ -24,6 +27,16 @@ class PreferenceHelper
         private val PREFS_SORT_BY_DEFAULT = ItemsSortType.values().indexOf(ItemsSortType.DEFAULT)
 
     }
+
+    /**
+     * Preference to store app theme.
+     * Preference stored as an Int index of [AppThemeType] enum type.
+     */
+    override var appTheme: AppThemeType
+        get() = AppThemeType.values()[sharedPreferences.getInt(PREFS_APP_THEME_KEY, PREFS_APP_THEME_DEFAULT)]
+        set(value) = sharedPreferences.edit {
+            putInt(PREFS_APP_THEME_KEY, AppThemeType.values().indexOf(value))
+        }
 
     /**
      * Preference to decide if checked items on the main view should be hidden or not.

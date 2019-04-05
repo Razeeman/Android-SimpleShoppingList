@@ -19,6 +19,7 @@ class PreferenceHelperTest {
 
     companion object {
 
+        private const val THEME_TEST_VALUE = 1
         private const val HIDE_CHECKED_TEST_VALUE = true
         private const val SORT_BY_TEST_VALUE = 1
 
@@ -40,6 +41,26 @@ class PreferenceHelperTest {
     @After
     fun tearDown() {
         // Not used.
+    }
+
+    @Test
+    fun getAppTheme() {
+        // When preference is accessed then its value is returned.
+        `when`(sharedPreferences.getInt(anyString(), anyInt())).thenReturn(THEME_TEST_VALUE)
+        assertThat(preferenceHelper.appTheme, `is`(AppThemeType.values()[THEME_TEST_VALUE]))
+    }
+
+    @Test
+    fun setAppTheme() {
+        // When preference is set.
+        preferenceHelper.appTheme = AppThemeType.values()[THEME_TEST_VALUE]
+
+        // Then SharedPreferences is called to put this new value in storage.
+        val captorKey = argumentCaptor<String>()
+        val captorValue = argumentCaptor<Int>()
+        verify(editor).putInt(capture(captorKey), capture(captorValue))
+        verify(editor).apply()
+        assertThat(captorValue.value, `is`(THEME_TEST_VALUE))
     }
 
     @Test
