@@ -128,6 +128,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
     override fun onResume() {
         super.onResume()
         presenter.attachView(this)
+        // TODO updated item new color doesn't retain.
         presenter.loadItem(itemId)
     }
 
