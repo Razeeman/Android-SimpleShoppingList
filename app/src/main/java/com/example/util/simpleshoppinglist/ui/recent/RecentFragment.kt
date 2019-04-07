@@ -3,6 +3,7 @@ package com.example.util.simpleshoppinglist.ui.recent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.ui.additem.AddItemContract
 import com.example.util.simpleshoppinglist.ui.additem.AddItemDialogFragment
+import com.example.util.simpleshoppinglist.ui.custom.ColorStateDrawable
 import com.example.util.simpleshoppinglist.ui.custom.CustomSnackBar
 import com.example.util.simpleshoppinglist.ui.custom.ItemAdapter
 import com.google.android.flexbox.FlexDirection
@@ -71,9 +73,13 @@ class RecentFragment : Fragment(), RecentContract.View {
             adapter = itemAdapter
         }
 
-        root.tv_add_new_item.setOnClickListener {
-            val fragment = AddItemDialogFragment.newInstance(null)
-            fragment.show(childFragmentManager, null)
+        root.tv_add_new_item.apply {
+            background = ColorStateDrawable(context, R.drawable.item_drawable,
+                ContextCompat.getColor(context, R.color.colorSecondary))
+            setOnClickListener {
+                val fragment = AddItemDialogFragment.newInstance(null)
+                fragment.show(childFragmentManager, null)
+            }
         }
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
