@@ -5,8 +5,8 @@
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorSecondary">#FF4081</color>
 
-    <color name="colorTextDark">@android:color/primary_text_dark</color>
-    <color name="colorTextLight">@android:color/primary_text_light</color>
+    <color name="colorTextDark">#ffffff</color>
+    <color name="colorTextLight">#000000</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
