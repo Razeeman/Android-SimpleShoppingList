@@ -1,8 +1,6 @@
 package com.example.util.simpleshoppinglist.ui.additem
 
 import android.app.Dialog
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.WindowManager
@@ -15,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.util.simpleshoppinglist.App
 import com.example.util.simpleshoppinglist.R
 import com.example.util.simpleshoppinglist.ui.custom.ColorPickerDialog
+import com.example.util.simpleshoppinglist.ui.custom.ColorStateDrawable
 import kotlinx.android.synthetic.main.additem_fragment.view.*
 import javax.inject.Inject
 
@@ -175,7 +174,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
     }
 
     private fun updateItemColor() {
-        ivItemColor.background.colorFilter = PorterDuffColorFilter(itemColor, PorterDuff.Mode.SRC_IN)
+        ivItemColor.background = ColorStateDrawable(context!!, R.drawable.color_pick_drawable, itemColor)
     }
 
 }
