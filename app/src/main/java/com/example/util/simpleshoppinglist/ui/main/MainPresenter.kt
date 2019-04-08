@@ -6,6 +6,7 @@ import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
 import com.example.util.simpleshoppinglist.data.prefs.ItemsSortType
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.di.ActivityScoped
+import com.example.util.simpleshoppinglist.util.ColorHSVComparator
 import java.util.*
 import javax.inject.Inject
 
@@ -47,13 +48,15 @@ class MainPresenter
                     itemsRepository.clearAllListed()
                 }
 
+                // TODO temporary.
+                val comparator = compareBy<Item,Int>(ColorHSVComparator()) { it.color }
+                    .thenBy {it.name}
+
                 // Lint suppressed because DEFAULT items sort type doesn't change item list.
                 @Suppress("UNUSED_EXPRESSION")
                 when (sortType) {
                     ItemsSortType.DEFAULT -> false
-                    ItemsSortType.BY_NAME -> itemsToShow.sortBy {
-                        it.name
-                    }
+                    ItemsSortType.BY_NAME -> itemsToShow.sortWith(comparator)
                 }
 
                 if (itemsToShow.size != 0) {
