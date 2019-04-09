@@ -2,6 +2,7 @@ package com.example.util.simpleshoppinglist.data.db
 
 import androidx.room.*
 import com.example.util.simpleshoppinglist.data.model.Item
+import java.util.*
 
 /**
  * Data access object for items database table.
@@ -65,10 +66,19 @@ interface ItemDao {
      *
      * @param id     id of the item to update.
      * @param name   new name of the item.
-     * @param color  new color of of the item.
+     * @param color  new color of the item.
      */
     @Query("UPDATE items SET name = :name, color = :color WHERE id = :id")
     fun updateNameColor(id: String, name: String, color: Int)
+
+    /**
+     * Update listed time of an item.
+     *
+     * @param id   id of the item to update.
+     * @param date new listed time of the item.
+     */
+    @Query("UPDATE items SET listed_time = :date WHERE id = :id")
+    fun updateListedTime(id: String, date: Date)
 
     /**
      * Set the listed status to false on all listed items.

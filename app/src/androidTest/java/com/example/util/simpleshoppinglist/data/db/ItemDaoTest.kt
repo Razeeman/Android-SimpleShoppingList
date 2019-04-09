@@ -10,6 +10,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 class ItemDaoTest {
@@ -20,15 +21,19 @@ class ItemDaoTest {
         private const val DEFAULT_COLOR = 0xFFFFFF
         private const val DEFAULT_LISTED = false
         private const val DEFAULT_ACTIVE = false
+        private val DEFAULT_LISTED_TIME = Date(1000L)
         private val DEFAULT_ITEM = Item(name = DEFAULT_NAME, color = DEFAULT_COLOR,
             isListed = DEFAULT_LISTED, isActive = DEFAULT_ACTIVE)
+            .apply { listedTime = DEFAULT_LISTED_TIME }
 
         private const val OTHER_NAME = "other name"
         private const val OTHER_COLOR = 0xABCDEF
         private const val OTHER_LISTED = true
         private const val OTHER_ACTIVE = true
+        private val OTHER_LISTED_TIME = Date(2000L)
         private val OTHER_ITEM = Item(name = OTHER_NAME, color = OTHER_COLOR,
             isListed = OTHER_LISTED, isActive = OTHER_ACTIVE)
+            .apply { listedTime = OTHER_LISTED_TIME }
 
     }
 
@@ -136,6 +141,16 @@ class ItemDaoTest {
 
         assertThat(fromDatabase!!.name, `is`(OTHER_NAME))
         assertThat(fromDatabase.color, `is`(OTHER_COLOR))
+    }
+
+    @Test
+    fun updateListedTime() {
+        val fromDatabase = database.itemDao().apply {
+            insert(DEFAULT_ITEM)
+            updateListedTime(DEFAULT_ITEM.id, OTHER_LISTED_TIME) }
+            .getById(DEFAULT_ITEM.id)
+
+        assertThat(fromDatabase!!.listedTime, `is`(OTHER_LISTED_TIME))
     }
 
     @Test
