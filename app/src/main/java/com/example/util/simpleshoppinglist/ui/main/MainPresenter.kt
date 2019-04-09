@@ -131,7 +131,7 @@ class MainPresenter
 
         // Sort by color or by order of adding in the list.
         var sortComparator: Comparator<Item> = when (sortType) {
-            ItemsSortType.DEFAULT -> compareBy { 0 }
+            ItemsSortType.BY_ORDER -> compareBy { it.listedTime }
             ItemsSortType.BY_NAME -> compareBy { it.name }
         }
 

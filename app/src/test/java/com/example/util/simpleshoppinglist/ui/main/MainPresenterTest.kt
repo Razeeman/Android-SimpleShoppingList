@@ -52,7 +52,7 @@ class MainPresenterTest {
         presenter = MainPresenter(repository, preferenceHelper, colorComparator)
         presenter.attachView(view)
 
-        doReturn(ItemsSortType.DEFAULT).`when`(preferenceHelper).sortBy
+        doReturn(ItemsSortType.BY_ORDER).`when`(preferenceHelper).sortBy
         doReturn(0).`when`(colorComparator).compare(anyInt(), anyInt())
     }
 

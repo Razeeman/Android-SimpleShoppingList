@@ -128,7 +128,7 @@ class MainFragment : Fragment(), MainContract.View {
             R.id.menu_group_by_color -> presenter.togglePrefGroupByColor()
             R.id.menu_hide_checked -> presenter.togglePrefHideChecked()
             R.id.menu_sort_name -> presenter.setPrefSortType(ItemsSortType.BY_NAME)
-            R.id.menu_sort_default -> presenter.setPrefSortType(ItemsSortType.DEFAULT)
+            R.id.menu_sort_default -> presenter.setPrefSortType(ItemsSortType.BY_ORDER)
         }
         return false
     }

@@ -7,7 +7,7 @@ enum class ItemsSortType {
     /**
      * In the order of adding to the list.
      */
-    DEFAULT,
+    BY_ORDER,
 
     /**
      * Alphabetical ordering by name.

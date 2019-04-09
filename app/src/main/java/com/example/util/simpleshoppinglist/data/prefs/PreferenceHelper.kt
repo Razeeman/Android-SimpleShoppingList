@@ -31,7 +31,7 @@ class PreferenceHelper
         private const val PREFS_HIDE_CHECKED_DEFAULT = false
 
         private const val PREFS_SORT_BY_KEY = "prefs_sort_by_key"
-        private val PREFS_SORT_BY_DEFAULT = ItemsSortType.values().indexOf(ItemsSortType.DEFAULT)
+        private val PREFS_SORT_BY_DEFAULT = ItemsSortType.values().indexOf(ItemsSortType.BY_ORDER)
 
     }
 
