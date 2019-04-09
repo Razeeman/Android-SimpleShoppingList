@@ -7,6 +7,8 @@ interface BasePreferenceHelper {
 
     var appTheme: AppThemeType
 
+    var groupByColor: Boolean
+
     var hideChecked: Boolean
 
     var sortBy: ItemsSortType

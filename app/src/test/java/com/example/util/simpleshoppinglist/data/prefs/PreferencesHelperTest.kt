@@ -20,6 +20,7 @@ class PreferenceHelperTest {
     companion object {
 
         private const val THEME_TEST_VALUE = 1
+        private const val GROUP_BY_COLOR_TEST_VALUE = true
         private const val HIDE_CHECKED_TEST_VALUE = true
         private const val SORT_BY_TEST_VALUE = 1
 
@@ -61,6 +62,26 @@ class PreferenceHelperTest {
         verify(editor).putInt(capture(captorKey), capture(captorValue))
         verify(editor).apply()
         assertThat(captorValue.value, `is`(THEME_TEST_VALUE))
+    }
+
+    @Test
+    fun getGroupByColor() {
+        // When preference is accessed then its value is returned.
+        `when`(sharedPreferences.getBoolean(anyString(), anyBoolean())).thenReturn(GROUP_BY_COLOR_TEST_VALUE)
+        assertThat(preferenceHelper.groupByColor, `is`(GROUP_BY_COLOR_TEST_VALUE))
+    }
+
+    @Test
+    fun setGroupByColor() {
+        // When preference is set.
+        preferenceHelper.groupByColor = GROUP_BY_COLOR_TEST_VALUE
+
+        // Then SharedPreferences is called to put this new value in storage.
+        val captorKey = argumentCaptor<String>()
+        val captorValue = argumentCaptor<Boolean>()
+        verify(editor).putBoolean(capture(captorKey), capture(captorValue))
+        verify(editor).apply()
+        assertThat(captorValue.value, `is`(GROUP_BY_COLOR_TEST_VALUE))
     }
 
     @Test

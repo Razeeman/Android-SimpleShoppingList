@@ -24,6 +24,9 @@ class PreferenceHelper
         private const val PREFS_APP_THEME_KEY = "prefs_app_theme_key"
         private val PREFS_APP_THEME_DEFAULT = AppThemeType.values().indexOf(AppThemeType.THEME_LIGHT)
 
+        private const val PREFS_GROUP_BY_COLOR_KEY = "prefs_group_by_color_key"
+        private const val PREFS_GROUP_BY_COLOR_DEFAULT = false
+
         private const val PREFS_HIDE_CHECKED_KEY = "prefs_hide_checked_key"
         private const val PREFS_HIDE_CHECKED_DEFAULT = false
 
@@ -42,6 +45,14 @@ class PreferenceHelper
             putInt(PREFS_APP_THEME_KEY, AppThemeType.values().indexOf(value))
         }
 
+    /**
+     * Preference to decide if items should be grouped by color.
+     */
+    override var groupByColor: Boolean
+        get() = sharedPreferences.getBoolean(PREFS_GROUP_BY_COLOR_KEY, PREFS_GROUP_BY_COLOR_DEFAULT)
+        set(value) = sharedPreferences.edit {
+            putBoolean(PREFS_GROUP_BY_COLOR_KEY, value)
+        }
     /**
      * Preference to decide if checked items on the main view should be hidden or not.
      */
