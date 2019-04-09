@@ -84,6 +84,6 @@
     <string name="menu_hide_checked">Hide checked items</string>
     <string name="menu_sort">Sort</string>
     <string name="menu_sort_by_name">By name</string>
-    <string name="menu_sort_default">Default</string>
+    <string name="menu_sort_default">By adding</string>
 
 </resources>
