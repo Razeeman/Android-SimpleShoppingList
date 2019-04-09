@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.util.simpleshoppinglist.data.db.AppDatabase.Companion.DATABASE_VERSION
 import com.example.util.simpleshoppinglist.data.model.Item
 
@@ -11,6 +12,7 @@ import com.example.util.simpleshoppinglist.data.model.Item
  * Room database.
  */
 @Database(entities = [Item::class], version = DATABASE_VERSION)
+@TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun itemDao(): ItemDao

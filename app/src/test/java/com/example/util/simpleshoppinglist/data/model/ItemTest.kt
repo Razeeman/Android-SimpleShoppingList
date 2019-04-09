@@ -16,19 +16,22 @@ class ItemTest {
         private const val NEW_ID = "new_id"
         private const val NEW_NAME = "new name"
         private const val NEW_COLOR = 0x123456
-        private const val NEW_LISTED = false
-        private const val NEW_ACTIVE = false
+        private const val NEW_LISTED = true
+        private const val NEW_ACTIVE = true
+        private const val NEW_LISTED_TIME = 1000L
 
     }
 
     @Test
-    fun emptyListItem() {
+    fun newItem() {
         val listItem = Item()
 
         assertThat("Item created with empty name", listItem.name, `is`(""))
         assertThat("Item created with empty color", listItem.color, `is`(0))
         assertThat("Item created with not listed status", listItem.isListed, `is`(false))
         assertThat("Item created with not active status", listItem.isActive, `is`(false))
+        assertThat("Item created with non null time", listItem.listedTime, notNullValue())
+        assertThat("Item created with some specific time", listItem.listedTime, `is`(not(Date(0))))
     }
 
     @Test
@@ -66,7 +69,7 @@ class ItemTest {
     @Test
     fun setAndGetListed() {
         val item = Item()
-        item.isListed = true
+        item.isListed = NEW_LISTED
 
         assertThat("Listed status is set", item.isListed, `is`(true))
     }
@@ -74,9 +77,17 @@ class ItemTest {
     @Test
     fun setAndGetActive() {
         val item = Item()
-        item.isActive = true
+        item.isActive = NEW_ACTIVE
 
         assertThat("Active status is set", item.isActive, `is`(true))
+    }
+
+    @Test
+    fun setAndGetListedTime() {
+        val item = Item()
+        item.listedTime = Date(NEW_LISTED_TIME)
+
+        assertThat("Time then item was listed is set", item.listedTime, `is`(Date(NEW_LISTED_TIME)))
     }
 
     @Test
