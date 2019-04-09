@@ -6,6 +6,7 @@ import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Assert.assertThat
 import org.junit.Before
@@ -17,6 +18,7 @@ import org.mockito.Mock
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
+import java.util.*
 
 class RecentPresenterTest {
 
@@ -121,6 +123,12 @@ class RecentPresenterTest {
         verify(repository).updateItemListed(newItem.id, true)
         // Then repository updates this item to active.
         verify(repository).updateItemActive(newItem.id, true)
+        // Then repository updates listed time of this item.
+        val captorId = argumentCaptor<String>()
+        val captor = argumentCaptor<Date>()
+        verify(repository).updateListedTime(capture(captorId), capture(captor))
+        assertThat(captorId.value, `is`(newItem.id))
+        assertThat(captor.value.time, `is`(not(0L)))
         // Then repository called to reload data. First on attach, second after add to list.
         verify(repository, times(2)).loadItems(capture(loadItemsCallbackCaptor))
     }
