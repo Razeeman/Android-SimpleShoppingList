@@ -3,6 +3,7 @@ package com.example.util.simpleshoppinglist.data.repo
 import com.example.util.simpleshoppinglist.data.db.ItemDao
 import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.util.AppExecutors
+import java.util.*
 
 /**
  * Implementation of the items repository.
@@ -148,6 +149,17 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
             this.name = name
             this.color = color
         }
+    }
+
+    /**
+     * Asynchronously updates listed time of an item in the database.
+     *
+     * @param id   An id of the item to update.
+     * @param date New listed time of the item.
+     */
+    override fun updateListedTime(id: String, date: Date) {
+        executors.diskIO.execute { itemDao.updateListedTime(id, date) }
+        itemsCache[id]?.listedTime = date
     }
 
     /**

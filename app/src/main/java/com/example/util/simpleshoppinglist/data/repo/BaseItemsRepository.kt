@@ -1,6 +1,7 @@
 package com.example.util.simpleshoppinglist.data.repo
 
 import com.example.util.simpleshoppinglist.data.model.Item
+import java.util.*
 
 /**
  * Repository contract.
@@ -34,6 +35,8 @@ interface BaseItemsRepository {
     fun updateItemActive(id: String, active: Boolean)
 
     fun updateNameColor(id:String, name: String, color: Int)
+
+    fun updateListedTime(id: String, date: Date)
 
     fun clearAllListed()
 

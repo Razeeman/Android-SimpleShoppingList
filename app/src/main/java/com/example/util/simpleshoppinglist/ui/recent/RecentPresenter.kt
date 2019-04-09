@@ -5,6 +5,7 @@ import com.example.util.simpleshoppinglist.data.prefs.AppThemeType
 import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.di.ActivityScoped
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -54,6 +55,7 @@ class RecentPresenter
     override fun addItemToList(item: Item) {
         itemsRepository.updateItemListed(item.id, true)
         itemsRepository.updateItemActive(item.id, true)
+        itemsRepository.updateListedTime(item.id, Date())
         loadData()
     }
 
