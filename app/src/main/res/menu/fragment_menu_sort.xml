@@ -8,6 +8,12 @@
 
         <menu>
             <item
+                    android:id="@+id/menu_group_by_color"
+                    android:title="@string/menu_group_by_color"
+                    android:checkable="true"
+                    app:showAsAction="never"/>
+
+            <item
                     android:id="@+id/menu_hide_checked"
                     android:title="@string/menu_hide_checked"
                     android:checkable="true"

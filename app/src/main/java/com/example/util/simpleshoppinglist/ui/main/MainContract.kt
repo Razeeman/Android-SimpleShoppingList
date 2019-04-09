@@ -17,6 +17,8 @@ interface MainContract {
 
         fun updateMenuNightMode(value: Boolean)
 
+        fun updateMenuGroupByColor(value: Boolean)
+
         fun updateMenuHideChecked(value: Boolean)
 
         fun showNoItemsMessage()
@@ -48,6 +50,8 @@ interface MainContract {
         fun clearList()
 
         fun switchTheme()
+
+        fun togglePrefGroupByColor()
 
         fun togglePrefHideChecked()
 

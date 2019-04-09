@@ -125,6 +125,7 @@ class MainFragment : Fragment(), MainContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.menu_night_mode -> switchNightMode()
+            R.id.menu_group_by_color -> presenter.togglePrefGroupByColor()
             R.id.menu_hide_checked -> presenter.togglePrefHideChecked()
             R.id.menu_sort_name -> presenter.setPrefSortType(ItemsSortType.BY_NAME)
             R.id.menu_sort_default -> presenter.setPrefSortType(ItemsSortType.DEFAULT)
@@ -141,6 +142,10 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun updateMenuNightMode(value: Boolean) {
         menu.findItem(R.id.menu_night_mode).isChecked = value
+    }
+
+    override fun updateMenuGroupByColor(value: Boolean) {
+        menu.findItem(R.id.menu_group_by_color).isChecked = value
     }
 
     override fun updateMenuHideChecked(value: Boolean) {

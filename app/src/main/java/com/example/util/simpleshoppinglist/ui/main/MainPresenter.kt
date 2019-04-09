@@ -9,6 +9,7 @@ import com.example.util.simpleshoppinglist.di.ActivityScoped
 import com.example.util.simpleshoppinglist.util.ColorHSVComparator
 import java.util.*
 import javax.inject.Inject
+import kotlin.Comparator
 
 /**
  * Receives events from UI, loads and saves data in repository and updates UI.
@@ -34,7 +35,6 @@ class MainPresenter
                 var listedItems = 0
                 var activeItems = 0
                 val hideChecked = preferenceHelper.hideChecked
-                val sortType = preferenceHelper.sortBy
                 val itemsToShow = ArrayList<Item>()
 
                 for (item in items) {
@@ -49,16 +49,7 @@ class MainPresenter
                     itemsRepository.clearAllListed()
                 }
 
-                // TODO temporary.
-                val comparator = compareBy<Item,Int>(colorComparator) { it.color }
-                    .thenBy {it.name}
-
-                // Lint suppressed because DEFAULT items sort type doesn't change item list.
-                @Suppress("UNUSED_EXPRESSION")
-                when (sortType) {
-                    ItemsSortType.DEFAULT -> false
-                    ItemsSortType.BY_NAME -> itemsToShow.sortWith(comparator)
-                }
+                sortItems(itemsToShow)
 
                 if (itemsToShow.size != 0) {
                     view?.showItems(itemsToShow)
@@ -74,6 +65,7 @@ class MainPresenter
 
     override fun loadMenuData() {
         view?.updateMenuNightMode(preferenceHelper.appTheme == AppThemeType.THEME_DARK)
+        view?.updateMenuGroupByColor(preferenceHelper.groupByColor)
         view?.updateMenuHideChecked(preferenceHelper.hideChecked)
     }
 
@@ -103,6 +95,13 @@ class MainPresenter
         view?.updateMenuNightMode(newTheme == AppThemeType.THEME_DARK)
     }
 
+    override fun togglePrefGroupByColor() {
+        val newValue = !preferenceHelper.groupByColor
+        preferenceHelper.groupByColor = newValue
+        view?.updateMenuGroupByColor(newValue)
+        loadData()
+    }
+
     override fun togglePrefHideChecked() {
         val newValue = !preferenceHelper.hideChecked
         preferenceHelper.hideChecked = newValue
@@ -122,5 +121,28 @@ class MainPresenter
 
     override fun detachView() {
         view = null
+    }
+
+    /**
+     * Sort items according to preferences.
+     */
+    private fun sortItems(itemsToShow: ArrayList<Item>) {
+        val sortType = preferenceHelper.sortBy
+
+        // Sort by color or by order of adding in the list.
+        var sortComparator: Comparator<Item> = when (sortType) {
+            ItemsSortType.DEFAULT -> compareBy { 0 }
+            ItemsSortType.BY_NAME -> compareBy { it.name }
+        }
+
+        // Sort by color first if needed.
+        sortComparator = if (preferenceHelper.groupByColor) {
+            compareBy<Item, Int>(colorComparator) { it.color }
+                .then(sortComparator)
+        } else {
+            sortComparator
+        }
+
+        itemsToShow.sortWith(sortComparator)
     }
 }
