@@ -1,11 +1,12 @@
 package com.example.util.simpleshoppinglist.util
 
 import android.graphics.Color
+import javax.inject.Inject
 
 /**
  * Comparator to compare colors based on hue, saturation and value.
  */
-class ColorHSVComparator: Comparator<Int> {
+open class ColorHSVComparator @Inject constructor(): Comparator<Int> {
 
     companion object {
 
@@ -13,7 +14,7 @@ class ColorHSVComparator: Comparator<Int> {
 
     }
 
-    // TODO native Color.colorToHSV not testable and breaks presenter tests. Workaround?
+    // TODO native Color.colorToHSV not testable? Need workaround?
     /**
      * Compare two colors.
      * hsv[0] is Hue ([0..360)

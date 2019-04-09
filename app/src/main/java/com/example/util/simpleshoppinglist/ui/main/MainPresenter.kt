@@ -16,7 +16,8 @@ import javax.inject.Inject
 @ActivityScoped
 class MainPresenter
 @Inject constructor(private val itemsRepository: BaseItemsRepository,
-                    private val preferenceHelper: BasePreferenceHelper)
+                    private val preferenceHelper: BasePreferenceHelper,
+                    private val colorComparator: ColorHSVComparator)
     : MainContract.Presenter {
 
     private var view: MainContract.View? = null
@@ -49,7 +50,7 @@ class MainPresenter
                 }
 
                 // TODO temporary.
-                val comparator = compareBy<Item,Int>(ColorHSVComparator()) { it.color }
+                val comparator = compareBy<Item,Int>(colorComparator) { it.color }
                     .thenBy {it.name}
 
                 // Lint suppressed because DEFAULT items sort type doesn't change item list.

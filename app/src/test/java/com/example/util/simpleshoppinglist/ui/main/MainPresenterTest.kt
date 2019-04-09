@@ -7,17 +7,15 @@ import com.example.util.simpleshoppinglist.data.prefs.AppThemeType
 import com.example.util.simpleshoppinglist.data.prefs.BasePreferenceHelper
 import com.example.util.simpleshoppinglist.data.prefs.ItemsSortType
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
+import com.example.util.simpleshoppinglist.util.ColorHSVComparator
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
 import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 
-import org.mockito.ArgumentCaptor
-import org.mockito.Captor
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.junit.BeforeClass
+import org.mockito.*
 import org.mockito.Mockito.*
 
 class MainPresenterTest {
@@ -41,6 +39,7 @@ class MainPresenterTest {
 
     @Mock private lateinit var repository: BaseItemsRepository
     @Mock private lateinit var preferenceHelper: BasePreferenceHelper
+    @Mock private lateinit var colorComparator: ColorHSVComparator
     @Mock private lateinit var view: MainContract.View
     @Captor private lateinit var loadItemsCallbackCaptor: ArgumentCaptor<BaseItemsRepository.LoadItemsCallback>
 
@@ -50,10 +49,11 @@ class MainPresenterTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
-        presenter = MainPresenter(repository, preferenceHelper)
+        presenter = MainPresenter(repository, preferenceHelper, colorComparator)
         presenter.attachView(view)
 
         doReturn(ItemsSortType.DEFAULT).`when`(preferenceHelper).sortBy
+        doReturn(0).`when`(colorComparator).compare(anyInt(), anyInt())
     }
 
     @After
