@@ -22,7 +22,7 @@ class AddItemPresenter
                     view?.showItem(item.name, item.color)
                 }
                 override fun onDataNotAvailable() {
-                    // TODO handle error.
+                    throw RuntimeException("Item is being loaded for update but there is no item with this id.")
                 }
             })
         }

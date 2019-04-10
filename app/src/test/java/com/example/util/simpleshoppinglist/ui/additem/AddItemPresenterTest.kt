@@ -35,7 +35,7 @@ class AddItemPresenterTest {
         // Not used.
     }
 
-    @Test
+    @Test(expected = RuntimeException::class)
     fun loadData_withNoDataAvailable() {
         // With this item.
         val newItem = Item(name = "Item 1")
@@ -49,8 +49,7 @@ class AddItemPresenterTest {
         assertThat(captor.value, `is`(newItem.id))
         loadItemCallbackCaptor.value.onDataNotAvailable()
 
-        // Then ...
-        // TODO
+        // Then exception is thrown.
     }
 
     @Test
