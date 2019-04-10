@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:app="http://schemas.android.com/apk/res-auto">
+       xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
     <ImageView
             android:id="@+id/iv_color"
             android:layout_width="match_parent"
@@ -13,5 +13,7 @@
             android:padding="8dp"
             app:srcCompat="@drawable/ic_check"
             android:visibility="gone"
+            tools:visibility="visible"
+            tools:background="@drawable/color_pick_drawable"
             android:contentDescription="@string/color_pick_check_contDesc"/>
 </merge>
