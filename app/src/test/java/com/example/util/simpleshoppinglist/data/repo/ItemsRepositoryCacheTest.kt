@@ -5,7 +5,6 @@ import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.util.InstantExecutors
 import org.junit.After
 import org.junit.Before
-import org.junit.BeforeClass
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
@@ -15,19 +14,13 @@ class ItemsRepositoryCacheTest {
 
     companion object {
 
-        private lateinit var items: List<Item>
-
-        @BeforeClass
-        @JvmStatic
-        fun before() {
-            items = arrayListOf(
-                Item(name = "Item 1"),
-                Item(name = "Item 2"),
-                Item(name = "Item 3", isListed = true, isActive = false),
-                Item(name = "Item 4", isListed = true, isActive = true),
-                Item(name = "Item 5", isListed = true, isActive = true)
-            )
-        }
+        private val items = arrayListOf(
+        Item(name = "Item 1"),
+        Item(name = "Item 2"),
+        Item(name = "Item 3", isListed = true, isActive = false),
+        Item(name = "Item 4", isListed = true, isActive = true),
+        Item(name = "Item 5", isListed = true, isActive = true)
+        )
     }
 
     @Mock private lateinit var dao: ItemDao
