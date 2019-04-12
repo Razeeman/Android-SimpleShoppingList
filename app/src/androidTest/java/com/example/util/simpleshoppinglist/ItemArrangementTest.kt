@@ -102,8 +102,7 @@ class ItemArrangementTest {
     }
 
     private fun listItems() {
-        onView(withId(R.id.fab_clear)).perform(click())
-        onView(withText(R.string.clear_list_dialog_positive)).perform(click())
+        NavigationUtils.clearList()
 
         NavigationUtils.openAddScreen()
         onView(withText(item3.name)).perform(click())
