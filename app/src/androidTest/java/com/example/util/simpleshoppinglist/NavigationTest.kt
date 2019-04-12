@@ -10,6 +10,8 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.util.simpleshoppinglist.data.repo.ItemsRepository
+import com.example.util.simpleshoppinglist.testutil.AppUtil
+import com.example.util.simpleshoppinglist.testutil.NavigationUtils
 import com.example.util.simpleshoppinglist.ui.main.MainActivity
 import org.junit.Assert.fail
 import org.junit.BeforeClass
@@ -23,8 +25,8 @@ class NavigationTest {
     companion object {
         @BeforeClass @JvmStatic
         fun beforeClass() {
-            TestUtils.clearDatabase()
-            TestUtils.clearPreferences()
+            AppUtil.clearDatabase()
+            AppUtil.clearPreferences()
             ItemsRepository.clearInstance()
         }
     }
@@ -36,14 +38,14 @@ class NavigationTest {
     fun fromMainScreenToAddScreen() {
         onView(withId(R.id.main_content_frame)).check(matches(isDisplayed()))
 
-        TestUtils.openAddScreen()
+        NavigationUtils.openAddScreen()
 
         onView(withId(R.id.recent_content_frame)).check(matches(isDisplayed()))
     }
 
     @Test
     fun fromAddScreenToMainScreen() {
-        TestUtils.openAddScreen()
+        NavigationUtils.openAddScreen()
 
         onView(withId(R.id.recent_content_frame)).check(matches(isDisplayed()))
 
@@ -54,7 +56,7 @@ class NavigationTest {
 
     @Test
     fun pressBackFromAddScreen_returnsToMain() {
-        TestUtils.openAddScreen()
+        NavigationUtils.openAddScreen()
 
         onView(withId(R.id.recent_content_frame)).check(matches(isDisplayed()))
 
@@ -65,21 +67,21 @@ class NavigationTest {
 
     @Test
     fun settingsMenu() {
-        TestUtils.openSettingsMenu()
+        NavigationUtils.openSettingsMenu()
 
         onView(withText(R.string.menu_night_mode)).check(matches(isDisplayed()))
     }
 
     @Test
     fun arrangeItemsMenu() {
-        TestUtils.openArrangeItemsMenu()
+        NavigationUtils.openArrangeItemsMenu()
 
         onView(withText(R.string.menu_sort)).check(matches(isDisplayed()))
     }
 
     @Test
     fun sortMenu() {
-        TestUtils.openSortMenu()
+        NavigationUtils.openSortMenu()
 
         onView(withText(R.string.menu_sort_by_name)).check(matches(isDisplayed()))
     }
@@ -102,7 +104,7 @@ class NavigationTest {
 
     @Test
     fun deleteAllDialog() {
-        onView(withId(R.id.fab_add)).perform(click())
+        NavigationUtils.openAddScreen()
         onView(withId(R.id.menu_delete_all)).perform(click())
 
         onView(withText(R.string.delete_all_dialog_message)).check(matches(isDisplayed()))
@@ -110,7 +112,7 @@ class NavigationTest {
 
     @Test
     fun pressBackOnDeleteAllDialog_closesDialog() {
-        onView(withId(R.id.fab_add)).perform(click())
+        NavigationUtils.openAddScreen()
         onView(withId(R.id.menu_delete_all)).perform(click())
 
         pressBack()
@@ -125,7 +127,7 @@ class NavigationTest {
 
     @Test
     fun pressBackFromMainAfterAddScreen_exitsApp() {
-        onView(withId(R.id.fab_add)).perform(click())
+        NavigationUtils.openAddScreen()
         onView(withId(R.id.fab_done)).perform(click())
 
         assertExitApp()
