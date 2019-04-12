@@ -38,9 +38,9 @@ class RecentActivity : AppCompatActivity() {
         }
         coordinator.addView(fab)
 
-        supportFragmentManager.findFragmentById(R.id.content_frame) as RecentFragment?
+        supportFragmentManager.findFragmentById(R.id.recent_content_frame) as RecentFragment?
             ?: RecentFragment.newInstance().also {
-                supportFragmentManager.beginTransaction().add(R.id.content_frame, it).commit()
+                supportFragmentManager.beginTransaction().add(R.id.recent_content_frame, it).commit()
             }
     }
 

@@ -45,9 +45,9 @@ class MainActivity : AppCompatActivity() {
         }
         coordinator.addView(fab)
 
-        supportFragmentManager.findFragmentById(R.id.content_frame) as MainFragment?
+        supportFragmentManager.findFragmentById(R.id.main_content_frame) as MainFragment?
             ?: MainFragment.newInstance().also {
-                supportFragmentManager.beginTransaction().add(R.id.content_frame, it).commit()
+                supportFragmentManager.beginTransaction().add(R.id.main_content_frame, it).commit()
             }
     }
 
