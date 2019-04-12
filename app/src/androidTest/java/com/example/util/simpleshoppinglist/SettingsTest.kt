@@ -3,7 +3,7 @@ package com.example.util.simpleshoppinglist
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.util.simpleshoppinglist.testutil.AppUtil
-import com.example.util.simpleshoppinglist.testutil.NavigationUtils
+import com.example.util.simpleshoppinglist.testutil.NavUtils
 import com.example.util.simpleshoppinglist.ui.main.MainActivity
 import org.junit.Before
 import org.junit.Rule
@@ -23,9 +23,9 @@ class SettingsTest {
 
     @Test
     fun settings_nightMode() {
-        NavigationUtils.switchNightMode()
+        NavUtils.switchNightMode()
 
-        NavigationUtils.switchNightMode()
+        NavUtils.switchNightMode()
     }
 
 }

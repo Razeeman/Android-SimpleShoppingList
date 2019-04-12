@@ -6,7 +6,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.util.simpleshoppinglist.R
 
-object NavigationUtils {
+object NavUtils {
 
     fun openAddScreen() {
         onView(withId(R.id.fab_add)).perform(click())

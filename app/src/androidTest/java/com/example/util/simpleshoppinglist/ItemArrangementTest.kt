@@ -11,7 +11,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.testutil.AppUtil
-import com.example.util.simpleshoppinglist.testutil.NavigationUtils
+import com.example.util.simpleshoppinglist.testutil.NavUtils
 import com.example.util.simpleshoppinglist.ui.main.MainActivity
 import org.junit.Before
 import org.junit.BeforeClass
@@ -58,14 +58,14 @@ class ItemArrangementTest {
 
     @Test
     fun hideChecked_clickOnItemHidesIt() {
-        NavigationUtils.hideChecked()
+        NavUtils.hideChecked()
 
         onView(withText(item3.name)).perform(click()).check(doesNotExist())
     }
 
     @Test
     fun hideChecked_clickOnAllItems_ClearsList() {
-        NavigationUtils.hideChecked()
+        NavUtils.hideChecked()
 
         onView(withText(item1.name)).perform(click())
         onView(withText(item2.name)).perform(click())
@@ -84,7 +84,7 @@ class ItemArrangementTest {
 
     @Test
     fun orderByName() {
-        NavigationUtils.sortByName()
+        NavUtils.sortByName()
 
         onView(withText(item1.name)).check(isCompletelyLeftOf(withText(item2.name)))
         onView(withText(item2.name)).check(isCompletelyLeftOf(withText(item3.name)))
@@ -93,8 +93,8 @@ class ItemArrangementTest {
 
     @Test
     fun groupByColor() {
-        NavigationUtils.sortByName()
-        NavigationUtils.groupByColor()
+        NavUtils.sortByName()
+        NavUtils.groupByColor()
 
         onView(withText(item1.name)).check(isCompletelyLeftOf(withText(item3.name)))
         onView(withText(item3.name)).check(isCompletelyLeftOf(withText(item2.name)))
@@ -102,9 +102,9 @@ class ItemArrangementTest {
     }
 
     private fun listItems() {
-        NavigationUtils.clearList()
+        NavUtils.clearList()
 
-        NavigationUtils.openAddScreen()
+        NavUtils.openAddScreen()
         onView(withText(item3.name)).perform(click())
         onView(withText(item1.name)).perform(click())
         onView(withText(item2.name)).perform(click())

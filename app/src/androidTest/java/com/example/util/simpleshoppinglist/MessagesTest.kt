@@ -7,7 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.util.simpleshoppinglist.testutil.NavigationUtils
+import com.example.util.simpleshoppinglist.testutil.NavUtils
 import com.example.util.simpleshoppinglist.ui.main.MainActivity
 import org.junit.Rule
 import org.junit.Test
@@ -21,18 +21,18 @@ class MessagesTest {
 
     @Test
     fun noItemsInTheListMessage() {
-        NavigationUtils.openAddScreen()
-        NavigationUtils.addItem("Test item")
+        NavUtils.openAddScreen()
+        NavUtils.addItem("Test item")
         pressBack()
-        NavigationUtils.clearList()
+        NavUtils.clearList()
 
         onView(withText(R.string.no_items_in_the_list)).check(matches(isDisplayed()))
     }
 
     @Test
     fun noItemsInTheApp() {
-        NavigationUtils.openAddScreen()
-        NavigationUtils.deleteAll()
+        NavUtils.openAddScreen()
+        NavUtils.deleteAll()
 
         onView(withText(R.string.no_items_added)).check(matches(isDisplayed()))
 
@@ -43,9 +43,9 @@ class MessagesTest {
 
     @Test
     fun allItemsListed() {
-        NavigationUtils.openAddScreen()
-        NavigationUtils.deleteAll()
-        NavigationUtils.addItem("Test item")
+        NavUtils.openAddScreen()
+        NavUtils.deleteAll()
+        NavUtils.addItem("Test item")
 
         onView(withText(R.string.all_items_added)).check(matches(isDisplayed()))
     }
