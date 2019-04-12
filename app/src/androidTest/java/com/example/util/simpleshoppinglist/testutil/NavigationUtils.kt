@@ -50,6 +50,11 @@ object NavigationUtils {
         onView(withText(R.string.clear_list_dialog_positive)).perform(click())
     }
 
+    fun deleteAll() {
+        onView(withId(R.id.menu_delete_all)).perform(click())
+        onView(withText(R.string.delete_all_dialog_positive)).perform(click())
+    }
+
     fun addItem(name: String) {
         onView(withText(R.string.add_new_item)).perform(click())
         onView(withId(R.id.et_item_name)).perform(replaceText(name))
