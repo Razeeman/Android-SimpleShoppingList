@@ -167,7 +167,7 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
      */
     override fun clearAllListed() {
         executors.diskIO.execute { itemDao.clearAllListed() }
-        itemsCache = itemsCache.filterValues { !it.isListed } as LinkedHashMap<String, Item>
+        itemsCache.forEach { (_, item) -> item.isListed = false }
     }
 
     /**
