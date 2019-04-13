@@ -1,7 +1,6 @@
 package com.example.util.simpleshoppinglist
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.PositionAssertions.isCompletelyLeftOf
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
@@ -110,7 +109,7 @@ class ItemArrangementTest {
         onView(withText(item2.name)).perform(click())
         onView(withText(item4.name)).perform(click())
 
-        pressBack()
+        onView(withId(R.id.fab_done)).perform(click())
     }
 
 }
