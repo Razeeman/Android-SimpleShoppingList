@@ -70,6 +70,8 @@ class MainScreenTest {
     fun updateItem() {
         NavUtils.updateItem(item1.name, OTHER_ITEM_NAME)
 
+        onView(withText(OTHER_ITEM_NAME)).check(matches(isDisplayed()))
+
         NavUtils.updateItem(OTHER_ITEM_NAME, item1.name)
     }
 
