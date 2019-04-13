@@ -61,4 +61,10 @@ object NavUtils {
         onView(withText(R.string.additem_dialog_positive)).perform(click())
     }
 
+    fun updateItem(from: String, to: String) {
+        onView(withText(from)).perform(longClick())
+        onView(withId(R.id.et_item_name)).perform(replaceText(to))
+        onView(withText(R.string.edit_item_dialog_positive)).perform(click())
+    }
+
 }
