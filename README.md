@@ -43,10 +43,10 @@ Simple app that saves shopping items. Add new items or choose from recently used
 [unit tests]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/test/java/com/example/util/simpleshoppinglist
 [ui tests]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/androidTest/java/com/example/util/simpleshoppinglist
 [color picker dialog]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/custom/ColorPickerDialog.kt
-[flexbox]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/main/MainFragment.kt#L71
+[flexbox]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/main/MainFragment.kt#L74
 [toolbar]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/6d2e00c51171f0382314f1c9179024c2ce1265a8/app/src/main/res/layout/main_activity.xml#L11
 [bottombar]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/res/layout/main_activity.xml#L22
 [proguard]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/build.gradle#L25
 [material theme]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/res/values/styles.xml#L3
 [theme switching]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/util/ThemeManager.kt
-[item touch helper]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/main/MainFragment.kt#L78
+[item touch helper]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/main/MainFragment.kt#L81
