@@ -23,10 +23,14 @@ class ColorPickerPalette : TableLayout {
     // Margin between color picks.
     private var colorPickMargin = resources.getDimensionPixelSize(R.dimen.color_pick_margin)
 
+    // Listener to set onto child fragments and pass event to parent fragment.
     private lateinit var colorSelectListener: ColorPick.OnColorSelectListener
 
     /**
      * Adds color pick views in rows and adds rows to the main view.
+     *
+     * @param colors   Array of colors to show in the palette.
+     * @param selected One color that is selected.
      */
     fun drawPalette(colors: IntArray, selected: Int) {
         var row = createRow()

@@ -11,6 +11,7 @@ interface BaseItemsRepository {
     interface LoadItemsCallback {
 
         fun onItemsLoaded(items: List<Item>)
+
         fun onDataNotAvailable()
 
     }
@@ -18,6 +19,7 @@ interface BaseItemsRepository {
     interface LoadItemCallback {
 
         fun onItemLoaded(item: Item)
+
         fun onDataNotAvailable()
 
     }

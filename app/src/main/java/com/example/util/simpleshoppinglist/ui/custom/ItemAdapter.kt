@@ -6,12 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.util.simpleshoppinglist.data.model.Item
 
 /**
- * Adapter for RecyclerView of ListItems.
+ * Adapter for RecyclerView of [Item]s.
+ *
+ * @param items          List of items.
+ * @param listener       Listener to set onto each item.
+ * @param itemsCheckable Decides if items should be changed when clicked.
  */
 class ItemAdapter(var items: List<Item>, private val listener: ItemClickListener,
                   private var itemsCheckable: Boolean = false)
     : RecyclerView.Adapter<ItemHolder>() {
 
+    // Interface to listen for click events on this item.
     interface ItemClickListener {
 
         fun onItemClick(item: Item)

@@ -22,6 +22,9 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
 import javax.inject.Inject
 
+/**
+ * Receives UI events and pass them to presenter.
+ */
 class MainFragment : Fragment(), MainContract.View {
 
     private lateinit var menu: Menu

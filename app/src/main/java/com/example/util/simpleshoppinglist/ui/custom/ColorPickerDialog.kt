@@ -12,8 +12,10 @@ class ColorPickerDialog: AppCompatDialogFragment() {
 
     private var selectedColor: Int = 0
 
+    // Listener to pass events to parent fragment.
     private var colorChangeListener: OnColorChangeListener? = null
 
+    // Listener to set onto child fragment.
     private val colorSelectedListener = object : ColorPick.OnColorSelectListener {
         override fun onColorSelected(color: Int) {
             colorChangeListener?.onColorChanged(color)
@@ -34,6 +36,11 @@ class ColorPickerDialog: AppCompatDialogFragment() {
 
         private const val SELECTED_COLOR_BUNDLE_KEY = "selected_color"
 
+        /**
+         * Instantiation of a new dialog.
+         *
+         * @param selectedColor Color that is selected in this dialog.
+         */
         fun newInstance(selectedColor: Int): ColorPickerDialog {
             return ColorPickerDialog().apply { init(selectedColor) }
         }

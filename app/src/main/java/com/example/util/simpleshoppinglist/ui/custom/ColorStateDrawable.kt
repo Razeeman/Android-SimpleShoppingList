@@ -9,6 +9,10 @@ import androidx.core.content.ContextCompat
 
 /**
  * Drawable that changes it color after being pressed.
+ *
+ * @param context    Context to access resources.
+ * @param drawableId Drawable to put onto this view.
+ * @param color      Color to put onto drawable.
  */
 class ColorStateDrawable(context: Context, drawableId: Int, private val color: Int) : StateListDrawable() {
 
@@ -27,6 +31,7 @@ class ColorStateDrawable(context: Context, drawableId: Int, private val color: I
     override fun onStateChange(stateSet: IntArray?): Boolean {
         var stateChanged = false
 
+        // Decide if the state was changed.
         if (stateSet != null) {
             for (state in stateSet) {
                 if (state == android.R.attr.state_pressed || state == android.R.attr.state_focused) {
@@ -51,6 +56,7 @@ class ColorStateDrawable(context: Context, drawableId: Int, private val color: I
     private fun getPressedColor(color: Int): Int {
         val hsv = FloatArray(3)
         Color.colorToHSV(color, hsv)
+        // Change value of this color to make it dimmer.
         hsv[2] = hsv[2] * PRESSED_STATE_MULTIPLIER
         return Color.HSVToColor(hsv)
     }

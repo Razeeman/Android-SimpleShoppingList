@@ -24,6 +24,9 @@ import kotlinx.android.synthetic.main.recent_fragment.view.*
 import java.util.*
 import javax.inject.Inject
 
+/**
+ * Receives UI events and pass them to presenter.
+ */
 class RecentFragment : Fragment(), RecentContract.View {
 
     @Inject

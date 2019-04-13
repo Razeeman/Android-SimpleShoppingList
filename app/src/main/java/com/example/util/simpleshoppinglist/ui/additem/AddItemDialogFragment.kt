@@ -17,6 +17,9 @@ import com.example.util.simpleshoppinglist.ui.custom.ColorStateDrawable
 import kotlinx.android.synthetic.main.additem_fragment.view.*
 import javax.inject.Inject
 
+/**
+ * Receives UI events and pass them to presenter.
+ */
 class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
 
     private var itemId: String? = null
@@ -24,7 +27,11 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
     private lateinit var etItemName: EditText
     private lateinit var ivItemColor: ImageView
 
+    // Callback to pass events to parent fragment.
     private var addItemCallback: AddItemContract.View.AddItemCallback? = null
+    // Listener to set onto child fragment.
+    // Color change event is passed through series of views:
+    // ColorPick -> ColorPickerPalette -> ColorPickerDialog -> AddItemDialogFragment.
     private val colorChangeListener = object: ColorPickerDialog.OnColorChangeListener {
         override fun onColorChanged(color: Int) {
             if (color != itemColor) {
@@ -90,6 +97,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
             positiveButtonText = getString(R.string.edit_item_dialog_positive)
         }
 
+        // Set default color on first creation.
         if (itemColor == 0) {
             itemColor = ContextCompat.getColor(context!!, DEFAULT_COLOR_ID)
         }

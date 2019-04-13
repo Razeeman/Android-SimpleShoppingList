@@ -279,7 +279,7 @@ class ItemsRepositoryTest {
             // When items are loaded.
             loadItems(object : BaseItemsRepository.LoadItemsCallback {
                 override fun onItemsLoaded(items: List<Item>) {
-                    // Then itens returned with updated status.
+                    // Then items returned with updated status.
                     assertThat(items[0].isListed, `is`(false))
                 }
                 override fun onDataNotAvailable() {

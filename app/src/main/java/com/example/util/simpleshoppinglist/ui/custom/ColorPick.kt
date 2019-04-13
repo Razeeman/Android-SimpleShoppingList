@@ -12,6 +12,14 @@ import kotlinx.android.synthetic.main.color_pick.view.*
  */
 class ColorPick(context: Context) : FrameLayout(context) {
 
+    /**
+     * Construct color pick object.
+     *
+     * @param context             Context to access resources.
+     * @param color               Color of the new pick.
+     * @param checked             Should check mark be shown.
+     * @param colorSelectListener Listener to listen to click events on this color pick.
+     */
     constructor(context: Context, color: Int, checked: Boolean, colorSelectListener: OnColorSelectListener)
             : this(context) {
 

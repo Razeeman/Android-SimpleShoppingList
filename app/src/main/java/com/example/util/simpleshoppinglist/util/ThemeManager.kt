@@ -12,6 +12,8 @@ object ThemeManager {
 
     /**
      * Restarts activity for it to be recreated with a new theme.
+     *
+     * @param activity Activity which needs to be recreated with a new theme.
      */
     fun changeTheme(activity: Activity) {
         activity.finish()
@@ -24,6 +26,9 @@ object ThemeManager {
 
     /**
      * Set new theme onto activity. Should be used in onCreate before setContentView.
+     *
+     * @param activity Activity to set new theme onto.
+     * @param appTheme New theme to be set.
      */
     fun setTheme(activity: Activity, appTheme: AppThemeType) {
         when (appTheme) {
