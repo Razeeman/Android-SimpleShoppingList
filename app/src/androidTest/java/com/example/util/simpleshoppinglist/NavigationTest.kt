@@ -1,9 +1,9 @@
 package com.example.util.simpleshoppinglist
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.Espresso.*
 import androidx.test.espresso.NoActivityResumedException
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.longClick
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -23,6 +23,9 @@ import org.junit.runner.RunWith
 class NavigationTest {
 
     companion object {
+
+        private const val ITEM_NAME = "test item"
+
         @BeforeClass @JvmStatic
         fun beforeClass() {
             AppUtil.clearDatabase()
@@ -118,6 +121,59 @@ class NavigationTest {
         pressBack()
 
         onView(withText(R.string.delete_all_dialog_message)).check(doesNotExist())
+    }
+
+    @Test
+    fun addItemDialog() {
+        NavUtils.openAddScreen()
+
+        onView(withText(R.string.add_new_item)).perform(click())
+
+        onView(withText(R.string.additem_dialog_name_hint)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun pressBackFromAddItemDialog_closesDialog() {
+        NavUtils.openAddScreen()
+
+        onView(withText(R.string.add_new_item)).perform(click())
+
+        pressBack()
+        pressBack()
+
+        onView(withText(R.string.additem_dialog_name_hint)).check(doesNotExist())
+    }
+
+    @Test
+    fun colorDialog() {
+        NavUtils.openAddScreen()
+        onView(withText(R.string.add_new_item)).perform(click())
+
+        onView(withId(R.id.iv_item_color)).perform(click())
+
+        onView(withText(R.string.color_picker_dialog_title)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun pressBackFromColorDialog_closesDialog() {
+        NavUtils.openAddScreen()
+        onView(withText(R.string.add_new_item)).perform(click())
+        onView(withId(R.id.iv_item_color)).perform(click())
+
+        pressBack()
+
+        onView(withText(R.string.color_picker_dialog_title)).check(doesNotExist())
+    }
+
+    @Test
+    fun editItemDialog() {
+        NavUtils.openAddScreen()
+        NavUtils.addItem(ITEM_NAME)
+        pressBack()
+
+        onView(withText(ITEM_NAME)).perform(longClick())
+
+        onView(withText(R.string.edit_item_dialog_title)).check(matches(isDisplayed()))
     }
 
     @Test
