@@ -129,7 +129,7 @@ class NavigationTest {
 
         onView(withText(R.string.add_new_item)).perform(click())
 
-        onView(withText(R.string.additem_dialog_name_hint)).check(matches(isDisplayed()))
+        onView(withText(R.string.additem_dialog_color_label)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -141,7 +141,7 @@ class NavigationTest {
         pressBack()
         pressBack()
 
-        onView(withText(R.string.additem_dialog_name_hint)).check(doesNotExist())
+        onView(withText(R.string.additem_dialog_color_label)).check(doesNotExist())
     }
 
     @Test
