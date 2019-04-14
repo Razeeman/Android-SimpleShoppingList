@@ -22,13 +22,9 @@ private constructor(private val executors: AppExecutors, private val itemDao: It
 
         // Singleton instantiation.
         fun getInstance(executors: AppExecutors, itemDao: ItemDao): ItemsRepository {
-            if (INSTANCE == null)
-                synchronized(ItemsRepository::class.java) {
-                    if (INSTANCE == null) {
-                        INSTANCE = ItemsRepository(executors, itemDao)
-                    }
-                }
-            return INSTANCE!!
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: ItemsRepository(executors, itemDao).also { INSTANCE = it }
+            }
         }
 
         fun clearInstance() {

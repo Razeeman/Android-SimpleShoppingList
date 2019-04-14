@@ -23,20 +23,19 @@ abstract class AppDatabase: RoomDatabase() {
         private const val DATABASE_NAME = "appDatabase"
 
         // Database instance.
-        private var INSTANCE: AppDatabase? = null
-
-        private val lock = Any()
+        @Volatile private var INSTANCE: AppDatabase? = null
 
         // Singleton instantiation.
         fun getInstance(context: Context): AppDatabase {
-            synchronized(lock) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room
-                        .databaseBuilder(context.applicationContext, AppDatabase::class.java, DATABASE_NAME)
-                        .build()
-                }
-                return INSTANCE!!
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
+        }
+
+        private fun buildDatabase(context: Context): AppDatabase {
+            return Room
+                .databaseBuilder(context.applicationContext, AppDatabase::class.java, DATABASE_NAME)
+                .build()
         }
     }
 }
