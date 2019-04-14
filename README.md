@@ -6,17 +6,17 @@ Simple app that saves shopping items. Add new items or choose from recently used
 - Kotlin
 - Androidx
 - MVP
-- [MVP Dialog][mvp dialog]
-- [Room][room]
-- [Dagger][dagger]
-- [Unit][unit tests] / [UI tests][ui tests]
-- [Custom ColorPickerDialog][color picker dialog]
-- [Flexbox Layout][flexbox]
-- [ToolBar][toolbar] -> [BottomAppBar][bottombar]
-- [Proguard][proguard]
-- [MaterialComponents Theme][material theme]
-- [Theme Switching][theme switching]
-- [Recycler ItemTouchHelper][item touch helper]
+- [MVP Dialog]
+- [Room]
+- [Dagger]
+- [Unit] / [UI tests]
+- [Custom ColorPickerDialog]
+- [Flexbox Layout]
+- [ToolBar] -> [BottomAppBar]
+- [Proguard]
+- [MaterialComponents Theme]
+- [Theme Switching]
+- [Recycler ItemTouchHelper]
 
 ## Screenshots
 
@@ -37,16 +37,16 @@ Simple app that saves shopping items. Add new items or choose from recently used
 [screen5th]: dev_files/screens/screen5_thumbnail.png
 [screen5]: dev_files/screens/screen5.png
 
-[mvp dialog]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/additem
-[room]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/main/java/com/example/util/simpleshoppinglist/data/db
-[dagger]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/main/java/com/example/util/simpleshoppinglist/di
-[unit tests]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/test/java/com/example/util/simpleshoppinglist
-[ui tests]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/androidTest/java/com/example/util/simpleshoppinglist
-[color picker dialog]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/custom/ColorPickerDialog.kt
-[flexbox]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/main/MainFragment.kt#L74
-[toolbar]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/6d2e00c51171f0382314f1c9179024c2ce1265a8/app/src/main/res/layout/main_activity.xml#L11
-[bottombar]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/res/layout/main_activity.xml#L22
-[proguard]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/build.gradle#L25
-[material theme]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/res/values/styles.xml#L3
-[theme switching]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/util/ThemeManager.kt
-[item touch helper]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/main/MainFragment.kt#L81
+[MVP Dialog]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/additem
+[Room]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/main/java/com/example/util/simpleshoppinglist/data/db
+[Dagger]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/main/java/com/example/util/simpleshoppinglist/di
+[Unit]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/test/java/com/example/util/simpleshoppinglist
+[UI tests]: https://github.com/Razeeman/Android-SimpleShoppingList/tree/master/app/src/androidTest/java/com/example/util/simpleshoppinglist
+[Custom ColorPickerDialog]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/custom/ColorPickerDialog.kt
+[Flexbox Layout]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/main/MainFragment.kt#L74
+[ToolBar]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/6d2e00c51171f0382314f1c9179024c2ce1265a8/app/src/main/res/layout/main_activity.xml#L11
+[BottomAppBar]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/res/layout/main_activity.xml#L22
+[Proguard]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/build.gradle#L25
+[MaterialComponents Theme]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/res/values/styles.xml#L3
+[Theme Switching]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/util/ThemeManager.kt
+[Recycler ItemTouchHelper]: https://github.com/Razeeman/Android-SimpleShoppingList/blob/master/app/src/main/java/com/example/util/simpleshoppinglist/ui/main/MainFragment.kt#L81
