@@ -5,6 +5,8 @@ import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
 
+// TODO add undo for delete item, clear list etc.
+
 /**
  * Utility class to create a [Snackbar] that is showed above its anchor.
  */
