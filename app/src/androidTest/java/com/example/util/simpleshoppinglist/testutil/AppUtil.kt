@@ -7,6 +7,12 @@ import com.example.util.simpleshoppinglist.data.model.Item
 import com.example.util.simpleshoppinglist.data.repo.BaseItemsRepository
 import com.example.util.simpleshoppinglist.data.repo.ItemsRepository
 import com.example.util.simpleshoppinglist.util.AppExecutors
+import android.content.pm.ActivityInfo
+import android.app.Activity
+import android.content.res.Configuration
+import androidx.test.ext.junit.rules.ActivityScenarioRule
+
+
 
 object AppUtil {
 
@@ -27,6 +33,23 @@ object AppUtil {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val database = AppDatabase.getInstance(context)
         return ItemsRepository.getInstance(AppExecutors(), database.itemDao())
+    }
+
+    fun <T : Activity> changeOrientation(activityScenarioRule: ActivityScenarioRule<T>) {
+        activityScenarioRule.scenario.onActivity { changeOrientation(it) }
+
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+    }
+
+    private fun changeOrientation(activity: Activity) {
+        val currentOrientation = activity.resources.configuration.orientation
+        val newOrientation = if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        } else {
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
+
+        activity.requestedOrientation = newOrientation
     }
 
 }
