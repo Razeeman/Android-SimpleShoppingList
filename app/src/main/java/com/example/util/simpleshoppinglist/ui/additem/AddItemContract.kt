@@ -32,9 +32,9 @@ interface AddItemContract {
 
     interface Presenter: BasePresenter<View> {
 
-        fun loadItem(id:String?)
+        fun loadItem()
 
-        fun saveItem(id: String?, name: String, color: Int)
+        fun saveItem(name: String, color: Int)
 
     }
 

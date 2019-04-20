@@ -5,6 +5,7 @@ import com.example.util.simpleshoppinglist.di.AppComponent
 import com.example.util.simpleshoppinglist.di.AppModule
 import com.example.util.simpleshoppinglist.di.DaggerAppComponent
 import com.example.util.simpleshoppinglist.ui.additem.AddItemComponent
+import com.example.util.simpleshoppinglist.ui.additem.AddItemDialogFragment
 import com.example.util.simpleshoppinglist.ui.additem.AddItemModule
 import com.example.util.simpleshoppinglist.ui.recent.RecentComponent
 import com.example.util.simpleshoppinglist.ui.recent.RecentModule
@@ -46,8 +47,8 @@ class App: Application() {
             recentComponent = null
         }
 
-        fun getAddItemComponent(): AddItemComponent {
-            return addItemComponent ?: appComponent.plusAddItemComponent(AddItemModule()).also {
+        fun getAddItemComponent(fragment: AddItemDialogFragment): AddItemComponent {
+            return addItemComponent ?: appComponent.plusAddItemComponent(AddItemModule(fragment)).also {
                 addItemComponent = it
             }
         }

@@ -25,14 +25,20 @@ class AddItemPresenterTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-
-        presenter = AddItemPresenter(repository)
-        presenter.attachView(view)
     }
 
     @After
     fun tearDown() {
         // Not used.
+    }
+
+    @Test
+    fun loadDataOnNewItem_doesNotLoadData() {
+        // When presenter called to load data.
+
+        // Then repository called to load data and callback returned with no data.
+        val captor = argumentCaptor<String>()
+        verify(repository, times(0)).loadItem(capture(captor), capture(loadItemCallbackCaptor))
     }
 
     @Test(expected = RuntimeException::class)
@@ -41,7 +47,8 @@ class AddItemPresenterTest {
         val newItem = Item(name = "Item 1")
 
         // When presenter called to load data.
-        presenter.loadItem(newItem.id)
+        presenter = AddItemPresenter(newItem.id, repository)
+        presenter.attachView(view)
 
         // Then repository called to load data and callback returned with no data.
         val captor = argumentCaptor<String>()
@@ -58,7 +65,8 @@ class AddItemPresenterTest {
         val newItem = Item(name = "Item 1")
 
         // When presenter called to load data.
-        presenter.loadItem(newItem.id)
+        presenter = AddItemPresenter(newItem.id, repository)
+        presenter.attachView(view)
 
         // Then repository called to load data and callback returned with this item.
         val captor = argumentCaptor<String>()
@@ -76,7 +84,9 @@ class AddItemPresenterTest {
         val newItem = Item(name = "Name", color = 123)
 
         // When presenter called to save item with certain name and color.
-        presenter.saveItem(null, newItem.name, newItem.color)
+        presenter = AddItemPresenter(null, repository)
+        presenter.attachView(view)
+        presenter.saveItem(newItem.name, newItem.color)
 
         // Then repository called to check item name.
         val captor = argumentCaptor<Item>()
@@ -100,7 +110,9 @@ class AddItemPresenterTest {
         val anotherItem = Item(name = "Name 2", color = 123)
 
         // When presenter called to save item with certain name and color.
-        presenter.saveItem(null, newItem.name, newItem.color)
+        presenter = AddItemPresenter(null, repository)
+        presenter.attachView(view)
+        presenter.saveItem(newItem.name, newItem.color)
 
         // Then repository called to check item name.
         Mockito.verify(repository).loadItems(capture(loadItemsCallbackCaptor))
@@ -124,7 +136,9 @@ class AddItemPresenterTest {
         val anotherItem = Item(name = "Name", color = 456)
 
         // When presenter called to save item with certain name and color.
-        presenter.saveItem(null, newItem.name, newItem.color)
+        presenter = AddItemPresenter(null, repository)
+        presenter.attachView(view)
+        presenter.saveItem(newItem.name, newItem.color)
 
         // Then repository called to check item name.
         Mockito.verify(repository).loadItems(capture(loadItemsCallbackCaptor))
@@ -142,7 +156,9 @@ class AddItemPresenterTest {
         val newItem = Item(name = "   \n   ", color = 123)
 
         // When presenter called to save item with certain name and color.
-        presenter.saveItem(null, newItem.name, newItem.color)
+        presenter = AddItemPresenter(null, repository)
+        presenter.attachView(view)
+        presenter.saveItem(newItem.name, newItem.color)
 
         // Then view is called to show error message.
         Mockito.verify(view).showIncorrectItemNameError()
@@ -157,7 +173,9 @@ class AddItemPresenterTest {
         val newItem = Item(name = "Name", color = 123)
 
         // When presenter called to save item with certain name and color.
-        presenter.saveItem(newItem.id, newItem.name, newItem.color)
+        presenter = AddItemPresenter(newItem.id, repository)
+        presenter.attachView(view)
+        presenter.saveItem(newItem.name, newItem.color)
 
         // Then repository called to check item name.
         Mockito.verify(repository).loadItems(capture(loadItemsCallbackCaptor))
@@ -178,7 +196,9 @@ class AddItemPresenterTest {
         val anotherItem = Item(name = "Name 2", color = 123)
 
         // When presenter called to save item with certain name and color.
-        presenter.saveItem(newItem.id, anotherItem.name, newItem.color)
+        presenter = AddItemPresenter(newItem.id, repository)
+        presenter.attachView(view)
+        presenter.saveItem(anotherItem.name, newItem.color)
 
         // Then repository called to check item name.
         Mockito.verify(repository).loadItems(capture(loadItemsCallbackCaptor))
@@ -188,5 +208,28 @@ class AddItemPresenterTest {
         // Then repository not called to save this item
         val captor = argumentCaptor<Item>()
         Mockito.verify(repository, Mockito.times(0)).saveItem(capture(captor))
+    }
+
+    @Test
+    fun attachView_withItemId_loadsData() {
+        // When view is attached.
+        presenter = AddItemPresenter("1", repository)
+        presenter.detachView()
+        presenter.attachView(view)
+
+        // Then repository called to reload data. First time in setup, second then reattached.
+        val captor = argumentCaptor<String>()
+        verify(repository).loadItem(capture(captor), capture(loadItemCallbackCaptor))
+    }
+
+    @Test
+    fun attachView_withNoItemId_doesNotLoadData() {
+        // When view is attached.
+        presenter = AddItemPresenter(null, repository)
+        presenter.attachView(view)
+
+        // Then repository called to reload data. First time in setup, second then reattached.
+        val captor = argumentCaptor<String>()
+        verify(repository, times(0)).loadItem(capture(captor), capture(loadItemCallbackCaptor))
     }
 }

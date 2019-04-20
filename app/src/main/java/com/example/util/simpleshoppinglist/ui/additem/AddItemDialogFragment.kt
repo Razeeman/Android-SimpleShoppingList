@@ -29,9 +29,11 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
 
     // Callback to pass events to parent fragment.
     private var addItemCallback: AddItemContract.View.AddItemCallback? = null
-    // Listener to set onto child fragment.
-    // Color change event is passed through series of views:
-    // ColorPick -> ColorPickerPalette -> ColorPickerDialog -> AddItemDialogFragment.
+    /*
+    Listener to set onto child fragment.
+    Color change event is passed through series of views:
+    ColorPick -> ColorPickerPalette -> ColorPickerDialog -> AddItemDialogFragment.
+    */
     private val colorChangeListener = object: ColorPickerDialog.OnColorChangeListener {
         override fun onColorChanged(color: Int) {
             if (color != itemColor) {
@@ -69,7 +71,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        App.getAddItemComponent().inject(this)
+        App.getAddItemComponent(this).inject(this)
     }
 
     // Lint suppressed because dialog doesn't have a view before inflating.
@@ -123,7 +125,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
                 // Do nothing.
             }
             setPositiveButton(positiveButtonText) { _, _ ->
-                presenter.saveItem(itemId, etItemName.text.toString(), itemColor)
+                presenter.saveItem(etItemName.text.toString(), itemColor)
             }
         }.create()
 
@@ -136,8 +138,6 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
     override fun onResume() {
         super.onResume()
         presenter.attachView(this)
-        // TODO updated item new color doesn't retain.
-        presenter.loadItem(itemId)
     }
 
     override fun onDestroy() {
@@ -180,6 +180,10 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
 
     fun setAddItemCallback(callback: AddItemContract.View.AddItemCallback) {
         addItemCallback = callback
+    }
+
+    fun itemId(): String? {
+        return itemId
     }
 
     private fun updateItemColor() {

@@ -5,7 +5,15 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class AddItemModule {
+class AddItemModule(fragment: AddItemDialogFragment) {
+
+    private var itemId: String? = fragment.itemId()
+
+    @Provides
+    @ActivityScoped
+    fun provideItemId(): String? {
+        return itemId
+    }
 
     @Provides
     @ActivityScoped

@@ -7,17 +7,21 @@ import javax.inject.Inject
 
 /**
  * Receives events from UI, loads and saves data in repository and updates UI.
+ *
+ * @param itemId          id of the item to update or null if item is new
+ * @param itemsRepository repository of items.
  */
 @ActivityScoped
 class AddItemPresenter
-@Inject constructor(private val itemsRepository: BaseItemsRepository)
+@Inject constructor(private var itemId: String?,
+                    private val itemsRepository: BaseItemsRepository)
     : AddItemContract.Presenter {
 
     private var view: AddItemContract.View? = null
 
-    override fun loadItem(id: String?) {
-        if (id != null) {
-            itemsRepository.loadItem(id, object : BaseItemsRepository.LoadItemCallback {
+    override fun loadItem() {
+        if (itemId != null) {
+            itemsRepository.loadItem(itemId!!, object : BaseItemsRepository.LoadItemCallback {
                 override fun onItemLoaded(item: Item) {
                     view?.showItem(item.name, item.color)
                 }
@@ -28,7 +32,7 @@ class AddItemPresenter
         }
     }
 
-    override fun saveItem(id: String?, name: String, color: Int) {
+    override fun saveItem(name: String, color: Int) {
         // Check if name is empty.
         if (name.isBlank()) {
             view?.showIncorrectItemNameError()
@@ -40,38 +44,41 @@ class AddItemPresenter
             override fun onItemsLoaded(items: List<Item>) {
                 for(item in items) {
                     // If different item found with the same name.
-                    if (name == item.name && id != item.id) {
+                    if (name == item.name && itemId != item.id) {
                         view?.showItemAlreadyExistMessage()
                         return
                     }
                 }
-                if (id == null) {
-                    saveItem(name, color)
+                if (itemId == null) {
+                    createItem(name, color)
                 } else {
-                    updateItem(id, name, color)
+                    updateItem(name, color)
                 }
             }
             override fun onDataNotAvailable() {
-                saveItem(name, color)
+                createItem(name, color)
             }
         })
     }
 
     override fun attachView(view: AddItemContract.View) {
         this.view = view
+        if (itemId != null) {
+            loadItem()
+        }
     }
 
     override fun detachView() {
         view = null
     }
 
-    private fun saveItem(name: String, color: Int) {
+    private fun createItem(name: String, color: Int) {
         itemsRepository.saveItem(Item(name = name, color = color, isListed = true, isActive = true))
         view?.showItemSavedMessage(false)
     }
 
-    private fun updateItem(id: String, name: String, color: Int) {
-        itemsRepository.updateNameColor(id, name, color)
+    private fun updateItem(name: String, color: Int) {
+        itemsRepository.updateNameColor(itemId!!, name, color)
         view?.showItemSavedMessage(true)
     }
 
