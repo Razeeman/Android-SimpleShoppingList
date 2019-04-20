@@ -53,7 +53,7 @@ class App: Application() {
         }
 
         fun releaseAddItemComponent() {
-            recentComponent = null
+            addItemComponent = null
         }
 
     }
