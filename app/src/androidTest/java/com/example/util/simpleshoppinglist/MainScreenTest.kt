@@ -24,11 +24,15 @@ class MainScreenTest {
     companion object {
 
         private const val OTHER_ITEM_NAME = "other item name"
+        private const val ITEM1_NAME = "item 1"
+        private const val ITEM2_NAME = "item 2"
+        private const val ITEM3_NAME = "item 3"
+        private const val ITEM4_NAME = "item 4"
 
-        private val item1 = Item(name = "item 1", color = 0xFF000000.toInt())
-        private val item2 = Item(name = "item 2", color = 0xFFFF0000.toInt())
-        private val item3 = Item(name = "item 3", color = 0xFF00FF00.toInt())
-        private val item4 = Item(name = "item 4", color = 0xFF0000FF.toInt())
+        private val item1 = Item(name = ITEM1_NAME, color = 0xFF000000.toInt())
+        private val item2 = Item(name = ITEM2_NAME, color = 0xFFFF0000.toInt())
+        private val item3 = Item(name = ITEM3_NAME, color = 0xFF00FF00.toInt())
+        private val item4 = Item(name = ITEM4_NAME, color = 0xFF0000FF.toInt())
 
         @BeforeClass
         @JvmStatic
@@ -52,27 +56,27 @@ class MainScreenTest {
 
     @Test
     fun listedItems() {
-        onView(withText(item1.name)).check(matches(isDisplayed()))
-        onView(withText(item2.name)).check(matches(isDisplayed()))
-        onView(withText(item3.name)).check(matches(isDisplayed()))
-        onView(withText(item4.name)).check(matches(isDisplayed()))
+        onView(withText(ITEM1_NAME)).check(matches(isDisplayed()))
+        onView(withText(ITEM2_NAME)).check(matches(isDisplayed()))
+        onView(withText(ITEM3_NAME)).check(matches(isDisplayed()))
+        onView(withText(ITEM4_NAME)).check(matches(isDisplayed()))
     }
 
     @Test
     fun removeOneItem() {
-        onView(withText(item1.name)).perform(swipeRight())
+        onView(withText(ITEM1_NAME)).perform(swipeRight())
 
-        onView(withText(item1.name)).check(doesNotExist())
-        onView(withText(item2.name)).check(matches(isDisplayed()))
+        onView(withText(ITEM1_NAME)).check(doesNotExist())
+        onView(withText(ITEM2_NAME)).check(matches(isDisplayed()))
     }
 
     @Test
     fun updateItem() {
-        NavUtils.updateItem(item1.name, OTHER_ITEM_NAME)
+        NavUtils.updateItem(ITEM1_NAME, OTHER_ITEM_NAME)
 
         onView(withText(OTHER_ITEM_NAME)).check(matches(isDisplayed()))
 
-        NavUtils.updateItem(OTHER_ITEM_NAME, item1.name)
+        NavUtils.updateItem(OTHER_ITEM_NAME, ITEM1_NAME)
     }
 
     @Test
@@ -81,20 +85,20 @@ class MainScreenTest {
 
         onView(withText(R.string.no_items_in_the_list)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_items)).check(matches(not(isDisplayed())))
-        onView(withText(item1.name)).check(matches(not(isDisplayed())))
-        onView(withText(item2.name)).check(matches(not(isDisplayed())))
-        onView(withText(item3.name)).check(matches(not(isDisplayed())))
-        onView(withText(item4.name)).check(matches(not(isDisplayed())))
+        onView(withText(ITEM1_NAME)).check(matches(not(isDisplayed())))
+        onView(withText(ITEM2_NAME)).check(matches(not(isDisplayed())))
+        onView(withText(ITEM3_NAME)).check(matches(not(isDisplayed())))
+        onView(withText(ITEM4_NAME)).check(matches(not(isDisplayed())))
     }
 
     private fun listItems() {
         NavUtils.clearList()
 
         NavUtils.openAddScreen()
-        onView(withText(item3.name)).perform(click())
-        onView(withText(item1.name)).perform(click())
-        onView(withText(item2.name)).perform(click())
-        onView(withText(item4.name)).perform(click())
+        onView(withText(ITEM3_NAME)).perform(click())
+        onView(withText(ITEM1_NAME)).perform(click())
+        onView(withText(ITEM2_NAME)).perform(click())
+        onView(withText(ITEM4_NAME)).perform(click())
 
         onView(withId(R.id.fab_done)).perform(click())
     }
