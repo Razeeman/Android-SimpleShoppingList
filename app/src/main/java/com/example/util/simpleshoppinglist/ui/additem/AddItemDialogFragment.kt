@@ -24,6 +24,8 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
 
     private var itemId: String? = null
     private var itemColor: Int = 0
+    // Flag to determine if data load is needed (first load or configuration change).
+    private var shouldLoadData = true
     private lateinit var etItemName: EditText
     private lateinit var ivItemColor: ImageView
 
@@ -50,6 +52,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
 
         private const val ITEM_ID_BUNDLE_KEY = "item_id"
         private const val ITEM_COLOR_BUNDLE_KEY = "item_color"
+        private const val LOAD_DATA_BUNDLE_KEY = "load_data"
         private const val DEFAULT_COLOR_ID = R.color.indigo_600
 
         fun newInstance(id: String?): AddItemDialogFragment {
@@ -66,6 +69,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
 
         itemId = arguments?.getString(ITEM_ID_BUNDLE_KEY)
         itemColor = savedInstanceState?.getInt(ITEM_COLOR_BUNDLE_KEY) ?: itemColor
+        shouldLoadData = savedInstanceState?.getBoolean(LOAD_DATA_BUNDLE_KEY) ?: shouldLoadData
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -149,6 +153,7 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(ITEM_COLOR_BUNDLE_KEY, itemColor)
+        outState.putBoolean(LOAD_DATA_BUNDLE_KEY, presenter.shouldLoadData)
     }
 
     override fun onAttachFragment(childFragment: Fragment) {
@@ -184,6 +189,10 @@ class AddItemDialogFragment: AppCompatDialogFragment(), AddItemContract.View {
 
     fun itemId(): String? {
         return itemId
+    }
+
+    fun shouldLoadData(): Boolean {
+        return shouldLoadData
     }
 
     private fun updateItemColor() {

@@ -32,6 +32,8 @@ interface AddItemContract {
 
     interface Presenter: BasePresenter<View> {
 
+        var shouldLoadData: Boolean
+
         fun loadItem()
 
         fun saveItem(name: String, color: Int)

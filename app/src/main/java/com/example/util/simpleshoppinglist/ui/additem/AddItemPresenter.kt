@@ -9,11 +9,13 @@ import javax.inject.Inject
  * Receives events from UI, loads and saves data in repository and updates UI.
  *
  * @param itemId          id of the item to update or null if item is new
+ * @param shouldLoadData  flag to determine if data load is needed
  * @param itemsRepository repository of items.
  */
 @ActivityScoped
 class AddItemPresenter
 @Inject constructor(private var itemId: String?,
+                    override var shouldLoadData: Boolean,
                     private val itemsRepository: BaseItemsRepository)
     : AddItemContract.Presenter {
 
@@ -24,6 +26,8 @@ class AddItemPresenter
             itemsRepository.loadItem(itemId!!, object : BaseItemsRepository.LoadItemCallback {
                 override fun onItemLoaded(item: Item) {
                     view?.showItem(item.name, item.color)
+                    // Don't load data next time, it should be saved.
+                    shouldLoadData = false
                 }
                 override fun onDataNotAvailable() {
                     throw RuntimeException("Item is being loaded for update but there is no item with this id.")
@@ -63,7 +67,7 @@ class AddItemPresenter
 
     override fun attachView(view: AddItemContract.View) {
         this.view = view
-        if (itemId != null) {
+        if (itemId != null && shouldLoadData) {
             loadItem()
         }
     }

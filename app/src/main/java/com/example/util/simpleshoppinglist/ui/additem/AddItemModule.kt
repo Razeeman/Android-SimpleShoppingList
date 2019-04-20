@@ -8,11 +8,18 @@ import dagger.Provides
 class AddItemModule(fragment: AddItemDialogFragment) {
 
     private var itemId: String? = fragment.itemId()
+    private var shouldLoadData: Boolean = fragment.shouldLoadData()
 
     @Provides
     @ActivityScoped
     fun provideItemId(): String? {
         return itemId
+    }
+
+    @Provides
+    @ActivityScoped
+    fun provideShouldLoadDataStatus(): Boolean {
+        return shouldLoadData
     }
 
     @Provides
