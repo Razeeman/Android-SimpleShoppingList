@@ -1,6 +1,6 @@
 # Simple Shopping List
 
-Simple app that saves shopping items. Add new items or choose from recently used. Assign different colors. Items can be sorted by name and grouped by color. There is also a night mode.
+Simple app that saves shopping items. Add new items or choose from recently used. Tap to add, swipe to delete. Assign different colors. Items can be sorted by name and grouped by color. There is also a night mode.
 
 ## Technology stack
 - Kotlin
