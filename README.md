@@ -2,6 +2,8 @@
 
 Simple app that saves shopping items. Add new items or choose from recently used. Tap to add, swipe to delete. Assign different colors. Items can be sorted by name and grouped by color. There is also a night mode.
 
+[Download](dev_files/app-debug.apk)
+
 ## Technology stack
 - Kotlin
 - Androidx
